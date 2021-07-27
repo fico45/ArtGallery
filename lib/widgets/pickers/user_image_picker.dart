@@ -5,17 +5,17 @@ import 'package:image_picker/image_picker.dart';
 
 class UserImagePicker extends StatefulWidget {
   UserImagePicker(this.imagePickFn);
-  final void Function(File pickedImage) imagePickFn;
+  final void Function(PickedFile? pickedImage) imagePickFn;
 
   @override
   _UserImagePickerState createState() => _UserImagePickerState();
 }
 
 class _UserImagePickerState extends State<UserImagePicker> {
-  File? _pickedImage;
+  PickedFile? _pickedImage;
 
   void _pickImage() async {
-    final pickedImageFile = await ImagePicker.pickImage(
+    final pickedImageFile = await ImagePicker().getImage(
         source: ImageSource.camera,
         imageQuality: 50,
         maxHeight: 150,
@@ -34,7 +34,7 @@ class _UserImagePickerState extends State<UserImagePicker> {
           radius: 40,
           backgroundColor: Colors.grey,
           backgroundImage:
-              _pickedImage != null ? FileImage(_pickedImage!) : null,
+              _pickedImage != null ? FileImage(File(_pickedImage!.path)) : null,
         ),
         TextButton.icon(
             onPressed: _pickImage,

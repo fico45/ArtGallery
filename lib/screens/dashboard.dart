@@ -1,3 +1,6 @@
+import 'package:artgallery/widgets/custom_page_route.dart';
+import 'package:artgallery/widgets/exhibit/exhibit_view.dart';
+import 'package:artgallery/widgets/exhibit/new_exhibit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +15,13 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          Navigator.push(
+              context, BouncyPageRoute(NewExhibit(), Alignment.bottomRight));
+        },
+      ),
       appBar: AppBar(
         title: Text('Flutter Art Gallery'),
         actions: [
@@ -44,9 +54,7 @@ class _DashboardState extends State<Dashboard> {
           ),
         ],
       ),
-      body: Container(
-        child: Text('Hello!'),
-      ),
+      body: ExhibitView(),
     );
   }
 }
