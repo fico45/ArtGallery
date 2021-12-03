@@ -34,7 +34,7 @@ class _AuthScreenState extends State<AuthScreen> {
     String email,
     String password,
     String username,
-    PickedFile? image,
+    XFile? image,
     bool isLogin,
     BuildContext ctx,
   ) async {

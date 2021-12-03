@@ -5,17 +5,17 @@ import 'package:image_picker/image_picker.dart';
 
 class UserImagePicker extends StatefulWidget {
   UserImagePicker(this.imagePickFn);
-  final void Function(PickedFile? pickedImage) imagePickFn;
+  final void Function(XFile? pickedImage) imagePickFn;
 
   @override
   _UserImagePickerState createState() => _UserImagePickerState();
 }
 
 class _UserImagePickerState extends State<UserImagePicker> {
-  PickedFile? _pickedImage;
+  XFile? _pickedImage;
 
   void _pickImage() async {
-    final pickedImageFile = await ImagePicker().getImage(
+    final pickedImageFile = await ImagePicker().pickImage(
         source: ImageSource.camera,
         imageQuality: 50,
         maxHeight: 150,

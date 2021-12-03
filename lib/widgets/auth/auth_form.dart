@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:artgallery/widgets/pickers/user_image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -14,7 +12,7 @@ class AuthForm extends StatefulWidget {
     String email,
     String password,
     String username,
-    PickedFile? image,
+    XFile? image,
     bool isLogin,
     BuildContext ctx,
   ) submitFn;
@@ -29,8 +27,8 @@ class _AuthFormState extends State<AuthForm> {
   var _userEmail = '';
   var _userName = '';
   var _userPassword = '';
-  PickedFile? _userImageFile;
-  void _pickedImage(PickedFile? image) {
+  XFile? _userImageFile;
+  void _pickedImage(XFile? image) {
     _userImageFile = image;
   }
 
