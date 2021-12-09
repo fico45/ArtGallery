@@ -1,5 +1,6 @@
 import 'package:artgallery/screens/auth_screen.dart';
 import 'package:artgallery/screens/dashboard.dart';
+import 'package:artgallery/screens/mainWrapper.dart';
 import 'package:artgallery/widgets/exhibit/new_exhibit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -20,10 +21,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        backgroundColor: Colors.deepPurple,
-        accentColor: Colors.orangeAccent,
-        accentColorBrightness: Brightness.dark,
+        primarySwatch: Colors.orange,
+        backgroundColor: Colors.white,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
@@ -32,12 +31,14 @@ class MyApp extends StatelessWidget {
             primary: Colors.deepPurple,
           ),
         ),
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.lightBlue)
+            .copyWith(secondary: Colors.orangeAccent),
       ),
       home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (ctx, userSnapshot) {
           if (userSnapshot.hasData) {
-            return Dashboard();
+            return MainWrapper();
           }
           return AuthScreen();
         },

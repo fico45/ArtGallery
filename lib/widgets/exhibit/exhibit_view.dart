@@ -37,10 +37,13 @@ class ExhibitView extends StatelessWidget {
               return Padding(
                 padding: EdgeInsets.all(10.0),
                 child: ListView.builder(
-                  itemCount: exhibitDocs.length + 1,
-                  itemBuilder: (ctx, index) => ExhibitCard(
-                      // exhibitDocs[index]['image_url'],
-                      ),
+                  itemCount: 5,
+                  itemBuilder: (ctx, index) => Padding(
+                    padding: const EdgeInsets.only(bottom: 5),
+                    child: ExhibitCard(
+                        // exhibitDocs[index]['image_url'],
+                        ),
+                  ),
                 ),
               );
             },
