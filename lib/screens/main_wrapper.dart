@@ -1,6 +1,7 @@
 import 'package:artgallery/screens/dashboard.dart';
 import 'package:artgallery/screens/explore.dart';
 import 'package:artgallery/screens/profile.dart';
+import 'package:artgallery/widgets/background/animated_background.dart';
 import 'package:flutter/material.dart';
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -33,9 +34,13 @@ class _MainWrapperState extends State<MainWrapper> {
               currentPage = position;
             });
           }),
-      body: Container(
-        child: _getPage(currentPage),
-      ),
+      body: Stack(children: [
+        //an animated background which would, potentially, be implemented sometime
+        //AnimatedBackground(),
+        Container(
+          child: _getPage(currentPage),
+        ),
+      ]),
       appBar: AppBar(
         title: Text('Flutter Art Gallery'),
         actions: [

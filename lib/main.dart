@@ -1,6 +1,6 @@
 import 'package:artgallery/screens/auth_screen.dart';
 import 'package:artgallery/screens/dashboard.dart';
-import 'package:artgallery/screens/mainWrapper.dart';
+import 'package:artgallery/screens/main_wrapper.dart';
 import 'package:artgallery/widgets/exhibit/new_exhibit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';

@@ -1,4 +1,4 @@
-import 'package:artgallery/widgets/exhibit/address%20search/address_search.dart';
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -26,7 +26,9 @@ class _NewExhibitState extends State<NewExhibit> {
   var _description = '';
   var _title = '';
   var _location = '';
-  var _dateTime = '';
+  var _startDate = '';
+  var _endDate = '';
+  var _openingTime = '';
 
   @override
   void dispose() {
@@ -48,7 +50,9 @@ class _NewExhibitState extends State<NewExhibit> {
       'description': _description,
       'title': _title,
       'location': _location,
-      'dateTime': _dateTime,
+      'startDate': _startDate,
+      'endDate': _endDate,
+      'openingTime': _openingTime,
       'exhibitImage': '',
     });
     _place.clear();
@@ -65,52 +69,174 @@ class _NewExhibitState extends State<NewExhibit> {
         child: Container(
           child: Column(
             children: <Widget>[
-              TextFormField(
-                key: ValueKey('title'),
-                decoration: InputDecoration(
-                  labelText: 'Title',
-                  icon: Icon(Icons.text_fields),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(32),
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.primary,
+                    width: 2,
+                  ),
                 ),
-                onChanged: (value) {
-                  _title = value;
-                },
+                child: TextFormField(
+                  key: ValueKey('title'),
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    labelText: 'Title',
+                    icon: Icon(Icons.text_fields),
+                  ),
+                  onChanged: (value) {
+                    _title = value;
+                  },
+                ),
               ),
-              TextFormField(
-                readOnly: true,
-                controller: _place,
-                key: ValueKey('location'),
-                decoration: InputDecoration(
-                  labelText: 'Location',
-                  icon: Icon(Icons.home),
+              SizedBox(height: 10),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(32),
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.primary,
+                    width: 2,
+                  ),
                 ),
-                onChanged: (text) {
-                  _location = text;
-                },
-                onTap: () async {
-                  Prediction? p = await PlacesAutocomplete.show(
-                      context: context,
-                      apiKey: kGoogleApiKey,
-                      mode: Mode.overlay, // Mode.fullscreen
-                      offset: 0,
-                      radius: 1000,
-                      strictbounds: false,
-                      region: "",
-                      language: "hr",
-                      sessionToken: UniqueKey().toString(),
-                      components: [new Component(Component.country, "hr")],
-                      types: [""],
-                      hint: "Search Address",
-                      startText: '');
+                child: TextFormField(
+                  readOnly: true,
+                  controller: _place,
+                  key: ValueKey('location'),
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    labelText: 'Location',
+                    icon: Icon(Icons.home),
+                  ),
+                  onChanged: (text) {
+                    _location = text;
+                  },
+                  onTap: () async {
+                    Prediction? p = await PlacesAutocomplete.show(
+                        context: context,
+                        apiKey: kGoogleApiKey,
+                        mode: Mode.overlay, // Mode.fullscreen
+                        offset: 0,
+                        radius: 1000,
+                        strictbounds: false,
+                        region: "",
+                        language: "hr",
+                        sessionToken: UniqueKey().toString(),
+                        components: [new Component(Component.country, "hr")],
+                        types: [""],
+                        hint: "Search Address",
+                        startText: '');
 
-                  //this should save the selected location and show it in form field
-                  _place.text = p!.description.toString();
-                  /* final sessionToken = Uuid().v4();
-                  final Suggestion result = await showSearch(
-                    context: context,
-                    delegate: AddressSearch(sessionToken),
-                  ); */
-                },
+                    //this should save the selected location and show it in form field
+                    _place.text = p!.description.toString();
+                    /* final sessionToken = Uuid().v4();
+                    final Suggestion result = await showSearch(
+                      context: context,
+                      delegate: AddressSearch(sessionToken),
+                    ); */
+                  },
+                ),
               ),
+              SizedBox(height: 10),
+              //Start and end date row
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(32),
+                      border: Border.all(
+                        color: Theme.of(context).colorScheme.primary,
+                        width: 2,
+                      ),
+                    ),
+                    child: DateTimePicker(
+                      type: DateTimePickerType.date,
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime(2100),
+                      onChanged: (val) => _startDate = val,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        icon: Icon(Icons.calendar_today_outlined),
+                        hintText: 'Start date',
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(32),
+                      border: Border.all(
+                        color: Theme.of(context).colorScheme.primary,
+                        width: 2,
+                      ),
+                    ),
+                    child: DateTimePicker(
+                      type: DateTimePickerType.date,
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime(2100),
+                      onChanged: (val) => _endDate = val,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        icon: Icon(Icons.calendar_today_outlined),
+                        hintText: 'End date',
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.4,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(32),
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.primary,
+                    width: 2,
+                  ),
+                ),
+                child: DateTimePicker(
+                  type: DateTimePickerType.time,
+                  firstDate: DateTime.now(),
+                  lastDate: DateTime(2100),
+                  onChanged: (val) => _openingTime = val,
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      icon: Icon(Icons.timer),
+                      hintText: 'Opening time'),
+                ),
+              ),
+              SizedBox(height: 10),
+              //Description row
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(32),
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.primary,
+                    width: 2,
+                  ),
+                ),
+                child: TextFormField(
+                  key: ValueKey('description'),
+                  maxLines: 4,
+                  minLines: 1,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    labelText: 'Description',
+                    icon: Icon(Icons.text_fields),
+                  ),
+                  onChanged: (value) {
+                    _description = value;
+                  },
+                ),
+              ),
+              SizedBox(height: 10),
+              TextButton(onPressed: () {}, child: Text('Upload images'))
             ],
           ),
         ),
