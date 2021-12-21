@@ -1,9 +1,10 @@
+import 'dart:io';
+
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-import 'address search/place_service.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:google_maps_webservice/places.dart';
@@ -22,13 +23,17 @@ class NewExhibit extends StatefulWidget {
 
 class _NewExhibitState extends State<NewExhibit> {
   final _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
+
   TextEditingController _place = new TextEditingController();
+  final ImagePicker _picker = ImagePicker();
+
   var _description = '';
   var _title = '';
   var _location = '';
   var _startDate = '';
   var _endDate = '';
   var _openingTime = '';
+  File? _image;
 
   @override
   void dispose() {
@@ -236,7 +241,47 @@ class _NewExhibitState extends State<NewExhibit> {
                 ),
               ),
               SizedBox(height: 10),
-              TextButton(onPressed: () {}, child: Text('Upload images'))
+              TextButton(
+                onPressed: () async {
+                  XFile? image =
+                      await _picker.pickImage(source: ImageSource.gallery);
+                  setState(() {
+                    _image = File(image!.path);
+                  });
+                },
+                child: Text('Upload image'),
+              ),
+              SizedBox(height: 10),
+              Container(
+                width: 300,
+                height: 300,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(32),
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.primary,
+                    width: 2,
+                  ),
+                ),
+                child: _image != null
+                    ? Image.file(
+                        _image!,
+                        width: 300,
+                        height: 300,
+                        fit: BoxFit.fitHeight,
+                      )
+                    : Container(
+                        decoration: BoxDecoration(
+                          color: Colors.red[200],
+                          borderRadius: BorderRadius.circular(32),
+                        ),
+                        width: 300,
+                        height: 300,
+                        child: Icon(
+                          Icons.camera_alt,
+                          color: Colors.grey[800],
+                        ),
+                      ),
+              ),
             ],
           ),
         ),

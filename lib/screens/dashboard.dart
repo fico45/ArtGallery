@@ -19,7 +19,7 @@ class _DashboardState extends State<Dashboard> {
         child: Icon(Icons.add),
         onPressed: () {
           Navigator.push(
-              context, BouncyPageRoute(NewExhibit(), Alignment.bottomRight));
+              context, CustomPageRoute(NewExhibit(), Alignment.bottomCenter));
         },
       ),
       body: ExhibitView(),

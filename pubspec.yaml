@@ -25,7 +25,6 @@ dependencies:
     sdk: flutter
   cloud_firestore: ^3.1.1
   firebase_auth: ^3.0.1
-  image_picker: ^0.8.4
   firebase_storage: ^10.0.3
   firebase_messaging: any
   google_sign_in: ^5.0.4
@@ -38,6 +37,7 @@ dependencies:
   uuid: ^3.0.4
   fancy_bottom_navigation: ^0.3.2
   date_time_picker: ^2.1.0
+  image_picker: ^0.8.4+4
 
 
 dev_dependencies:

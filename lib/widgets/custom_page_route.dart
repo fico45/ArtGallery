@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class BouncyPageRoute extends PageRouteBuilder {
+class CustomPageRoute extends PageRouteBuilder {
   final Widget widget;
   final Alignment position;
 
-  BouncyPageRoute(this.widget, this.position)
+  CustomPageRoute(this.widget, this.position)
       : super(
             transitionDuration: Duration(milliseconds: 500),
             transitionsBuilder: (BuildContext context,
@@ -13,7 +13,7 @@ class BouncyPageRoute extends PageRouteBuilder {
                 Widget child) {
               animation = CurvedAnimation(
                 parent: animation,
-                curve: Curves.linearToEaseOut,
+                curve: Curves.ease,
               );
               return ScaleTransition(
                 alignment: position,
