@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
-            primary: Colors.deepPurple,
+            primary: Color.fromARGB(255, 57, 178, 89),
           ),
         ),
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.lightBlue)

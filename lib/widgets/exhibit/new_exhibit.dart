@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
@@ -47,20 +48,28 @@ class _NewExhibitState extends State<NewExhibit> {
         .collection('users')
         .doc(currentUser.uid)
         .get();
+
+    final ref = FirebaseStorage.instance
+        .ref()
+        .child('exhibit_images')
+        .child(currentUser.uid + '-' + Timestamp.now().toString() + '.jpg');
+    await ref.putFile(File(_image!.path));
+    final _url = await ref.getDownloadURL();
     FirebaseFirestore.instance.collection('exhibits').add({
-      'createdAt': Timestamp.now(),
+      'createdAt': DateTime.now(),
       'userId': currentUser.uid,
       'username': userData['username'],
       'userImage': userData['image_url'],
       'description': _description,
       'title': _title,
-      'location': _location,
+      'location': _place.text,
       'startDate': _startDate,
       'endDate': _endDate,
       'openingTime': _openingTime,
-      'exhibitImage': '',
+      'exhibitImage': _url,
     });
     _place.clear();
+    Navigator.of(context).pop();
   }
 
   @override
@@ -282,6 +291,11 @@ class _NewExhibitState extends State<NewExhibit> {
                         ),
                       ),
               ),
+              SizedBox(
+                height: 10,
+              ),
+              ElevatedButton(
+                  onPressed: _postExhibit, child: Text('Post exhibit')),
             ],
           ),
         ),
