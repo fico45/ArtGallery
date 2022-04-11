@@ -1,29 +1,26 @@
 import 'dart:io';
 
+import 'package:artgallery/data/controllers/auth_controller.dart';
+import 'package:artgallery/data/controllers/exhibit_list_controller.dart';
+import 'package:artgallery/data/model/exhibit_data_model_old.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:google_maps_webservice/places.dart';
-import 'package:uuid/uuid.dart';
 
-const kGoogleApiKey = 'AIzaSyBEya3BPIYwvGG84eXz1VEC9hO0ss96cXE';
-
-class NewExhibit extends StatefulWidget {
+class NewExhibit extends ConsumerWidget {
   static const routeName = '/new-exhibit';
 
-  const NewExhibit({Key? key}) : super(key: key);
+  NewExhibit({Key? key}) : super(key: key);
 
-  @override
-  _NewExhibitState createState() => _NewExhibitState();
-}
-
-class _NewExhibitState extends State<NewExhibit> {
-  final _places = GoogleMapsPlaces(apiKey: kGoogleApiKey);
+  final _places = GoogleMapsPlaces(apiKey: dotenv.env['google-api-key']!);
 
   TextEditingController _place = new TextEditingController();
   final ImagePicker _picker = ImagePicker();
@@ -36,44 +33,40 @@ class _NewExhibitState extends State<NewExhibit> {
   var _openingTime = '';
   File? _image;
 
-  @override
-  void dispose() {
-    _place.dispose();
-    super.dispose();
-  }
-
-  void _postExhibit() async {
-    final currentUser = FirebaseAuth.instance.currentUser!;
+  void _postExhibit(WidgetRef ref) async {
+    final currentUser = ref.read(authControllerProvider);
     final userData = await FirebaseFirestore.instance
         .collection('users')
-        .doc(currentUser.uid)
+        .doc(currentUser!.uid)
         .get();
 
-    final ref = FirebaseStorage.instance
+    final imageRef = FirebaseStorage.instance
         .ref()
         .child('exhibit_images')
         .child(currentUser.uid + '-' + Timestamp.now().toString() + '.jpg');
-    await ref.putFile(File(_image!.path));
-    final _url = await ref.getDownloadURL();
-    FirebaseFirestore.instance.collection('exhibits').add({
-      'createdAt': DateTime.now(),
-      'userId': currentUser.uid,
-      'username': userData['username'],
-      'userImage': userData['image_url'],
-      'description': _description,
-      'title': _title,
-      'location': _place.text,
-      'startDate': _startDate,
-      'endDate': _endDate,
-      'openingTime': _openingTime,
-      'exhibitImage': _url,
-    });
+    await imageRef.putFile(File(_image!.path));
+
+    final _url = await imageRef.getDownloadURL();
+    print(_url);
+    ref.read(exhibitListControllerProvider.notifier).addExhibit(
+        createdAt: DateTime.now(),
+        description: _description,
+        startDate: DateTime.parse(_startDate),
+        endDate: DateTime.parse(_endDate),
+        openingTime: _openingTime,
+        location: _place.text,
+        title: _title,
+        userId: currentUser.uid,
+        userImageUrl: userData['image_url'],
+        //THIS IS NULLABLE don't forget!
+        exhibitImageUrl: _url,
+        username: userData['username']);
     _place.clear();
-    Navigator.of(context).pop();
+    Navigator.pop;
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: Text('New Exhibit'),
@@ -127,7 +120,7 @@ class _NewExhibitState extends State<NewExhibit> {
                   onTap: () async {
                     Prediction? p = await PlacesAutocomplete.show(
                         context: context,
-                        apiKey: kGoogleApiKey,
+                        apiKey: dotenv.env['google-api-key']!,
                         mode: Mode.overlay, // Mode.fullscreen
                         offset: 0,
                         radius: 1000,
@@ -252,11 +245,9 @@ class _NewExhibitState extends State<NewExhibit> {
               SizedBox(height: 10),
               TextButton(
                 onPressed: () async {
-                  XFile? image =
-                      await _picker.pickImage(source: ImageSource.gallery);
-                  setState(() {
-                    _image = File(image!.path);
-                  });
+                  XFile? newPicker = await _picker.pickImage(
+                      source: ImageSource.gallery, imageQuality: 60);
+                  _image = File(newPicker!.path);
                 },
                 child: Text('Upload image'),
               ),
@@ -295,7 +286,8 @@ class _NewExhibitState extends State<NewExhibit> {
                 height: 10,
               ),
               ElevatedButton(
-                  onPressed: _postExhibit, child: Text('Post exhibit')),
+                  onPressed: () => _postExhibit(ref),
+                  child: Text('Post exhibit')),
             ],
           ),
         ),

@@ -1,4 +1,4 @@
-import 'package:artgallery/widgets/exhibit/exhibit_card.dart';
+import 'package:artgallery/view/widgets/exhibit/exhibit_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

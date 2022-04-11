@@ -1,6 +1,6 @@
-import 'package:artgallery/widgets/custom_page_route.dart';
-import 'package:artgallery/widgets/exhibit/exhibit_view.dart';
-import 'package:artgallery/widgets/exhibit/new_exhibit.dart';
+import 'package:artgallery/view/widgets/custom_page_route.dart';
+import 'package:artgallery/view/widgets/exhibit/exhibit_view.dart';
+import 'package:artgallery/view/widgets/exhibit/new_exhibit.dart';
 import 'package:flutter/material.dart';
 
 class Dashboard extends StatefulWidget {

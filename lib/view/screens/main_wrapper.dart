@@ -1,19 +1,21 @@
-import 'package:artgallery/screens/dashboard.dart';
-import 'package:artgallery/screens/explore.dart';
-import 'package:artgallery/screens/profile.dart';
-import 'package:artgallery/widgets/background/animated_background.dart';
+import 'package:artgallery/data/controllers/auth_controller.dart';
+import 'package:artgallery/view/screens/dashboard.dart';
+import 'package:artgallery/view/screens/explore.dart';
+import 'package:artgallery/view/screens/profile.dart';
+import 'package:artgallery/view/widgets/background/animated_background.dart';
 import 'package:flutter/material.dart';
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class MainWrapper extends StatefulWidget {
+class MainWrapper extends ConsumerStatefulWidget {
   const MainWrapper({Key? key}) : super(key: key);
 
   @override
-  _MainWrapperState createState() => _MainWrapperState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _MainWrapperState();
 }
 
-class _MainWrapperState extends State<MainWrapper> {
+class _MainWrapperState extends ConsumerState<MainWrapper> {
   int currentPage = 1;
   GlobalKey bottomNavigationKey = GlobalKey();
 
@@ -81,7 +83,7 @@ class _MainWrapperState extends State<MainWrapper> {
               ],
               onChanged: (itemIdentifier) {
                 if (itemIdentifier == 'logout') {
-                  FirebaseAuth.instance.signOut();
+                  ref.read(authControllerProvider.notifier).signOut();
                 }
               },
             ),

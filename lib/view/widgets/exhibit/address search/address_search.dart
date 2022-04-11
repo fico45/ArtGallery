@@ -1,4 +1,4 @@
-import 'package:artgallery/widgets/exhibit/address%20search/place_service.dart';
+import 'package:artgallery/view/widgets/exhibit/address%20search/place_service.dart';
 import 'package:flutter/material.dart';
 
 class AddressSearch extends SearchDelegate<Suggestion> {

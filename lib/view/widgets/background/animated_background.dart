@@ -1,5 +1,5 @@
-import 'package:artgallery/widgets/background/my_painter_canvas.dart';
-import 'package:artgallery/widgets/background/particle.dart';
+import 'package:artgallery/view/widgets/background/my_painter_canvas.dart';
+import 'package:artgallery/view/widgets/background/particle.dart';
 import 'package:flutter/material.dart';
 
 class AnimatedBackground extends StatefulWidget {

@@ -1,4 +1,4 @@
-import 'package:artgallery/widgets/pickers/user_image_picker.dart';
+import 'package:artgallery/view/widgets/pickers/user_image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
