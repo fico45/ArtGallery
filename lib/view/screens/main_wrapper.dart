@@ -6,7 +6,7 @@ import 'package:artgallery/view/widgets/background/animated_background.dart';
 import 'package:flutter/material.dart';
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MainWrapper extends ConsumerStatefulWidget {
   const MainWrapper({Key? key}) : super(key: key);

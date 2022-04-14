@@ -38,12 +38,12 @@ dependencies:
   fancy_bottom_navigation: ^0.3.3
   date_time_picker: ^2.1.0
   image_picker: ^0.8.4+11
-  hooks_riverpod: ^1.0.3
+  flutter_riverpod: ^1.0.3
   freezed: ^1.1.1
   json_serializable: ^6.1.5
   flutter_dotenv: ^5.0.2
-
-
+  
+  
 dev_dependencies:
   build_runner: ^2.1.8
   flutter_test:

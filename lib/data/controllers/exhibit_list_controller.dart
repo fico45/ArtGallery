@@ -1,8 +1,8 @@
 import 'package:artgallery/data/controllers/auth_controller.dart';
-import 'package:artgallery/data/model/exhibit_data_model.dart';
+import 'package:artgallery/data/model/exhibit_model/exhibit_data_model.dart';
 import 'package:artgallery/repositories/custom_exception.dart';
 import 'package:artgallery/repositories/exhibit_repository.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final exhibitListExceptionProvider =
     StateProvider<CustomException?>((_) => null);
@@ -25,8 +25,7 @@ class ExhibitListController extends StateNotifier<AsyncValue<List<Exhibit>>> {
     }
   }
 
-  Future<void> retrieveExhibits({bool isRefreshing = false}) async {
-    if (isRefreshing) state = AsyncValue.loading();
+  Future<void> retrieveExhibits() async {
     try {
       final exhibits = await _read(exhibitRepositoryProvider)
           .retrieveExhibits(userId: _userId!);
@@ -51,7 +50,6 @@ class ExhibitListController extends StateNotifier<AsyncValue<List<Exhibit>>> {
     required String userId,
     required String userImageUrl,
     required String username,
-    bool obtained = false,
   }) async {
     try {
       final exhibit = Exhibit(

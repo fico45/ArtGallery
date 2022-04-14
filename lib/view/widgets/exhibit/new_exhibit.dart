@@ -2,14 +2,12 @@ import 'dart:io';
 
 import 'package:artgallery/data/controllers/auth_controller.dart';
 import 'package:artgallery/data/controllers/exhibit_list_controller.dart';
-import 'package:artgallery/data/model/exhibit_data_model_old.dart';
 import 'package:date_time_picker/date_time_picker.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:flutter_google_places/flutter_google_places.dart';
@@ -47,7 +45,6 @@ class NewExhibit extends ConsumerWidget {
     await imageRef.putFile(File(_image!.path));
 
     final _url = await imageRef.getDownloadURL();
-    print(_url);
     ref.read(exhibitListControllerProvider.notifier).addExhibit(
         createdAt: DateTime.now(),
         description: _description,

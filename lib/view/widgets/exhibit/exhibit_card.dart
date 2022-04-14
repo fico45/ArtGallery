@@ -1,73 +1,90 @@
+import 'package:artgallery/data/model/exhibit_model/exhibit_data_model.dart';
 import 'package:flutter/material.dart';
+import 'package:palette_generator/palette_generator.dart';
 
 class ExhibitCard extends StatelessWidget {
-/*   const ExhibitCard(this.userImage);
-  final String userImage; */
+  const ExhibitCard(this.exhibit, {Key? key}) : super(key: key);
+  final Exhibit exhibit;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       clipBehavior: Clip.antiAlias,
       children: <Widget>[
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.transparent,
-            borderRadius: BorderRadius.all(Radius.circular(25)),
-            border: Border.all(color: Theme.of(context).primaryColor, width: 2),
-          ),
-          width: MediaQuery.of(context).size.width,
-          height: 200,
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5),
-                    child: Text(
-                      "Exhibit title",
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 15),
-                child: Row(
+        Card(
+          elevation: 6,
+          shadowColor: Theme.of(context).colorScheme.secondary,
+          shape: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(25),
+              borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.primary, width: 2)),
+          child: Container(
+            decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(25),
+                image: DecorationImage(
+                    image: NetworkImage(exhibit.exhibitImageUrl!),
+                    fit: BoxFit.cover,
+                    opacity: 0.4)),
+            width: MediaQuery.of(context).size.width,
+            height: 200,
+            child: Column(
+              children: [
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.date_range),
-                    Text('DD/MM/YYYY'),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Icon(Icons.timer),
-                    Text('HH:MM'),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 50, left: 10, right: 10),
-                child: Row(
-                  children: [
-                    Expanded(
+                    Padding(
+                      padding: const EdgeInsets.only(top: 5),
                       child: Text(
-                          "This will be a very long description of the exhibit. It might not be long, actually, but for safety, let's make it very long."),
-                    )
+                        exhibit.title,
+                        style: TextStyle(
+                          shadows: [
+                            Shadow(
+                                color: Theme.of(context).colorScheme.background,
+                                blurRadius: 10)
+                          ],
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.only(top: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.date_range),
+                      Text(exhibit.startDate.toString()),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Icon(Icons.timer),
+                      Text(exhibit.openingTime),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 50, left: 10, right: 10),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(exhibit.description),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         Positioned(
           left: 0,
           child: CircleAvatar(
             radius: 25,
-            backgroundImage: null,
+            backgroundImage: NetworkImage(exhibit.userImageUrl),
             //NetworkImage(userImage),
           ),
         )

@@ -1,12 +1,12 @@
-import 'package:artgallery/data/model/exhibit_data_model.dart';
+import 'package:artgallery/data/model/exhibit_model/exhibit_data_model.dart';
 import 'package:artgallery/data/providers/general_providers.dart';
 import 'package:artgallery/repositories/custom_exception.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:artgallery/extensions/firebase_firestore_extensions.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 abstract class BaseExhibitRepository {
   Future<List<Exhibit>> retrieveExhibits({required String userId});
+
   Future<String> createExhibit(
       {required String userId, required Exhibit exhibit});
   Future<void> updateExhibit(
@@ -27,7 +27,7 @@ class ExhibitRepository implements BaseExhibitRepository {
   Future<List<Exhibit>> retrieveExhibits({required String userId}) async {
     try {
       final snap = await _read(firebaseFirstoreProvider)
-          .usersListRef(userId)
+          .collection('exhibits')
           .orderBy('startDate')
           .get();
       return snap.docs.map((doc) => Exhibit.fromDocument(doc)).toList();
@@ -43,7 +43,7 @@ class ExhibitRepository implements BaseExhibitRepository {
   }) async {
     try {
       final docRef = await _read(firebaseFirstoreProvider)
-          .usersListRef(userId)
+          .collection('exhibits')
           .add(exhibit.toDocument());
 
       return docRef.id;
@@ -57,7 +57,7 @@ class ExhibitRepository implements BaseExhibitRepository {
       {required String userId, required Exhibit exhibit}) async {
     try {
       await _read(firebaseFirstoreProvider)
-          .usersListRef(userId)
+          .collection('exhibits')
           .doc(exhibit.id)
           .update(exhibit.toDocument());
     } on FirebaseException catch (e) {
@@ -72,7 +72,7 @@ class ExhibitRepository implements BaseExhibitRepository {
   }) async {
     try {
       await _read(firebaseFirstoreProvider)
-          .usersListRef(userId)
+          .collection('exhibits')
           .doc(exhibitId)
           .delete();
     } on FirebaseException catch (e) {

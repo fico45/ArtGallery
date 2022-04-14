@@ -1,16 +1,19 @@
-import 'package:artgallery/data/model/exhibit_data_model_old.dart';
+import 'package:artgallery/data/controllers/auth_controller.dart';
+import 'package:artgallery/data/controllers/exhibit_list_controller.dart';
+import 'package:artgallery/view/widgets/exhibit/exhibit_card.dart';
+
 import 'package:flutter/material.dart';
-import 'package:artgallery/data/providers/exhibit_data_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:artgallery/data/providers/exhibit_data_provider.dart';
+import 'package:intl/intl.dart';
 
 class ProfileView extends ConsumerWidget {
   ProfileView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    AsyncValue<List<Exhibit>> exhibitProvider =
-        ref.watch(ExhibitStateNotifier().userExhibitsProvider);
+    void showData() {
+      print(ref.read(authControllerProvider.notifier).state);
+    }
 
     return Padding(
       padding: const EdgeInsets.all(10.0),
@@ -21,7 +24,11 @@ class ProfileView extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(
-                  'Member since: xx/yy/zzzz',
+                  'Member since: ' +
+                      DateFormat("dd/MM/yyyy").format(ref
+                          .read(authControllerProvider)!
+                          .metadata
+                          .creationTime!),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
@@ -31,9 +38,19 @@ class ProfileView extends ConsumerWidget {
             Center(
               child: Column(
                 children: [
-                  CircleAvatar(
+                  // This will only work when photoURL is saved in the Firebase user object
+                  /* CircleAvatar(
                     radius: 45,
-                    child: Icon(Icons.people),
+                    child: Image(
+                      image: NetworkImage(ref
+                          .read(authControllerProvider.notifier)
+                          .state!
+                          .photoURL!),
+                    ),
+                  ), */
+                  ElevatedButton(
+                    onPressed: showData,
+                    child: Text('Button'),
                   ),
                   Text(
                     'John Doe',
@@ -57,22 +74,33 @@ class ProfileView extends ConsumerWidget {
                 ),
               ],
             ),
-            //ListView.builder goes here
-            exhibitProvider.when(
-                data: (exhibitProvider) => ListView.builder(
-                      itemCount: exhibitProvider.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          leading: Icon(Icons.school),
-                          title: Text(exhibitProvider[index].title),
-                        );
-                      },
+            ref.watch(exhibitListControllerProvider).when(
+                  data: (data) => Expanded(
+                    child: ListView.builder(
+                      itemCount: data.length,
+                      itemBuilder: (context, index) => Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: ExhibitCard(data[index]),
+                      ),
                     ),
-                error: (err, stack) => Text('Error: ' + err.toString()),
-                loading: () => CircularProgressIndicator())
+                  ),
+                  error: (err, stack) => Text('There was an error.'),
+                  loading: () => const CircularProgressIndicator(),
+                ),
           ],
         ),
       ),
     );
+  }
+}
+
+class ItemListError extends StatelessWidget {
+  final String message;
+
+  const ItemListError({Key? key, required this.message}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }

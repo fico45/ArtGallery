@@ -273,7 +273,7 @@ class __$ExhibitCopyWithImpl<$Res> extends _$ExhibitCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Exhibit extends _Exhibit with DiagnosticableTreeMixin {
+class _$_Exhibit extends _Exhibit {
   const _$_Exhibit(
       {this.id,
       required this.createdAt,
@@ -318,27 +318,8 @@ class _$_Exhibit extends _Exhibit with DiagnosticableTreeMixin {
   final String username;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'Exhibit(id: $id, createdAt: $createdAt, description: $description, startDate: $startDate, endDate: $endDate, openingTime: $openingTime, exhibitImageUrl: $exhibitImageUrl, location: $location, title: $title, userId: $userId, userImageUrl: $userImageUrl, username: $username)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'Exhibit'))
-      ..add(DiagnosticsProperty('id', id))
-      ..add(DiagnosticsProperty('createdAt', createdAt))
-      ..add(DiagnosticsProperty('description', description))
-      ..add(DiagnosticsProperty('startDate', startDate))
-      ..add(DiagnosticsProperty('endDate', endDate))
-      ..add(DiagnosticsProperty('openingTime', openingTime))
-      ..add(DiagnosticsProperty('exhibitImageUrl', exhibitImageUrl))
-      ..add(DiagnosticsProperty('location', location))
-      ..add(DiagnosticsProperty('title', title))
-      ..add(DiagnosticsProperty('userId', userId))
-      ..add(DiagnosticsProperty('userImageUrl', userImageUrl))
-      ..add(DiagnosticsProperty('username', username));
   }
 
   @override
