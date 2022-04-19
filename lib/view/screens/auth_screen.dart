@@ -34,6 +34,8 @@ class _AuthScreenState extends State<AuthScreen> {
     String email,
     String password,
     String username,
+    String firstName,
+    String lastName,
     XFile? image,
     bool isLogin,
     BuildContext ctx,
@@ -63,6 +65,8 @@ class _AuthScreenState extends State<AuthScreen> {
           'username': username,
           'email': email,
           'image_url': url,
+          'firstName': firstName,
+          'lastName': lastName,
         });
       }
     } on PlatformException catch (err) {

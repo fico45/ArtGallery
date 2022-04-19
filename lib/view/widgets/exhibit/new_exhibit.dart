@@ -25,7 +25,7 @@ class NewExhibit extends ConsumerWidget {
 
   var _description = '';
   var _title = '';
-  var _location = '';
+
   var _startDate = '';
   var _endDate = '';
   var _openingTime = '';
@@ -111,9 +111,6 @@ class NewExhibit extends ConsumerWidget {
                     labelText: 'Location',
                     icon: Icon(Icons.home),
                   ),
-                  onChanged: (text) {
-                    _location = text;
-                  },
                   onTap: () async {
                     Prediction? p = await PlacesAutocomplete.show(
                         context: context,

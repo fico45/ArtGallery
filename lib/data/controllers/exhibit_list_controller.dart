@@ -21,14 +21,26 @@ class ExhibitListController extends StateNotifier<AsyncValue<List<Exhibit>>> {
   ExhibitListController(this._read, this._userId)
       : super(const AsyncValue.loading()) {
     if (_userId != null) {
-      retrieveExhibits();
+      retrieveAllExhibits();
     }
   }
 
-  Future<void> retrieveExhibits() async {
+  Future<void> retrieveAllExhibits() async {
     try {
       final exhibits = await _read(exhibitRepositoryProvider)
-          .retrieveExhibits(userId: _userId!);
+          .retrieveAllExhibits(userId: _userId!);
+      if (mounted) {
+        state = AsyncValue.data(exhibits);
+      }
+    } on CustomException catch (e, st) {
+      state = AsyncValue.error(e, stackTrace: st);
+    }
+  }
+
+  Future<void> retrieveCurrentUserExhibits() async {
+    try {
+      final exhibits = await _read(exhibitRepositoryProvider)
+          .retrieveCurrentUserExhibits(userId: _userId!);
       if (mounted) {
         state = AsyncValue.data(exhibits);
       }

@@ -25,11 +25,15 @@ class _$UserModelTearOff {
   _UserModel call(
       {required String email,
       required String image_url,
-      required String username}) {
+      required String username,
+      required String firstName,
+      required String lastName}) {
     return _UserModel(
       email: email,
       image_url: image_url,
       username: username,
+      firstName: firstName,
+      lastName: lastName,
     );
   }
 
@@ -46,6 +50,8 @@ mixin _$UserModel {
   String get email => throw _privateConstructorUsedError;
   String get image_url => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
+  String get firstName => throw _privateConstructorUsedError;
+  String get lastName => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -57,7 +63,12 @@ mixin _$UserModel {
 abstract class $UserModelCopyWith<$Res> {
   factory $UserModelCopyWith(UserModel value, $Res Function(UserModel) then) =
       _$UserModelCopyWithImpl<$Res>;
-  $Res call({String email, String image_url, String username});
+  $Res call(
+      {String email,
+      String image_url,
+      String username,
+      String firstName,
+      String lastName});
 }
 
 /// @nodoc
@@ -73,6 +84,8 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
     Object? email = freezed,
     Object? image_url = freezed,
     Object? username = freezed,
+    Object? firstName = freezed,
+    Object? lastName = freezed,
   }) {
     return _then(_value.copyWith(
       email: email == freezed
@@ -87,6 +100,14 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String,
+      firstName: firstName == freezed
+          ? _value.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
+              as String,
+      lastName: lastName == freezed
+          ? _value.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -97,7 +118,12 @@ abstract class _$UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
           _UserModel value, $Res Function(_UserModel) then) =
       __$UserModelCopyWithImpl<$Res>;
   @override
-  $Res call({String email, String image_url, String username});
+  $Res call(
+      {String email,
+      String image_url,
+      String username,
+      String firstName,
+      String lastName});
 }
 
 /// @nodoc
@@ -114,6 +140,8 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
     Object? email = freezed,
     Object? image_url = freezed,
     Object? username = freezed,
+    Object? firstName = freezed,
+    Object? lastName = freezed,
   }) {
     return _then(_UserModel(
       email: email == freezed
@@ -128,6 +156,14 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String,
+      firstName: firstName == freezed
+          ? _value.firstName
+          : firstName // ignore: cast_nullable_to_non_nullable
+              as String,
+      lastName: lastName == freezed
+          ? _value.lastName
+          : lastName // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -136,7 +172,11 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_UserModel extends _UserModel {
   const _$_UserModel(
-      {required this.email, required this.image_url, required this.username})
+      {required this.email,
+      required this.image_url,
+      required this.username,
+      required this.firstName,
+      required this.lastName})
       : super._();
 
   factory _$_UserModel.fromJson(Map<String, dynamic> json) =>
@@ -148,10 +188,14 @@ class _$_UserModel extends _UserModel {
   final String image_url;
   @override
   final String username;
+  @override
+  final String firstName;
+  @override
+  final String lastName;
 
   @override
   String toString() {
-    return 'UserModel(email: $email, image_url: $image_url, username: $username)';
+    return 'UserModel(email: $email, image_url: $image_url, username: $username, firstName: $firstName, lastName: $lastName)';
   }
 
   @override
@@ -161,7 +205,9 @@ class _$_UserModel extends _UserModel {
             other is _UserModel &&
             const DeepCollectionEquality().equals(other.email, email) &&
             const DeepCollectionEquality().equals(other.image_url, image_url) &&
-            const DeepCollectionEquality().equals(other.username, username));
+            const DeepCollectionEquality().equals(other.username, username) &&
+            const DeepCollectionEquality().equals(other.firstName, firstName) &&
+            const DeepCollectionEquality().equals(other.lastName, lastName));
   }
 
   @override
@@ -169,7 +215,9 @@ class _$_UserModel extends _UserModel {
       runtimeType,
       const DeepCollectionEquality().hash(email),
       const DeepCollectionEquality().hash(image_url),
-      const DeepCollectionEquality().hash(username));
+      const DeepCollectionEquality().hash(username),
+      const DeepCollectionEquality().hash(firstName),
+      const DeepCollectionEquality().hash(lastName));
 
   @JsonKey(ignore: true)
   @override
@@ -186,7 +234,9 @@ abstract class _UserModel extends UserModel {
   const factory _UserModel(
       {required String email,
       required String image_url,
-      required String username}) = _$_UserModel;
+      required String username,
+      required String firstName,
+      required String lastName}) = _$_UserModel;
   const _UserModel._() : super._();
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
@@ -198,6 +248,10 @@ abstract class _UserModel extends UserModel {
   String get image_url;
   @override
   String get username;
+  @override
+  String get firstName;
+  @override
+  String get lastName;
   @override
   @JsonKey(ignore: true)
   _$UserModelCopyWith<_UserModel> get copyWith =>

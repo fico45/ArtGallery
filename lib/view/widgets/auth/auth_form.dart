@@ -12,6 +12,8 @@ class AuthForm extends StatefulWidget {
     String email,
     String password,
     String username,
+    String firstName,
+    String lastLane,
     XFile? image,
     bool isLogin,
     BuildContext ctx,
@@ -27,6 +29,8 @@ class _AuthFormState extends State<AuthForm> {
   var _userEmail = '';
   var _userName = '';
   var _userPassword = '';
+  var _userFirstName = '';
+  var _userLastName = '';
   XFile? _userImageFile;
   void _pickedImage(XFile? image) {
     _userImageFile = image;
@@ -52,6 +56,8 @@ class _AuthFormState extends State<AuthForm> {
         _userEmail.trim(),
         _userPassword.trim(),
         _userName.trim(),
+        _userFirstName.trim(),
+        _userLastName.trim(),
         _userImageFile,
         _isLogin,
         context,
@@ -73,6 +79,40 @@ class _AuthFormState extends State<AuthForm> {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   if (!_isLogin) UserImagePicker(_pickedImage),
+                  if (!_isLogin)
+                    TextFormField(
+                      key: ValueKey('firstName'),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Field cannot be empty';
+                        } else
+                          return null;
+                      },
+                      keyboardType: TextInputType.name,
+                      decoration: InputDecoration(
+                        labelText: 'First name',
+                      ),
+                      onSaved: (value) {
+                        _userFirstName = value!;
+                      },
+                    ),
+                  if (!_isLogin)
+                    TextFormField(
+                      key: ValueKey('lastName'),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Field cannot be empty';
+                        } else
+                          return null;
+                      },
+                      keyboardType: TextInputType.name,
+                      decoration: InputDecoration(
+                        labelText: 'Last name',
+                      ),
+                      onSaved: (value) {
+                        _userLastName = value!;
+                      },
+                    ),
                   TextFormField(
                     key: ValueKey('email'),
                     validator: (value) {

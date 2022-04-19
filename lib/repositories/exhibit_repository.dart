@@ -5,8 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 abstract class BaseExhibitRepository {
-  Future<List<Exhibit>> retrieveExhibits({required String userId});
-
+  Future<List<Exhibit>> retrieveAllExhibits({required String userId});
+  Future<List<Exhibit>> retrieveCurrentUserExhibits({required String userId});
   Future<String> createExhibit(
       {required String userId, required Exhibit exhibit});
   Future<void> updateExhibit(
@@ -24,11 +24,26 @@ class ExhibitRepository implements BaseExhibitRepository {
   const ExhibitRepository(this._read);
 
   @override
-  Future<List<Exhibit>> retrieveExhibits({required String userId}) async {
+  Future<List<Exhibit>> retrieveAllExhibits({required String userId}) async {
     try {
       final snap = await _read(firebaseFirstoreProvider)
           .collection('exhibits')
           .orderBy('startDate')
+          .get();
+      return snap.docs.map((doc) => Exhibit.fromDocument(doc)).toList();
+    } on FirebaseException catch (e) {
+      throw CustomException(message: e.message);
+    }
+  }
+
+  @override
+  Future<List<Exhibit>> retrieveCurrentUserExhibits(
+      {required String userId}) async {
+    try {
+      final snap = await _read(firebaseFirstoreProvider)
+          .collection('exhibits')
+          .orderBy('startDate')
+          .where('userId', isEqualTo: userId)
           .get();
       return snap.docs.map((doc) => Exhibit.fromDocument(doc)).toList();
     } on FirebaseException catch (e) {
