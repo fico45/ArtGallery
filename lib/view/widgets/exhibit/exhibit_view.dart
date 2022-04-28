@@ -13,18 +13,20 @@ class ExhibitView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ref.watch(exhibitListControllerProvider).when(
-          data: (data) => Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                    itemCount: data.length,
-                    itemBuilder: (context, index) => Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ExhibitCard(data[index]),
-                        )),
-              ),
-            ],
-          ),
+          data: (data) => data.isNotEmpty
+              ? Column(
+                  children: [
+                    Expanded(
+                      child: ListView.builder(
+                          itemCount: data.length,
+                          itemBuilder: (context, index) => Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ExhibitCard(data[index]),
+                              )),
+                    ),
+                  ],
+                )
+              : Text('No exhibits!'),
           error: (err, stack) => Text('There was an error.'),
           loading: () => const CircularProgressIndicator(),
         );

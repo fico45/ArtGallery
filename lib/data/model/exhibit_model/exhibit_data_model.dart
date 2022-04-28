@@ -10,12 +10,14 @@ abstract class Exhibit implements _$Exhibit {
 
   const factory Exhibit({
     String? id,
+    required double lat,
+    required double lng,
     required DateTime createdAt,
     required String description,
     required DateTime startDate,
     required DateTime endDate,
     required String openingTime,
-    String? exhibitImageUrl,
+    required List<String> imageList,
     required String location,
     required String title,
     required String userId,

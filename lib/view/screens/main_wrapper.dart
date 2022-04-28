@@ -1,11 +1,9 @@
-import 'package:artgallery/data/controllers/auth_controller.dart';
 import 'package:artgallery/view/screens/dashboard.dart';
 import 'package:artgallery/view/screens/explore.dart';
 import 'package:artgallery/view/screens/profile.dart';
-import 'package:artgallery/view/widgets/background/animated_background.dart';
+import 'package:artgallery/view/widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MainWrapper extends ConsumerStatefulWidget {
@@ -36,60 +34,9 @@ class _MainWrapperState extends ConsumerState<MainWrapper> {
               currentPage = position;
             });
           }),
-      body: Stack(children: [
-        //an animated background which would, potentially, be implemented sometime
-        //AnimatedBackground(),
-        Container(
-          child: _getPage(currentPage),
-        ),
-      ]),
-      appBar: AppBar(
-        title: Text('Flutter Art Gallery'),
-        actions: [
-          DropdownButtonHideUnderline(
-            child: DropdownButton(
-              icon: Icon(
-                Icons.more_vert,
-                color: Theme.of(context).primaryIconTheme.color,
-              ),
-              items: [
-                DropdownMenuItem(
-                    child: Container(
-                      child: Row(
-                        children: [
-                          Icon(Icons.settings),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Text('Settings'),
-                        ],
-                      ),
-                    ),
-                    value: 'settings'),
-                DropdownMenuItem(
-                  child: Container(
-                    child: Row(
-                      children: <Widget>[
-                        Icon(Icons.exit_to_app),
-                        SizedBox(
-                          width: 8,
-                        ),
-                        Text('Logout'),
-                      ],
-                    ),
-                  ),
-                  value: 'logout',
-                )
-              ],
-              onChanged: (itemIdentifier) {
-                if (itemIdentifier == 'logout') {
-                  ref.read(authControllerProvider.notifier).signOut();
-                }
-              },
-            ),
-          ),
-        ],
-      ),
+      body: _getPage(currentPage),
+      appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(80), child: CustomAppBar()),
     );
   }
 

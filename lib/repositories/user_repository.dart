@@ -1,4 +1,3 @@
-import 'package:artgallery/data/controllers/auth_controller.dart';
 import 'package:artgallery/data/model/user_model/user_data_model.dart';
 import 'package:artgallery/data/providers/general_providers.dart';
 import 'package:artgallery/repositories/custom_exception.dart';

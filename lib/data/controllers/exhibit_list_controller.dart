@@ -51,33 +51,37 @@ class ExhibitListController extends StateNotifier<AsyncValue<List<Exhibit>>> {
 
   Future<void> addExhibit({
     String? id,
+    required double lat,
+    required double lng,
     required DateTime createdAt,
     required String description,
     required DateTime startDate,
     required DateTime endDate,
     required String openingTime,
-    String? exhibitImageUrl,
+    required String userImageUrl,
     required String location,
     required String title,
     required String userId,
-    required String userImageUrl,
+    required List<String> imageList,
     required String username,
   }) async {
     try {
       final exhibit = Exhibit(
-          createdAt: createdAt,
-          description: description,
-          startDate: startDate,
-          endDate: endDate,
-          openingTime: openingTime,
-          exhibitImageUrl: exhibitImageUrl,
-          location: location,
-          title: title,
-          userId: userId,
-          userImageUrl: userImageUrl,
-          username: username);
+        lat: lat,
+        lng: lng,
+        createdAt: createdAt,
+        description: description,
+        startDate: startDate,
+        endDate: endDate,
+        openingTime: openingTime,
+        userImageUrl: userImageUrl,
+        location: location,
+        title: title,
+        userId: userId,
+        imageList: imageList,
+        username: username,
+      );
       final exhibitId = await _read(exhibitRepositoryProvider).createExhibit(
-        userId: _userId!,
         exhibit: exhibit,
       );
       state.whenData((exhibits) => state =

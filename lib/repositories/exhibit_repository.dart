@@ -7,8 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 abstract class BaseExhibitRepository {
   Future<List<Exhibit>> retrieveAllExhibits({required String userId});
   Future<List<Exhibit>> retrieveCurrentUserExhibits({required String userId});
-  Future<String> createExhibit(
-      {required String userId, required Exhibit exhibit});
+  Future<String> createExhibit({required Exhibit exhibit});
   Future<void> updateExhibit(
       {required String userId, required Exhibit exhibit});
   Future<void> deleteExhibit(
@@ -53,7 +52,6 @@ class ExhibitRepository implements BaseExhibitRepository {
 
   @override
   Future<String> createExhibit({
-    required String userId,
     required Exhibit exhibit,
   }) async {
     try {
@@ -73,6 +71,7 @@ class ExhibitRepository implements BaseExhibitRepository {
     try {
       await _read(firebaseFirstoreProvider)
           .collection('exhibits')
+          //exhibit.id or exhibit document ID?
           .doc(exhibit.id)
           .update(exhibit.toDocument());
     } on FirebaseException catch (e) {

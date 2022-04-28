@@ -3,53 +3,31 @@ import 'package:artgallery/data/controllers/exhibit_list_controller.dart';
 import 'package:artgallery/data/controllers/user_controller.dart';
 import 'package:artgallery/data/model/exhibit_model/exhibit_data_model.dart';
 import 'package:artgallery/view/widgets/exhibit/exhibit_card.dart';
+import 'package:artgallery/view/widgets/profile_card/profile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 
 class ProfileView extends ConsumerWidget {
   ProfileView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(userControllerProvider);
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  'Member since: ' +
-                      DateFormat("dd/MM/yyyy").format(ref.watch(
-                          authControllerProvider.select(
-                              (value) => value!.metadata.creationTime!))),
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
             Center(
               child: Column(
                 children: [
                   // This will only work when photoURL is saved in the Firebase user object
-                  ref.watch(userControllerProvider).when(
-                      data: (data) => CircleAvatar(
-                            radius: 45,
-                            backgroundImage: NetworkImage(data.image_url),
+                  user.when(
+                      data: (data) => ProfileCard(
+                            user: data,
                           ),
                       error: (e, st) => Text('There was an error.'),
                       loading: () => const CircularProgressIndicator()),
-
-                  Text(
-                    ref.watch(authControllerProvider
-                        .select((value) => value!.email!)),
-                    style: TextStyle(
-                      fontSize: 30,
-                    ),
-                  ),
                 ],
               ),
             ),

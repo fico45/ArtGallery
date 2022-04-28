@@ -12,6 +12,11 @@ final userControllerProvider =
   return UserController(ref.read, user?.uid);
 });
 
+final getUserProvider = StateNotifierProvider.autoDispose
+    .family<UserController, AsyncValue<UserModel>, String>((ref, userId) {
+  return UserController(ref.read, userId);
+});
+
 class UserController extends StateNotifier<AsyncValue<UserModel>> {
   final Reader _read;
   final String? _userId;
@@ -26,6 +31,7 @@ class UserController extends StateNotifier<AsyncValue<UserModel>> {
   }
 
   Future<void> retrieveUserData(userId) async {
+    AsyncValue.loading();
     try {
       final user =
           await _read(userModelRepositoryProvider).retrieveUser(userId: userId);

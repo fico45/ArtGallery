@@ -22,30 +22,54 @@ class NewExhibit extends ConsumerWidget {
 
   TextEditingController _place = new TextEditingController();
   final ImagePicker _picker = ImagePicker();
-
+  Prediction? p;
   var _description = '';
   var _title = '';
 
   var _startDate = '';
   var _endDate = '';
   var _openingTime = '';
+  double lat = 0;
+  double lng = 0;
   File? _image;
+  List<String> images = [];
+
+  Future<void> getLatLng(Prediction? p) async {
+    if (p != null) {
+      //get detail lat/lng
+
+      PlacesDetailsResponse detail =
+          await _places.getDetailsByPlaceId(p.placeId!);
+      lat = detail.result.geometry!.location.lat;
+      lng = detail.result.geometry!.location.lng;
+    }
+    print("$lat \n$lng");
+  }
 
   void _postExhibit(WidgetRef ref) async {
+    //get the user info
     final currentUser = ref.read(authControllerProvider);
     final userData = await FirebaseFirestore.instance
         .collection('users')
         .doc(currentUser!.uid)
         .get();
 
+    getLatLng(p);
+    //get reference for uploaded image
     final imageRef = FirebaseStorage.instance
         .ref()
         .child('exhibit_images')
         .child(currentUser.uid + '-' + Timestamp.now().toString() + '.jpg');
+    //upload the image
     await imageRef.putFile(File(_image!.path));
-
+    //get the image URL
     final _url = await imageRef.getDownloadURL();
+    //and we add the URL to the images list
+    images.add(_url);
+    //lastly, exhibit data is uploaded to Firebase
     ref.read(exhibitListControllerProvider.notifier).addExhibit(
+        lat: lat,
+        lng: lng,
         createdAt: DateTime.now(),
         description: _description,
         startDate: DateTime.parse(_startDate),
@@ -55,8 +79,7 @@ class NewExhibit extends ConsumerWidget {
         title: _title,
         userId: currentUser.uid,
         userImageUrl: userData['image_url'],
-        //THIS IS NULLABLE don't forget!
-        exhibitImageUrl: _url,
+        imageList: images,
         username: userData['username']);
     _place.clear();
     Navigator.pop;
@@ -112,7 +135,7 @@ class NewExhibit extends ConsumerWidget {
                     icon: Icon(Icons.home),
                   ),
                   onTap: () async {
-                    Prediction? p = await PlacesAutocomplete.show(
+                    p = await PlacesAutocomplete.show(
                         context: context,
                         apiKey: dotenv.env['google-api-key']!,
                         mode: Mode.overlay, // Mode.fullscreen

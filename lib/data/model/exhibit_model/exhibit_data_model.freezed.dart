@@ -24,12 +24,14 @@ class _$ExhibitTearOff {
 
   _Exhibit call(
       {String? id,
+      required double lat,
+      required double lng,
       required DateTime createdAt,
       required String description,
       required DateTime startDate,
       required DateTime endDate,
       required String openingTime,
-      String? exhibitImageUrl,
+      required List<String> imageList,
       required String location,
       required String title,
       required String userId,
@@ -37,12 +39,14 @@ class _$ExhibitTearOff {
       required String username}) {
     return _Exhibit(
       id: id,
+      lat: lat,
+      lng: lng,
       createdAt: createdAt,
       description: description,
       startDate: startDate,
       endDate: endDate,
       openingTime: openingTime,
-      exhibitImageUrl: exhibitImageUrl,
+      imageList: imageList,
       location: location,
       title: title,
       userId: userId,
@@ -62,12 +66,14 @@ const $Exhibit = _$ExhibitTearOff();
 /// @nodoc
 mixin _$Exhibit {
   String? get id => throw _privateConstructorUsedError;
+  double get lat => throw _privateConstructorUsedError;
+  double get lng => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   DateTime get startDate => throw _privateConstructorUsedError;
   DateTime get endDate => throw _privateConstructorUsedError;
   String get openingTime => throw _privateConstructorUsedError;
-  String? get exhibitImageUrl => throw _privateConstructorUsedError;
+  List<String> get imageList => throw _privateConstructorUsedError;
   String get location => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get userId => throw _privateConstructorUsedError;
@@ -85,12 +91,14 @@ abstract class $ExhibitCopyWith<$Res> {
       _$ExhibitCopyWithImpl<$Res>;
   $Res call(
       {String? id,
+      double lat,
+      double lng,
       DateTime createdAt,
       String description,
       DateTime startDate,
       DateTime endDate,
       String openingTime,
-      String? exhibitImageUrl,
+      List<String> imageList,
       String location,
       String title,
       String userId,
@@ -109,12 +117,14 @@ class _$ExhibitCopyWithImpl<$Res> implements $ExhibitCopyWith<$Res> {
   @override
   $Res call({
     Object? id = freezed,
+    Object? lat = freezed,
+    Object? lng = freezed,
     Object? createdAt = freezed,
     Object? description = freezed,
     Object? startDate = freezed,
     Object? endDate = freezed,
     Object? openingTime = freezed,
-    Object? exhibitImageUrl = freezed,
+    Object? imageList = freezed,
     Object? location = freezed,
     Object? title = freezed,
     Object? userId = freezed,
@@ -126,6 +136,14 @@ class _$ExhibitCopyWithImpl<$Res> implements $ExhibitCopyWith<$Res> {
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
+      lat: lat == freezed
+          ? _value.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as double,
+      lng: lng == freezed
+          ? _value.lng
+          : lng // ignore: cast_nullable_to_non_nullable
+              as double,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -146,10 +164,10 @@ class _$ExhibitCopyWithImpl<$Res> implements $ExhibitCopyWith<$Res> {
           ? _value.openingTime
           : openingTime // ignore: cast_nullable_to_non_nullable
               as String,
-      exhibitImageUrl: exhibitImageUrl == freezed
-          ? _value.exhibitImageUrl
-          : exhibitImageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
+      imageList: imageList == freezed
+          ? _value.imageList
+          : imageList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       location: location == freezed
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
@@ -181,12 +199,14 @@ abstract class _$ExhibitCopyWith<$Res> implements $ExhibitCopyWith<$Res> {
   @override
   $Res call(
       {String? id,
+      double lat,
+      double lng,
       DateTime createdAt,
       String description,
       DateTime startDate,
       DateTime endDate,
       String openingTime,
-      String? exhibitImageUrl,
+      List<String> imageList,
       String location,
       String title,
       String userId,
@@ -206,12 +226,14 @@ class __$ExhibitCopyWithImpl<$Res> extends _$ExhibitCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
+    Object? lat = freezed,
+    Object? lng = freezed,
     Object? createdAt = freezed,
     Object? description = freezed,
     Object? startDate = freezed,
     Object? endDate = freezed,
     Object? openingTime = freezed,
-    Object? exhibitImageUrl = freezed,
+    Object? imageList = freezed,
     Object? location = freezed,
     Object? title = freezed,
     Object? userId = freezed,
@@ -223,6 +245,14 @@ class __$ExhibitCopyWithImpl<$Res> extends _$ExhibitCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
+      lat: lat == freezed
+          ? _value.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as double,
+      lng: lng == freezed
+          ? _value.lng
+          : lng // ignore: cast_nullable_to_non_nullable
+              as double,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -243,10 +273,10 @@ class __$ExhibitCopyWithImpl<$Res> extends _$ExhibitCopyWithImpl<$Res>
           ? _value.openingTime
           : openingTime // ignore: cast_nullable_to_non_nullable
               as String,
-      exhibitImageUrl: exhibitImageUrl == freezed
-          ? _value.exhibitImageUrl
-          : exhibitImageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
+      imageList: imageList == freezed
+          ? _value.imageList
+          : imageList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       location: location == freezed
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
@@ -276,12 +306,14 @@ class __$ExhibitCopyWithImpl<$Res> extends _$ExhibitCopyWithImpl<$Res>
 class _$_Exhibit extends _Exhibit {
   const _$_Exhibit(
       {this.id,
+      required this.lat,
+      required this.lng,
       required this.createdAt,
       required this.description,
       required this.startDate,
       required this.endDate,
       required this.openingTime,
-      this.exhibitImageUrl,
+      required this.imageList,
       required this.location,
       required this.title,
       required this.userId,
@@ -295,6 +327,10 @@ class _$_Exhibit extends _Exhibit {
   @override
   final String? id;
   @override
+  final double lat;
+  @override
+  final double lng;
+  @override
   final DateTime createdAt;
   @override
   final String description;
@@ -305,7 +341,7 @@ class _$_Exhibit extends _Exhibit {
   @override
   final String openingTime;
   @override
-  final String? exhibitImageUrl;
+  final List<String> imageList;
   @override
   final String location;
   @override
@@ -319,7 +355,7 @@ class _$_Exhibit extends _Exhibit {
 
   @override
   String toString() {
-    return 'Exhibit(id: $id, createdAt: $createdAt, description: $description, startDate: $startDate, endDate: $endDate, openingTime: $openingTime, exhibitImageUrl: $exhibitImageUrl, location: $location, title: $title, userId: $userId, userImageUrl: $userImageUrl, username: $username)';
+    return 'Exhibit(id: $id, lat: $lat, lng: $lng, createdAt: $createdAt, description: $description, startDate: $startDate, endDate: $endDate, openingTime: $openingTime, imageList: $imageList, location: $location, title: $title, userId: $userId, userImageUrl: $userImageUrl, username: $username)';
   }
 
   @override
@@ -328,6 +364,8 @@ class _$_Exhibit extends _Exhibit {
         (other.runtimeType == runtimeType &&
             other is _Exhibit &&
             const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.lat, lat) &&
+            const DeepCollectionEquality().equals(other.lng, lng) &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
             const DeepCollectionEquality()
                 .equals(other.description, description) &&
@@ -335,8 +373,7 @@ class _$_Exhibit extends _Exhibit {
             const DeepCollectionEquality().equals(other.endDate, endDate) &&
             const DeepCollectionEquality()
                 .equals(other.openingTime, openingTime) &&
-            const DeepCollectionEquality()
-                .equals(other.exhibitImageUrl, exhibitImageUrl) &&
+            const DeepCollectionEquality().equals(other.imageList, imageList) &&
             const DeepCollectionEquality().equals(other.location, location) &&
             const DeepCollectionEquality().equals(other.title, title) &&
             const DeepCollectionEquality().equals(other.userId, userId) &&
@@ -349,12 +386,14 @@ class _$_Exhibit extends _Exhibit {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(lat),
+      const DeepCollectionEquality().hash(lng),
       const DeepCollectionEquality().hash(createdAt),
       const DeepCollectionEquality().hash(description),
       const DeepCollectionEquality().hash(startDate),
       const DeepCollectionEquality().hash(endDate),
       const DeepCollectionEquality().hash(openingTime),
-      const DeepCollectionEquality().hash(exhibitImageUrl),
+      const DeepCollectionEquality().hash(imageList),
       const DeepCollectionEquality().hash(location),
       const DeepCollectionEquality().hash(title),
       const DeepCollectionEquality().hash(userId),
@@ -375,12 +414,14 @@ class _$_Exhibit extends _Exhibit {
 abstract class _Exhibit extends Exhibit {
   const factory _Exhibit(
       {String? id,
+      required double lat,
+      required double lng,
       required DateTime createdAt,
       required String description,
       required DateTime startDate,
       required DateTime endDate,
       required String openingTime,
-      String? exhibitImageUrl,
+      required List<String> imageList,
       required String location,
       required String title,
       required String userId,
@@ -393,6 +434,10 @@ abstract class _Exhibit extends Exhibit {
   @override
   String? get id;
   @override
+  double get lat;
+  @override
+  double get lng;
+  @override
   DateTime get createdAt;
   @override
   String get description;
@@ -403,7 +448,7 @@ abstract class _Exhibit extends Exhibit {
   @override
   String get openingTime;
   @override
-  String? get exhibitImageUrl;
+  List<String> get imageList;
   @override
   String get location;
   @override

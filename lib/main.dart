@@ -1,6 +1,6 @@
 import 'package:artgallery/data/controllers/auth_controller.dart';
 import 'package:artgallery/view/screens/auth_screen.dart';
-import 'package:artgallery/view/screens/main_wrapper.dart';
+import 'package:artgallery/view/widgets/drawer.dart';
 import 'package:artgallery/view/widgets/exhibit/new_exhibit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +46,7 @@ class MyApp extends ConsumerWidget {
         stream: authControllerState.stream,
         builder: (ctx, userSnapshot) {
           if (userSnapshot.hasData) {
-            return MainWrapper();
+            return CustomDrawer();
           }
           return AuthScreen();
         },

@@ -27,13 +27,15 @@ class _$UserModelTearOff {
       required String image_url,
       required String username,
       required String firstName,
-      required String lastName}) {
+      required String lastName,
+      List<String>? favorites}) {
     return _UserModel(
       email: email,
       image_url: image_url,
       username: username,
       firstName: firstName,
       lastName: lastName,
+      favorites: favorites,
     );
   }
 
@@ -52,6 +54,7 @@ mixin _$UserModel {
   String get username => throw _privateConstructorUsedError;
   String get firstName => throw _privateConstructorUsedError;
   String get lastName => throw _privateConstructorUsedError;
+  List<String>? get favorites => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -68,7 +71,8 @@ abstract class $UserModelCopyWith<$Res> {
       String image_url,
       String username,
       String firstName,
-      String lastName});
+      String lastName,
+      List<String>? favorites});
 }
 
 /// @nodoc
@@ -86,6 +90,7 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
     Object? username = freezed,
     Object? firstName = freezed,
     Object? lastName = freezed,
+    Object? favorites = freezed,
   }) {
     return _then(_value.copyWith(
       email: email == freezed
@@ -108,6 +113,10 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
               as String,
+      favorites: favorites == freezed
+          ? _value.favorites
+          : favorites // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
@@ -123,7 +132,8 @@ abstract class _$UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
       String image_url,
       String username,
       String firstName,
-      String lastName});
+      String lastName,
+      List<String>? favorites});
 }
 
 /// @nodoc
@@ -142,6 +152,7 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
     Object? username = freezed,
     Object? firstName = freezed,
     Object? lastName = freezed,
+    Object? favorites = freezed,
   }) {
     return _then(_UserModel(
       email: email == freezed
@@ -164,6 +175,10 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
               as String,
+      favorites: favorites == freezed
+          ? _value.favorites
+          : favorites // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
@@ -176,7 +191,8 @@ class _$_UserModel extends _UserModel {
       required this.image_url,
       required this.username,
       required this.firstName,
-      required this.lastName})
+      required this.lastName,
+      this.favorites})
       : super._();
 
   factory _$_UserModel.fromJson(Map<String, dynamic> json) =>
@@ -192,10 +208,12 @@ class _$_UserModel extends _UserModel {
   final String firstName;
   @override
   final String lastName;
+  @override
+  final List<String>? favorites;
 
   @override
   String toString() {
-    return 'UserModel(email: $email, image_url: $image_url, username: $username, firstName: $firstName, lastName: $lastName)';
+    return 'UserModel(email: $email, image_url: $image_url, username: $username, firstName: $firstName, lastName: $lastName, favorites: $favorites)';
   }
 
   @override
@@ -207,7 +225,8 @@ class _$_UserModel extends _UserModel {
             const DeepCollectionEquality().equals(other.image_url, image_url) &&
             const DeepCollectionEquality().equals(other.username, username) &&
             const DeepCollectionEquality().equals(other.firstName, firstName) &&
-            const DeepCollectionEquality().equals(other.lastName, lastName));
+            const DeepCollectionEquality().equals(other.lastName, lastName) &&
+            const DeepCollectionEquality().equals(other.favorites, favorites));
   }
 
   @override
@@ -217,7 +236,8 @@ class _$_UserModel extends _UserModel {
       const DeepCollectionEquality().hash(image_url),
       const DeepCollectionEquality().hash(username),
       const DeepCollectionEquality().hash(firstName),
-      const DeepCollectionEquality().hash(lastName));
+      const DeepCollectionEquality().hash(lastName),
+      const DeepCollectionEquality().hash(favorites));
 
   @JsonKey(ignore: true)
   @override
@@ -236,7 +256,8 @@ abstract class _UserModel extends UserModel {
       required String image_url,
       required String username,
       required String firstName,
-      required String lastName}) = _$_UserModel;
+      required String lastName,
+      List<String>? favorites}) = _$_UserModel;
   const _UserModel._() : super._();
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
@@ -252,6 +273,8 @@ abstract class _UserModel extends UserModel {
   String get firstName;
   @override
   String get lastName;
+  @override
+  List<String>? get favorites;
   @override
   @JsonKey(ignore: true)
   _$UserModelCopyWith<_UserModel> get copyWith =>

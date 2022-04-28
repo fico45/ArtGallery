@@ -15,24 +15,28 @@ class ExhibitCard extends StatelessWidget {
           onTap: () => Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ExhibitDetailsView(exhibit),
+              builder: (context) => ExhibitDetailsView(exhibit: exhibit),
             ),
           ),
           child: Card(
             elevation: 6,
-            shadowColor: Theme.of(context).colorScheme.secondary,
             shape: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(25),
-                borderSide: BorderSide(
-                    color: Theme.of(context).colorScheme.primary, width: 2)),
+              borderRadius: BorderRadius.circular(25),
+              borderSide: BorderSide(
+                color: Theme.of(context).colorScheme.primary,
+                width: 2,
+              ),
+            ),
             child: Container(
               decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  borderRadius: BorderRadius.circular(25),
-                  image: DecorationImage(
-                      image: NetworkImage(exhibit.exhibitImageUrl!),
-                      fit: BoxFit.cover,
-                      opacity: 0.4)),
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(25),
+                //hey implement exhibitImageUrl as imageList (list of images) for carousel_slider
+                /* image: DecorationImage(
+                    image: NetworkImage(exhibit.exhibitImageUrl!),
+                    fit: BoxFit.cover,
+                    opacity: 0.4), */
+              ),
               width: MediaQuery.of(context).size.width,
               height: 200,
               child: Column(

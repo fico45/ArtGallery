@@ -14,6 +14,7 @@ abstract class UserModel implements _$UserModel {
     required String username,
     required String firstName,
     required String lastName,
+    List<String>? favorites,
   }) = _UserModel;
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
