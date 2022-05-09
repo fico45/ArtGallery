@@ -1,4 +1,5 @@
 import 'package:artgallery/data/controllers/auth_controller.dart';
+import 'package:artgallery/data/model/address_model/address_data_model.dart';
 import 'package:artgallery/data/model/exhibit_model/exhibit_data_model.dart';
 import 'package:artgallery/repositories/custom_exception.dart';
 import 'package:artgallery/repositories/exhibit_repository.dart';
@@ -59,7 +60,7 @@ class ExhibitListController extends StateNotifier<AsyncValue<List<Exhibit>>> {
     required DateTime endDate,
     required String openingTime,
     required String userImageUrl,
-    required String location,
+    required AddressData location,
     required String title,
     required String userId,
     required List<String> imageList,
@@ -104,12 +105,14 @@ class ExhibitListController extends StateNotifier<AsyncValue<List<Exhibit>>> {
     }
   }
 
-  Future<void> deleteExhibit({required String exhibitId}) async {
+  Future<void> deleteExhibit({required Exhibit exhibit}) async {
     try {
-      await _read(exhibitRepositoryProvider)
-          .deleteExhibit(userId: _userId!, exhibitId: exhibitId);
+      await _read(exhibitRepositoryProvider).deleteExhibit(
+          userId: _userId!,
+          exhibitId: exhibit.id!,
+          imagesToDelete: exhibit.imageList);
       state.whenData((items) => state = AsyncValue.data(
-          items..removeWhere((element) => element.id == exhibitId)));
+          items..removeWhere((element) => element.id == exhibit.id)));
     } on CustomException catch (e) {
       _read(exhibitListExceptionProvider.notifier).state = e;
     }

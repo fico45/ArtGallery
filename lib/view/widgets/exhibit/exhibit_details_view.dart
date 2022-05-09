@@ -1,10 +1,11 @@
 import 'package:artgallery/view/widgets/appbar.dart';
 import 'package:artgallery/view/widgets/googlemaps.dart';
-import 'package:artgallery/view/widgets/image_view/image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:artgallery/data/controllers/user_controller.dart';
 import 'package:artgallery/data/model/exhibit_model/exhibit_data_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:artgallery/data/functions.dart';
 
 class ExhibitDetailsView extends ConsumerStatefulWidget {
   final Exhibit exhibit;
@@ -24,16 +25,22 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
       //TODO: ensure this is correct
       tag: widget.exhibit.id!,
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.background,
         appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(80), child: CustomAppBar()),
+            preferredSize: const Size.fromHeight(45),
+            child: CustomAppBar(
+              exhibit: widget.exhibit,
+            )),
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding:
-                    const EdgeInsets.only(left: 30.0, right: 30.0, top: 20.0),
+                padding: const EdgeInsets.only(
+                  left: 10.0,
+                  right: 10.0,
+                  top: 20.0,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -49,18 +56,9 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
                       height: 8,
                     ),
                     Text(
-                      widget.exhibit.location,
+                      widget.exhibit.location.street!,
                       style:
                           TextStyle(fontWeight: FontWeight.w300, fontSize: 16),
-                    ),
-                    Text(
-                      ref.watch(userControllerProvider).when(
-                          data: (data) => data.firstName + ' ' + data.lastName,
-                          error: (error, st) =>
-                              'There seems to be an error with loading the data.',
-                          loading: () => 'Loading...'),
-                      style:
-                          TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 30.0, bottom: 10.0),
@@ -98,7 +96,6 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
                                             fontWeight: FontWeight.w400,
                                             fontSize: 16),
                                       ),
-                                      Text(widget.exhibit.location)
                                     ],
                                   ),
                                   error: (error, st) =>
@@ -112,7 +109,9 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
                                 ),
                                 Text(
                                   "The owner",
-                                  style: TextStyle(color: Color(0xffFB6161)),
+                                  style: TextStyle(
+                                      color:
+                                          Theme.of(context).colorScheme.error),
                                 ),
                               ],
                             ),
@@ -125,15 +124,22 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            children: [
-                              //TODO: I think images can go in here.
-                            ],
-                          ),
-                        ],
+                      child: CarouselSlider(
+                        items: generateImages(widget.exhibit.imageList),
+                        options: CarouselOptions(
+                          height: 250,
+                          aspectRatio: 16 / 9,
+                          initialPage: 0,
+                          enableInfiniteScroll: true,
+                          reverse: false,
+                          autoPlay: true,
+                          autoPlayInterval: Duration(seconds: 3),
+                          autoPlayAnimationDuration:
+                              Duration(milliseconds: 800),
+                          autoPlayCurve: Curves.fastOutSlowIn,
+                          enlargeCenterPage: true,
+                          scrollDirection: Axis.horizontal,
+                        ),
                       ),
                     ),
                     Divider(
@@ -142,6 +148,18 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
+                        SizedBox(
+                          height: 12,
+                        ),
+                        Text(
+                          'Start date',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 18),
+                        ),
+                        SizedBox(
+                          height: 4,
+                        ),
+                        Text(widget.exhibit.startDate.toIso8601String()),
                         SizedBox(
                           height: 12,
                         ),
@@ -169,8 +187,7 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
                           height: 300,
                           width: MediaQuery.of(context).size.width - 60,
                           child: GoogleMaps(
-                            lat: widget.exhibit.lat,
-                            lng: widget.exhibit.lng,
+                            exhibit: widget.exhibit,
                           ),
                         ),
                         Container(

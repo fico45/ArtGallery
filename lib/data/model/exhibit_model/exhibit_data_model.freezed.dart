@@ -32,7 +32,7 @@ class _$ExhibitTearOff {
       required DateTime endDate,
       required String openingTime,
       required List<String> imageList,
-      required String location,
+      required AddressData location,
       required String title,
       required String userId,
       required String userImageUrl,
@@ -74,7 +74,7 @@ mixin _$Exhibit {
   DateTime get endDate => throw _privateConstructorUsedError;
   String get openingTime => throw _privateConstructorUsedError;
   List<String> get imageList => throw _privateConstructorUsedError;
-  String get location => throw _privateConstructorUsedError;
+  AddressData get location => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get userId => throw _privateConstructorUsedError;
   String get userImageUrl => throw _privateConstructorUsedError;
@@ -99,11 +99,13 @@ abstract class $ExhibitCopyWith<$Res> {
       DateTime endDate,
       String openingTime,
       List<String> imageList,
-      String location,
+      AddressData location,
       String title,
       String userId,
       String userImageUrl,
       String username});
+
+  $AddressDataCopyWith<$Res> get location;
 }
 
 /// @nodoc
@@ -171,7 +173,7 @@ class _$ExhibitCopyWithImpl<$Res> implements $ExhibitCopyWith<$Res> {
       location: location == freezed
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
-              as String,
+              as AddressData,
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -190,6 +192,13 @@ class _$ExhibitCopyWithImpl<$Res> implements $ExhibitCopyWith<$Res> {
               as String,
     ));
   }
+
+  @override
+  $AddressDataCopyWith<$Res> get location {
+    return $AddressDataCopyWith<$Res>(_value.location, (value) {
+      return _then(_value.copyWith(location: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -207,11 +216,14 @@ abstract class _$ExhibitCopyWith<$Res> implements $ExhibitCopyWith<$Res> {
       DateTime endDate,
       String openingTime,
       List<String> imageList,
-      String location,
+      AddressData location,
       String title,
       String userId,
       String userImageUrl,
       String username});
+
+  @override
+  $AddressDataCopyWith<$Res> get location;
 }
 
 /// @nodoc
@@ -280,7 +292,7 @@ class __$ExhibitCopyWithImpl<$Res> extends _$ExhibitCopyWithImpl<$Res>
       location: location == freezed
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
-              as String,
+              as AddressData,
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -343,7 +355,7 @@ class _$_Exhibit extends _Exhibit {
   @override
   final List<String> imageList;
   @override
-  final String location;
+  final AddressData location;
   @override
   final String title;
   @override
@@ -422,7 +434,7 @@ abstract class _Exhibit extends Exhibit {
       required DateTime endDate,
       required String openingTime,
       required List<String> imageList,
-      required String location,
+      required AddressData location,
       required String title,
       required String userId,
       required String userImageUrl,
@@ -450,7 +462,7 @@ abstract class _Exhibit extends Exhibit {
   @override
   List<String> get imageList;
   @override
-  String get location;
+  AddressData get location;
   @override
   String get title;
   @override

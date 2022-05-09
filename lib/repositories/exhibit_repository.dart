@@ -2,6 +2,7 @@ import 'package:artgallery/data/model/exhibit_model/exhibit_data_model.dart';
 import 'package:artgallery/data/providers/general_providers.dart';
 import 'package:artgallery/repositories/custom_exception.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 abstract class BaseExhibitRepository {
@@ -11,7 +12,9 @@ abstract class BaseExhibitRepository {
   Future<void> updateExhibit(
       {required String userId, required Exhibit exhibit});
   Future<void> deleteExhibit(
-      {required String userId, required String exhibitId});
+      {required String userId,
+      required String exhibitId,
+      required List<String> imagesToDelete});
 }
 
 final exhibitRepositoryProvider =
@@ -83,8 +86,11 @@ class ExhibitRepository implements BaseExhibitRepository {
   Future<void> deleteExhibit({
     required String userId,
     required String exhibitId,
+    required List<String> imagesToDelete,
   }) async {
     try {
+      imagesToDelete.forEach(
+          (element) => FirebaseStorage.instance.refFromURL(element).delete());
       await _read(firebaseFirstoreProvider)
           .collection('exhibits')
           .doc(exhibitId)

@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:artgallery/data/controllers/auth_controller.dart';
 import 'package:artgallery/data/controllers/exhibit_list_controller.dart';
+import 'package:artgallery/data/functions.dart';
+import 'package:artgallery/data/model/address_model/address_data_model.dart';
+import 'package:artgallery/view/widgets/appbar.dart';
 import 'package:date_time_picker/date_time_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -13,14 +15,21 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:google_maps_webservice/places.dart';
 
-class NewExhibit extends ConsumerWidget {
+class NewExhibit extends ConsumerStatefulWidget {
   static const routeName = '/new-exhibit';
 
   NewExhibit({Key? key}) : super(key: key);
 
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _NewExhibitState();
+}
+
+class _NewExhibitState extends ConsumerState<NewExhibit> {
+  bool isLoading = false;
   final _places = GoogleMapsPlaces(apiKey: dotenv.env['google-api-key']!);
 
   TextEditingController _place = new TextEditingController();
+
   final ImagePicker _picker = ImagePicker();
   Prediction? p;
   var _description = '';
@@ -31,8 +40,18 @@ class NewExhibit extends ConsumerWidget {
   var _openingTime = '';
   double lat = 0;
   double lng = 0;
-  File? _image;
-  List<String> images = [];
+  List<File> _imagesForUpload = [];
+  List<String> _images = [];
+
+  @override
+  loader() {
+    return AlertDialog(
+      title: Text('Uploading data...'),
+    );
+  }
+
+  @override
+  loadingBgBlur() => 10.0;
 
   Future<void> getLatLng(Prediction? p) async {
     if (p != null) {
@@ -46,26 +65,25 @@ class NewExhibit extends ConsumerWidget {
     print("$lat \n$lng");
   }
 
-  void _postExhibit(WidgetRef ref) async {
+  Future<void> _postExhibit(BuildContext context) async {
+    setState(() {
+      isLoading = true;
+    });
     //get the user info
     final currentUser = ref.read(authControllerProvider);
     final userData = await FirebaseFirestore.instance
         .collection('users')
         .doc(currentUser!.uid)
         .get();
-
     getLatLng(p);
-    //get reference for uploaded image
-    final imageRef = FirebaseStorage.instance
-        .ref()
-        .child('exhibit_images')
-        .child(currentUser.uid + '-' + Timestamp.now().toString() + '.jpg');
-    //upload the image
-    await imageRef.putFile(File(_image!.path));
-    //get the image URL
-    final _url = await imageRef.getDownloadURL();
-    //and we add the URL to the images list
-    images.add(_url);
+    _images = await uploadExhibitImages(currentUser, _imagesForUpload);
+    //let's create the AddressData object
+    final locationSplit = _place.text.split(',');
+    final _address = AddressData(
+        street: locationSplit[0],
+        city: locationSplit[1],
+        country: locationSplit[2]);
+
     //lastly, exhibit data is uploaded to Firebase
     ref.read(exhibitListControllerProvider.notifier).addExhibit(
         lat: lat,
@@ -75,22 +93,24 @@ class NewExhibit extends ConsumerWidget {
         startDate: DateTime.parse(_startDate),
         endDate: DateTime.parse(_endDate),
         openingTime: _openingTime,
-        location: _place.text,
+        location: _address,
         title: _title,
         userId: currentUser.uid,
         userImageUrl: userData['image_url'],
-        imageList: images,
+        imageList: _images,
         username: userData['username']);
     _place.clear();
-    Navigator.pop;
+    setState(() {
+      isLoading = false;
+    });
+    Navigator.pop(context);
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('New Exhibit'),
-      ),
+      appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(45), child: CustomAppBar()),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Container(
@@ -143,7 +163,7 @@ class NewExhibit extends ConsumerWidget {
                         radius: 1000,
                         strictbounds: false,
                         region: "",
-                        language: "hr",
+                        language: "en",
                         sessionToken: UniqueKey().toString(),
                         components: [new Component(Component.country, "hr")],
                         types: [""],
@@ -152,11 +172,6 @@ class NewExhibit extends ConsumerWidget {
 
                     //this should save the selected location and show it in form field
                     _place.text = p!.description.toString();
-                    /* final sessionToken = Uuid().v4();
-                    final Suggestion result = await showSearch(
-                      context: context,
-                      delegate: AddressSearch(sessionToken),
-                    ); */
                   },
                 ),
               ),
@@ -264,31 +279,35 @@ class NewExhibit extends ConsumerWidget {
                 onPressed: () async {
                   XFile? newPicker = await _picker.pickImage(
                       source: ImageSource.gallery, imageQuality: 60);
-                  _image = File(newPicker!.path);
+                  setState(() {
+                    _imagesForUpload.add(File(newPicker!.path));
+                  });
                 },
                 child: Text('Upload image'),
               ),
               SizedBox(height: 10),
               Container(
-                width: 300,
+                decoration: BoxDecoration(border: Border.all()),
+                width: MediaQuery.of(context).size.width,
                 height: 300,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(32),
-                  border: Border.all(
-                    color: Theme.of(context).colorScheme.primary,
-                    width: 2,
-                  ),
-                ),
-                child: _image != null
-                    ? Image.file(
-                        _image!,
-                        width: 300,
-                        height: 300,
-                        fit: BoxFit.fitHeight,
-                      )
+                child: _imagesForUpload.isNotEmpty
+                    ? ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: _imagesForUpload.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Image.file(
+                              _imagesForUpload[index],
+                              width: 300,
+                              height: 300,
+                              fit: BoxFit.fitHeight,
+                            ),
+                          );
+                        })
                     : Container(
                         decoration: BoxDecoration(
-                          color: Colors.red[200],
+                          color: Theme.of(context).colorScheme.tertiary,
                           borderRadius: BorderRadius.circular(32),
                         ),
                         width: 300,
@@ -302,9 +321,11 @@ class NewExhibit extends ConsumerWidget {
               SizedBox(
                 height: 10,
               ),
-              ElevatedButton(
-                  onPressed: () => _postExhibit(ref),
-                  child: Text('Post exhibit')),
+              isLoading
+                  ? CircularProgressIndicator()
+                  : ElevatedButton(
+                      onPressed: () => _postExhibit(context),
+                      child: Text('Post exhibit')),
             ],
           ),
         ),

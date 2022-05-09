@@ -16,10 +16,16 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).colorScheme.secondary,
         child: Icon(Icons.add),
         onPressed: () {
           Navigator.push(
-              context, CustomPageRoute(NewExhibit(), Alignment.bottomCenter));
+            context,
+            CustomPageRoute(
+              NewExhibit(),
+              Alignment.bottomCenter,
+            ),
+          );
         },
       ),
       body: ExhibitView(),

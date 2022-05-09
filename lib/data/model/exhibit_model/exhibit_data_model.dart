@@ -1,3 +1,4 @@
+import 'package:artgallery/data/model/address_model/address_data_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -18,7 +19,7 @@ abstract class Exhibit implements _$Exhibit {
     required DateTime endDate,
     required String openingTime,
     required List<String> imageList,
-    required String location,
+    required AddressData location,
     required String title,
     required String userId,
     required String userImageUrl,

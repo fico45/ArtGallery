@@ -17,7 +17,8 @@ _$_Exhibit _$$_ExhibitFromJson(Map json) => _$_Exhibit(
       openingTime: json['openingTime'] as String,
       imageList:
           (json['imageList'] as List<dynamic>).map((e) => e as String).toList(),
-      location: json['location'] as String,
+      location: AddressData.fromJson(
+          Map<String, dynamic>.from(json['location'] as Map)),
       title: json['title'] as String,
       userId: json['userId'] as String,
       userImageUrl: json['userImageUrl'] as String,
@@ -35,7 +36,7 @@ Map<String, dynamic> _$$_ExhibitToJson(_$_Exhibit instance) =>
       'endDate': instance.endDate.toIso8601String(),
       'openingTime': instance.openingTime,
       'imageList': instance.imageList,
-      'location': instance.location,
+      'location': instance.location.toJson(),
       'title': instance.title,
       'userId': instance.userId,
       'userImageUrl': instance.userImageUrl,

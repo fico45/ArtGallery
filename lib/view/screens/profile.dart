@@ -31,6 +31,7 @@ class ProfileView extends ConsumerWidget {
                 ],
               ),
             ),
+            Divider(),
             Row(
               children: [
                 Padding(

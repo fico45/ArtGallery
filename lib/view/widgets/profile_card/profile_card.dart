@@ -25,15 +25,7 @@ class ProfileCard extends ConsumerWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25),
-          gradient: LinearGradient(
-            tileMode: TileMode.clamp,
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFF3A9BDC),
-              Color(0xFF29C5F6),
-            ],
-          ),
+          color: Theme.of(context).colorScheme.primaryContainer,
         ),
         width: MediaQuery.of(context).size.width,
         child: Padding(
@@ -57,25 +49,45 @@ class ProfileCard extends ConsumerWidget {
                                   (value) => value!.metadata.creationTime!))),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.onPrimary,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
                       ),
                     ),
                   ],
                 ),
               ),
-              CircleAvatar(
-                radius: 48,
-                backgroundColor: Theme.of(context).colorScheme.secondary,
-                child: CircleAvatar(
-                  radius: 45,
-                  backgroundImage: NetworkImage(user.image_url),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        Text('Role:'),
+                        Text('Admin'),
+                      ],
+                    ),
+                    CircleAvatar(
+                      radius: 48,
+                      backgroundColor: Theme.of(context).colorScheme.secondary,
+                      child: CircleAvatar(
+                        radius: 45,
+                        backgroundImage: NetworkImage(user.image_url),
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        Text('Rating:'),
+                        Text('3.5'),
+                      ],
+                    ),
+                  ],
                 ),
               ),
               Text(
                 user.firstName + " " + user.lastName,
                 style: TextStyle(
                   fontSize: 30,
-                  color: Theme.of(context).colorScheme.onPrimary,
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
                 ),
               ),
             ],

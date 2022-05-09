@@ -1,10 +1,11 @@
+import 'package:artgallery/data/model/exhibit_model/exhibit_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class GoogleMaps extends StatefulWidget {
-  final lat, lng;
-  const GoogleMaps({Key? key, required this.lat, required this.lng})
-      : super(key: key);
+  final Exhibit exhibit;
+  const GoogleMaps({Key? key, required this.exhibit}) : super(key: key);
 
   @override
   _GoogleMapsState createState() => _GoogleMapsState();
@@ -13,17 +14,29 @@ class GoogleMaps extends StatefulWidget {
 class _GoogleMapsState extends State<GoogleMaps> {
   late GoogleMapController _googleMapController;
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
+
+  static Future<void> openMap(double latitude, double longitude) async {
+    String googleUrl =
+        'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
+    if (await canLaunchUrl(Uri.parse(googleUrl))) {
+      print('Map success');
+      await launchUrl(Uri.parse(googleUrl));
+    } else {
+      print('Map fail');
+      throw 'Could not open the map.';
+    }
+  }
+
   void _onMapCreated(GoogleMapController controller) {
     _googleMapController = controller;
     final marker = Marker(
       markerId: MarkerId('place_name'),
-      position: LatLng(widget.lat, widget.lng),
+      position: LatLng(widget.exhibit.lat, widget.exhibit.lng),
       infoWindow: InfoWindow(
-        title: 'title',
-        snippet: 'address',
+        title: widget.exhibit.location.street,
+        snippet: widget.exhibit.location.city,
       ),
     );
-
     setState(() {
       markers[MarkerId('place_name')] = marker;
     });
@@ -37,19 +50,22 @@ class _GoogleMapsState extends State<GoogleMaps> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 300,
-      width: MediaQuery.of(context).size.width - 60,
-      child: GoogleMap(
-        scrollGesturesEnabled: false,
-        zoomGesturesEnabled: false,
-        rotateGesturesEnabled: false,
-        markers: markers.values.toSet(),
-        initialCameraPosition:
-            CameraPosition(target: LatLng(widget.lat, widget.lng), zoom: 15.5),
-        myLocationButtonEnabled: false,
-        zoomControlsEnabled: false,
-        onMapCreated: _onMapCreated,
+    return InkWell(
+      onTap: () => openMap(widget.exhibit.lat, widget.exhibit.lng),
+      child: Container(
+        height: 300,
+        width: MediaQuery.of(context).size.width - 60,
+        child: GoogleMap(
+          scrollGesturesEnabled: false,
+          zoomGesturesEnabled: false,
+          rotateGesturesEnabled: false,
+          markers: markers.values.toSet(),
+          initialCameraPosition: CameraPosition(
+              target: LatLng(widget.exhibit.lat, widget.exhibit.lng),
+              zoom: 15.5),
+          zoomControlsEnabled: false,
+          onMapCreated: _onMapCreated,
+        ),
       ),
     );
   }

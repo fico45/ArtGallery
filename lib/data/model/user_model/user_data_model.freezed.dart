@@ -28,13 +28,17 @@ class _$UserModelTearOff {
       required String username,
       required String firstName,
       required String lastName,
-      List<String>? favorites}) {
+      required bool reviewable,
+      required String bio,
+      required List<String> favorites}) {
     return _UserModel(
       email: email,
       image_url: image_url,
       username: username,
       firstName: firstName,
       lastName: lastName,
+      reviewable: reviewable,
+      bio: bio,
       favorites: favorites,
     );
   }
@@ -54,7 +58,9 @@ mixin _$UserModel {
   String get username => throw _privateConstructorUsedError;
   String get firstName => throw _privateConstructorUsedError;
   String get lastName => throw _privateConstructorUsedError;
-  List<String>? get favorites => throw _privateConstructorUsedError;
+  bool get reviewable => throw _privateConstructorUsedError;
+  String get bio => throw _privateConstructorUsedError;
+  List<String> get favorites => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -72,7 +78,9 @@ abstract class $UserModelCopyWith<$Res> {
       String username,
       String firstName,
       String lastName,
-      List<String>? favorites});
+      bool reviewable,
+      String bio,
+      List<String> favorites});
 }
 
 /// @nodoc
@@ -90,6 +98,8 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
     Object? username = freezed,
     Object? firstName = freezed,
     Object? lastName = freezed,
+    Object? reviewable = freezed,
+    Object? bio = freezed,
     Object? favorites = freezed,
   }) {
     return _then(_value.copyWith(
@@ -113,10 +123,18 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
               as String,
+      reviewable: reviewable == freezed
+          ? _value.reviewable
+          : reviewable // ignore: cast_nullable_to_non_nullable
+              as bool,
+      bio: bio == freezed
+          ? _value.bio
+          : bio // ignore: cast_nullable_to_non_nullable
+              as String,
       favorites: favorites == freezed
           ? _value.favorites
           : favorites // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<String>,
     ));
   }
 }
@@ -133,7 +151,9 @@ abstract class _$UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
       String username,
       String firstName,
       String lastName,
-      List<String>? favorites});
+      bool reviewable,
+      String bio,
+      List<String> favorites});
 }
 
 /// @nodoc
@@ -152,6 +172,8 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
     Object? username = freezed,
     Object? firstName = freezed,
     Object? lastName = freezed,
+    Object? reviewable = freezed,
+    Object? bio = freezed,
     Object? favorites = freezed,
   }) {
     return _then(_UserModel(
@@ -175,10 +197,18 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
               as String,
+      reviewable: reviewable == freezed
+          ? _value.reviewable
+          : reviewable // ignore: cast_nullable_to_non_nullable
+              as bool,
+      bio: bio == freezed
+          ? _value.bio
+          : bio // ignore: cast_nullable_to_non_nullable
+              as String,
       favorites: favorites == freezed
           ? _value.favorites
           : favorites // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+              as List<String>,
     ));
   }
 }
@@ -192,7 +222,9 @@ class _$_UserModel extends _UserModel {
       required this.username,
       required this.firstName,
       required this.lastName,
-      this.favorites})
+      required this.reviewable,
+      required this.bio,
+      required this.favorites})
       : super._();
 
   factory _$_UserModel.fromJson(Map<String, dynamic> json) =>
@@ -209,11 +241,15 @@ class _$_UserModel extends _UserModel {
   @override
   final String lastName;
   @override
-  final List<String>? favorites;
+  final bool reviewable;
+  @override
+  final String bio;
+  @override
+  final List<String> favorites;
 
   @override
   String toString() {
-    return 'UserModel(email: $email, image_url: $image_url, username: $username, firstName: $firstName, lastName: $lastName, favorites: $favorites)';
+    return 'UserModel(email: $email, image_url: $image_url, username: $username, firstName: $firstName, lastName: $lastName, reviewable: $reviewable, bio: $bio, favorites: $favorites)';
   }
 
   @override
@@ -226,6 +262,9 @@ class _$_UserModel extends _UserModel {
             const DeepCollectionEquality().equals(other.username, username) &&
             const DeepCollectionEquality().equals(other.firstName, firstName) &&
             const DeepCollectionEquality().equals(other.lastName, lastName) &&
+            const DeepCollectionEquality()
+                .equals(other.reviewable, reviewable) &&
+            const DeepCollectionEquality().equals(other.bio, bio) &&
             const DeepCollectionEquality().equals(other.favorites, favorites));
   }
 
@@ -237,6 +276,8 @@ class _$_UserModel extends _UserModel {
       const DeepCollectionEquality().hash(username),
       const DeepCollectionEquality().hash(firstName),
       const DeepCollectionEquality().hash(lastName),
+      const DeepCollectionEquality().hash(reviewable),
+      const DeepCollectionEquality().hash(bio),
       const DeepCollectionEquality().hash(favorites));
 
   @JsonKey(ignore: true)
@@ -257,7 +298,9 @@ abstract class _UserModel extends UserModel {
       required String username,
       required String firstName,
       required String lastName,
-      List<String>? favorites}) = _$_UserModel;
+      required bool reviewable,
+      required String bio,
+      required List<String> favorites}) = _$_UserModel;
   const _UserModel._() : super._();
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
@@ -274,7 +317,11 @@ abstract class _UserModel extends UserModel {
   @override
   String get lastName;
   @override
-  List<String>? get favorites;
+  bool get reviewable;
+  @override
+  String get bio;
+  @override
+  List<String> get favorites;
   @override
   @JsonKey(ignore: true)
   _$UserModelCopyWith<_UserModel> get copyWith =>

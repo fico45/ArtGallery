@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 abstract class BaseUserModelRepository {
   Future<UserModel> retrieveUser({required String userId});
-
+  //Future<void> createUser({required UserModel newUser});
   Future<void> updateUser({required userId, required UserModel newUser});
   Future<void> deleteUser({required userId});
 }
@@ -32,6 +32,29 @@ class UserModelRepository implements BaseUserModelRepository {
       throw CustomException(message: e.message);
     }
   }
+
+  /*  @override
+  Future<void> createUser({required UserModel newUser}) async {
+    try {
+      authResult = await _auth.createUserWithEmailAndPassword(
+            email: email, password: password);
+      final ref = FirebaseStorage.instance
+            .ref()
+            .child('user_image')
+            .child(authResult.user!.uid + '.jpg');
+        await ref.putFile(File(image!.path));
+        final url = await ref.getDownloadURL();
+      await _read(firebaseFirstoreProvider).collection('users').doc().set({
+        'username': newUser.username,
+        'email': newUser.email,
+        'image_url': newUser.url,
+        'firstName': newUser.firstName,
+        'lastName': newUser.lastName,
+      });
+    } on FirebaseException catch (e) {
+      throw CustomException(message: e.message);
+    }
+  } */
 
   @override
   Future<void> updateUser({required userId, required UserModel newUser}) async {

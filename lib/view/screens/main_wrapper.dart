@@ -20,10 +20,11 @@ class _MainWrapperState extends ConsumerState<MainWrapper> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       bottomNavigationBar: FancyBottomNavigation(
           initialSelection: 1,
-          circleColor: Colors.orange,
-          inactiveIconColor: Colors.blue,
+          circleColor: Theme.of(context).colorScheme.onTertiaryContainer,
+          inactiveIconColor: Theme.of(context).colorScheme.onSurface,
           tabs: [
             TabData(iconData: Icons.search, title: 'Explore'),
             TabData(iconData: Icons.home, title: 'Dashboard'),
@@ -36,7 +37,7 @@ class _MainWrapperState extends ConsumerState<MainWrapper> {
           }),
       body: _getPage(currentPage),
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(80), child: CustomAppBar()),
+          preferredSize: const Size.fromHeight(45), child: CustomAppBar()),
     );
   }
 

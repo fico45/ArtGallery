@@ -1,3 +1,4 @@
+import 'package:artgallery/data/controllers/auth_controller.dart';
 import 'package:artgallery/data/controllers/user_controller.dart';
 import 'package:artgallery/view/screens/main_wrapper.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class CustomDrawerState extends State<CustomDrawer> {
   @override
   Widget build(BuildContext context) {
     return AdvancedDrawer(
-      backdropColor: Color(0xffFB6161).withOpacity(0.9),
+      backdropColor: Theme.of(context).colorScheme.tertiary.withOpacity(0.8),
       controller: _advancedDrawerController,
       animationCurve: Curves.easeInOut,
       animationDuration: const Duration(milliseconds: 300),
@@ -109,6 +110,25 @@ class CustomDrawerState extends State<CustomDrawer> {
                     'Settings',
                     style: TextStyle(fontWeight: FontWeight.w400, fontSize: 18),
                   ),
+                ),
+                Divider(),
+                Consumer(
+                  builder:
+                      (BuildContext context, WidgetRef ref, Widget? child) {
+                    return ListTile(
+                      leading: Icon(
+                        Icons.logout,
+                        size: 24,
+                      ),
+                      onTap: () =>
+                          ref.read(authControllerProvider.notifier).signOut(),
+                      title: Text(
+                        'Logout',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w400, fontSize: 18),
+                      ),
+                    );
+                  },
                 ),
                 Spacer(),
                 DefaultTextStyle(

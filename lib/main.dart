@@ -27,20 +27,8 @@ class MyApp extends ConsumerWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.orange,
-        backgroundColor: Colors.white,
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            primary: Color.fromARGB(255, 57, 178, 89),
-          ),
-        ),
-        colorScheme:
-            ColorScheme.fromSwatch(primarySwatch: Colors.lightBlue).copyWith(
-          secondary: Colors.orangeAccent,
-        ),
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
       ),
       home: StreamBuilder(
         stream: authControllerState.stream,
