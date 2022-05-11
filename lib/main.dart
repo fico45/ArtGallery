@@ -1,5 +1,6 @@
 import 'package:artgallery/data/controllers/auth_controller.dart';
 import 'package:artgallery/view/screens/auth_screen.dart';
+import 'package:artgallery/view/screens/profile.dart';
 import 'package:artgallery/view/widgets/drawer.dart';
 import 'package:artgallery/view/widgets/exhibit/new_exhibit.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -41,6 +42,7 @@ class MyApp extends ConsumerWidget {
       ),
       routes: {
         NewExhibit.routeName: (context) => NewExhibit(),
+        ProfileView.routeName: (context) => ProfileView(),
       },
     );
   }

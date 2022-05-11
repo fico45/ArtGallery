@@ -1,6 +1,7 @@
 import 'package:artgallery/data/controllers/auth_controller.dart';
 import 'package:artgallery/data/controllers/user_controller.dart';
 import 'package:artgallery/view/screens/main_wrapper.dart';
+import 'package:artgallery/view/screens/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,6 +14,7 @@ class CustomDrawer extends StatefulWidget {
 }
 
 class CustomDrawerState extends State<CustomDrawer> {
+  int currentScreen = 0;
   final _advancedDrawerController = AdvancedDrawerController();
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class CustomDrawerState extends State<CustomDrawer> {
       childDecoration: const BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(16)),
       ),
-      child: MainWrapper(),
+      child: _getScreen(currentScreen),
       drawer: SafeArea(
         child: Container(
           child: ListTileTheme(
@@ -68,7 +70,12 @@ class CustomDrawerState extends State<CustomDrawer> {
                   ),
                 ),
                 ListTile(
-                  onTap: () {},
+                  onTap: () {
+                    setState(() {
+                      currentScreen = 0;
+                      _advancedDrawerController.hideDrawer();
+                    });
+                  },
                   leading: Icon(
                     Icons.home,
                     size: 24,
@@ -81,7 +88,12 @@ class CustomDrawerState extends State<CustomDrawer> {
                 Divider(),
                 ListTile(
                   leading: Icon(Icons.person),
-                  onTap: () {},
+                  onTap: () {
+                    setState(() {
+                      currentScreen = 1;
+                      _advancedDrawerController.hideDrawer();
+                    });
+                  },
                   title: Text(
                     'Profile',
                     style: TextStyle(fontWeight: FontWeight.w400, fontSize: 18),
@@ -153,5 +165,16 @@ class CustomDrawerState extends State<CustomDrawer> {
 
   void _handleMenuButtonPressed() {
     _advancedDrawerController.showDrawer();
+  }
+
+  _getScreen(int screen) {
+    switch (screen) {
+      case 0:
+        return MainWrapper();
+      case 1:
+        return ProfileView();
+      default:
+        return ProfileView();
+    }
   }
 }

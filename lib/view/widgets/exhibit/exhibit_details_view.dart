@@ -84,7 +84,6 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                //TODO: owner name here, please
                                 exhibitUser.when(
                                   data: (data) => Column(
                                     crossAxisAlignment:
@@ -103,12 +102,11 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
                                   loading: () =>
                                       const CircularProgressIndicator(),
                                 ),
-
                                 SizedBox(
                                   height: 4,
                                 ),
                                 Text(
-                                  "The owner",
+                                  widget.exhibit.location.city.toString(),
                                   style: TextStyle(
                                       color:
                                           Theme.of(context).colorScheme.error),
@@ -159,7 +157,9 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
                         SizedBox(
                           height: 4,
                         ),
-                        Text(widget.exhibit.startDate.toIso8601String()),
+                        Text("${widget.exhibit.startDate.day}/" +
+                            "${widget.exhibit.startDate.month}/" +
+                            "${widget.exhibit.startDate.year}"),
                         SizedBox(
                           height: 12,
                         ),
@@ -201,7 +201,7 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
             ],
           ),
         ),
-        bottomNavigationBar: SizedBox(
+        /* bottomNavigationBar: SizedBox(
           height: 73,
           child: BottomAppBar(
             color: Colors.white,
@@ -240,7 +240,7 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
               ),
             ),
           ),
-        ),
+        ), */
       ),
     );
   }
