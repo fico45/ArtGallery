@@ -176,15 +176,39 @@ class CustomDrawerState extends State<CustomDrawer> {
   _getScreen(int screen) {
     switch (screen) {
       case 0:
-        return MainWrapper();
-      case 1:
-        return ProfileView();
-      case 2:
-        return Explore(
+        return MainWrapper(
           openDrawer: _handleMenuButtonPressed,
         );
+      case 1:
+        return ProfileView(
+          openDrawer: IconButton(
+            onPressed: _handleMenuButtonPressed,
+            icon: const Icon(
+              Icons.menu,
+              size: 24,
+            ),
+          ),
+        );
+      case 2:
+        return Explore(
+          openDrawer: IconButton(
+            onPressed: _handleMenuButtonPressed,
+            icon: const Icon(
+              Icons.menu,
+              size: 24,
+            ),
+          ),
+        );
       default:
-        return ProfileView();
+        return ProfileView(
+          openDrawer: IconButton(
+            onPressed: _handleMenuButtonPressed,
+            icon: const Icon(
+              Icons.menu,
+              size: 24,
+            ),
+          ),
+        );
     }
   }
 }

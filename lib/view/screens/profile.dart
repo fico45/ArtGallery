@@ -9,8 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ProfileView extends ConsumerWidget {
+  final Widget? openDrawer;
   static const routeName = '/profile';
-  ProfileView({Key? key}) : super(key: key);
+  ProfileView({Key? key, this.openDrawer}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,7 +19,9 @@ class ProfileView extends ConsumerWidget {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(45),
-        child: CustomAppBar(),
+        child: CustomAppBar(
+          openDrawer: openDrawer,
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),

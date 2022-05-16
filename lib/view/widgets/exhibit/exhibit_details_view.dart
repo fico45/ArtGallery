@@ -1,3 +1,5 @@
+import 'package:artgallery/data/controllers/auth_controller.dart';
+import 'package:artgallery/data/controllers/exhibit_list_controller.dart';
 import 'package:artgallery/view/widgets/appbar.dart';
 import 'package:artgallery/view/widgets/googlemaps.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -20,6 +22,7 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
 
   @override
   Widget build(BuildContext context) {
+    final currentUser = ref.watch(authControllerProvider);
     final exhibitUser = ref.watch(getUserProvider(widget.exhibit.userId));
     return Hero(
       //TODO: ensure this is correct
@@ -29,7 +32,22 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
         appBar: PreferredSize(
             preferredSize: const Size.fromHeight(45),
             child: CustomAppBar(
-              exhibit: widget.exhibit,
+              customActions: [
+                widget.exhibit.userId == currentUser!.uid
+                    ? IconButton(
+                        onPressed: () {
+                          ref
+                              .read(exhibitListControllerProvider.notifier)
+                              .deleteExhibit(exhibit: widget.exhibit);
+                          Navigator.of(context).pop();
+                        },
+                        icon: const Icon(
+                          Icons.delete_forever,
+                          size: 24,
+                        ),
+                      )
+                    : SizedBox()
+              ],
             )),
         body: SingleChildScrollView(
           child: Column(

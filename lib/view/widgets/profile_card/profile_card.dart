@@ -28,7 +28,7 @@ class ProfileCard extends ConsumerWidget {
           color: Theme.of(context).colorScheme.primaryContainer,
         ),
         width: MediaQuery.of(context).size.width,
-        height: 160,
+        height: 170,
         child: Padding(
           padding: const EdgeInsets.only(
             top: 10,

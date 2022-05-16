@@ -7,8 +7,11 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 //import 'package:location/location.dart';
 
 class Explore extends ConsumerStatefulWidget {
-  final void Function() openDrawer;
-  const Explore({Key? key, required this.openDrawer}) : super(key: key);
+  final Widget openDrawer;
+  const Explore({
+    Key? key,
+    required this.openDrawer,
+  }) : super(key: key);
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _ExploreState();
@@ -61,7 +64,9 @@ class _ExploreState extends ConsumerState<Explore> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(45),
-        child: CustomAppBar(openDrawer: widget.openDrawer),
+        child: CustomAppBar(
+          openDrawer: widget.openDrawer,
+        ),
       ),
       body: GoogleMap(
         markers: markers,

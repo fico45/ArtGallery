@@ -2,11 +2,12 @@ import 'package:artgallery/view/screens/dashboard.dart';
 import 'package:artgallery/view/screens/profile.dart';
 import 'package:artgallery/view/widgets/appbar.dart';
 import 'package:flutter/material.dart';
-import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 class MainWrapper extends ConsumerStatefulWidget {
-  const MainWrapper({Key? key}) : super(key: key);
+  final void Function() openDrawer;
+  const MainWrapper({Key? key, required this.openDrawer}) : super(key: key);
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _MainWrapperState();
@@ -20,8 +21,21 @@ class _MainWrapperState extends ConsumerState<MainWrapper> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      bottomNavigationBar: FancyBottomNavigation(
-          initialSelection: 1,
+      bottomNavigationBar: SalomonBottomBar(
+        currentIndex: currentPage,
+        items: [
+          SalomonBottomBarItem(
+              icon: Icon(Icons.search), title: Text('Explore')),
+          SalomonBottomBarItem(
+              icon: Icon(Icons.home), title: Text('Dashobard')),
+          SalomonBottomBarItem(
+              icon: Icon(Icons.portrait), title: Text('Profile'))
+        ],
+        onTap: (i) => setState(() {
+          currentPage = i;
+        }),
+
+        /* initialSelection: 1,
           circleColor: Theme.of(context).colorScheme.onTertiaryContainer,
           inactiveIconColor: Theme.of(context).colorScheme.onSurface,
           tabs: [
@@ -33,10 +47,20 @@ class _MainWrapperState extends ConsumerState<MainWrapper> {
             setState(() {
               currentPage = position;
             });
-          }),
+          } */
+      ),
       body: _getPage(currentPage),
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(45), child: CustomAppBar()),
+          preferredSize: const Size.fromHeight(45),
+          child: CustomAppBar(
+            openDrawer: IconButton(
+              onPressed: widget.openDrawer,
+              icon: const Icon(
+                Icons.menu,
+                size: 24,
+              ),
+            ),
+          )),
     );
   }
 
@@ -47,7 +71,15 @@ class _MainWrapperState extends ConsumerState<MainWrapper> {
       case 1:
         return Dashboard();
       default:
-        return ProfileView();
+        return ProfileView(
+          openDrawer: IconButton(
+            onPressed: widget.openDrawer,
+            icon: const Icon(
+              Icons.menu,
+              size: 24,
+            ),
+          ),
+        );
     }
   }
 }
