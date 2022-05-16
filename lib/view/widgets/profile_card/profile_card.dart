@@ -28,6 +28,7 @@ class ProfileCard extends ConsumerWidget {
           color: Theme.of(context).colorScheme.primaryContainer,
         ),
         width: MediaQuery.of(context).size.width,
+        height: 160,
         child: Padding(
           padding: const EdgeInsets.only(
             top: 10,
@@ -42,6 +43,7 @@ class ProfileCard extends ConsumerWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
+                    //TODO: This should return creationTime of selected user, not currently logged in user!!
                     Text(
                       'Member since: ' +
                           DateFormat("dd/MM/yyyy").format(ref.watch(

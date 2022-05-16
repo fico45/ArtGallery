@@ -1,5 +1,3 @@
-import 'dart:math';
-import 'dart:ui';
 
 /* class Particle {
   Offset position = Offset(0, 0);

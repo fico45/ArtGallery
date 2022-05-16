@@ -1,5 +1,4 @@
 import 'package:artgallery/view/screens/dashboard.dart';
-import 'package:artgallery/view/screens/explore.dart';
 import 'package:artgallery/view/screens/profile.dart';
 import 'package:artgallery/view/widgets/appbar.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +43,7 @@ class _MainWrapperState extends ConsumerState<MainWrapper> {
   _getPage(int page) {
     switch (page) {
       case 0:
-        return Explore();
+        return Dashboard();
       case 1:
         return Dashboard();
       default:

@@ -1,5 +1,6 @@
 import 'package:artgallery/data/controllers/auth_controller.dart';
 import 'package:artgallery/data/controllers/user_controller.dart';
+import 'package:artgallery/view/screens/explore.dart';
 import 'package:artgallery/view/screens/main_wrapper.dart';
 import 'package:artgallery/view/screens/profile.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class CustomDrawerState extends State<CustomDrawer> {
       animationDuration: const Duration(milliseconds: 300),
       animateChildDecoration: true,
       rtlOpening: false,
-      disabledGestures: false,
+      disabledGestures: currentScreen == 2 ? true : false,
       childDecoration: const BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(16)),
       ),
@@ -101,13 +102,18 @@ class CustomDrawerState extends State<CustomDrawer> {
                 ),
                 Divider(),
                 ListTile(
-                  onTap: () {},
+                  onTap: () {
+                    setState(() {
+                      currentScreen = 2;
+                      _advancedDrawerController.hideDrawer();
+                    });
+                  },
                   leading: Icon(
                     Icons.favorite,
                     size: 24,
                   ),
                   title: Text(
-                    'Favourites',
+                    'Explore',
                     style: TextStyle(fontWeight: FontWeight.w400, fontSize: 18),
                   ),
                 ),
@@ -173,6 +179,10 @@ class CustomDrawerState extends State<CustomDrawer> {
         return MainWrapper();
       case 1:
         return ProfileView();
+      case 2:
+        return Explore(
+          openDrawer: _handleMenuButtonPressed,
+        );
       default:
         return ProfileView();
     }

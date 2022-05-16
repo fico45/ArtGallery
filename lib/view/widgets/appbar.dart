@@ -6,7 +6,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CustomAppBar extends ConsumerStatefulWidget {
   final Exhibit? exhibit;
-  const CustomAppBar({Key? key, this.exhibit}) : super(key: key);
+  final void Function()? openDrawer;
+  const CustomAppBar({Key? key, this.exhibit, this.openDrawer})
+      : super(key: key);
 
   @override
   ConsumerState<CustomAppBar> createState() => _CustomAppBarState();
@@ -27,9 +29,21 @@ class _CustomAppBarState extends ConsumerState<CustomAppBar> {
             height: 70,
             width: MediaQuery.of(context).size.width - 32,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children:
-                  widget.exhibit != null && widget.exhibit!.userId == user!.uid
+              mainAxisAlignment: widget.openDrawer == null
+                  ? MainAxisAlignment.end
+                  : MainAxisAlignment.start,
+              children: widget.openDrawer != null
+                  ? [
+                      IconButton(
+                        onPressed: widget.openDrawer,
+                        icon: const Icon(
+                          Icons.menu,
+                          size: 24,
+                        ),
+                      ),
+                    ]
+                  : widget.exhibit != null &&
+                          widget.exhibit!.userId == user!.uid
                       ? [
                           IconButton(
                             onPressed: () {

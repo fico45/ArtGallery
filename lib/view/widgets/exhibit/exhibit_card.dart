@@ -1,7 +1,10 @@
+import 'package:artgallery/data/controllers/user_controller.dart';
 import 'package:artgallery/data/model/exhibit_model/exhibit_data_model.dart';
 import 'package:artgallery/view/widgets/exhibit/exhibit_details_view.dart';
+import 'package:artgallery/view/widgets/profile_card/profile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ExhibitCard extends StatelessWidget {
   const ExhibitCard(this.exhibit, {Key? key}) : super(key: key);
@@ -119,10 +122,59 @@ class ExhibitCard extends StatelessWidget {
             ),
             Positioned(
               left: 0,
-              child: CircleAvatar(
-                radius: 25,
-                backgroundImage: NetworkImage(exhibit.userImageUrl),
-                //NetworkImage(userImage),
+              child: InkWell(
+                onTap: (() {
+                  showDialog(
+                    context: context,
+                    builder: (context) => Consumer(
+                      builder:
+                          (BuildContext context, WidgetRef ref, Widget? child) {
+                        return ref.watch(getUserProvider(exhibit.userId)).when(
+                              data: (data) {
+                                return Center(
+                                  child: ProfileCard(user: data),
+                                );
+                              },
+                              error: (error, st) =>
+                                  Text('There seems to be an error.'),
+                              loading: () {
+                                return Center(
+                                  child: Card(
+                                    shape: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(25),
+                                      borderSide: BorderSide(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .tertiary,
+                                        width: 2,
+                                      ),
+                                    ),
+                                    elevation: 2,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(25),
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primaryContainer,
+                                      ),
+                                      width: MediaQuery.of(context).size.width,
+                                      height: 160,
+                                      child: Center(
+                                          child: CircularProgressIndicator()),
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                      },
+                    ),
+                  );
+                }),
+                child: CircleAvatar(
+                  radius: 25,
+                  backgroundImage: NetworkImage(exhibit.userImageUrl),
+                  //NetworkImage(userImage),
+                ),
               ),
             ),
           ],

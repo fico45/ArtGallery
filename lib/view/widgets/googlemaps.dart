@@ -56,8 +56,6 @@ class _GoogleMapsState extends State<GoogleMaps> {
     return InkWell(
       onTap: () => openMap(widget.exhibit.lat, widget.exhibit.lng),
       child: Container(
-        height: 300,
-        width: MediaQuery.of(context).size.width - 60,
         child: GoogleMap(
           scrollGesturesEnabled: false,
           zoomGesturesEnabled: false,
