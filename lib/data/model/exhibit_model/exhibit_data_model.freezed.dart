@@ -12,56 +12,11 @@ part of 'exhibit_data_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 Exhibit _$ExhibitFromJson(Map<String, dynamic> json) {
   return _Exhibit.fromJson(json);
 }
-
-/// @nodoc
-class _$ExhibitTearOff {
-  const _$ExhibitTearOff();
-
-  _Exhibit call(
-      {String? id,
-      required double lat,
-      required double lng,
-      required DateTime createdAt,
-      required String description,
-      required DateTime startDate,
-      required DateTime endDate,
-      required String openingTime,
-      required List<String> imageList,
-      required AddressData location,
-      required String title,
-      required String userId,
-      required String userImageUrl,
-      required String username}) {
-    return _Exhibit(
-      id: id,
-      lat: lat,
-      lng: lng,
-      createdAt: createdAt,
-      description: description,
-      startDate: startDate,
-      endDate: endDate,
-      openingTime: openingTime,
-      imageList: imageList,
-      location: location,
-      title: title,
-      userId: userId,
-      userImageUrl: userImageUrl,
-      username: username,
-    );
-  }
-
-  Exhibit fromJson(Map<String, Object?> json) {
-    return Exhibit.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $Exhibit = _$ExhibitTearOff();
 
 /// @nodoc
 mixin _$Exhibit {
@@ -70,9 +25,8 @@ mixin _$Exhibit {
   double get lng => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  DateTime get startDate => throw _privateConstructorUsedError;
+  DateTime get startDateTime => throw _privateConstructorUsedError;
   DateTime get endDate => throw _privateConstructorUsedError;
-  String get openingTime => throw _privateConstructorUsedError;
   List<String> get imageList => throw _privateConstructorUsedError;
   AddressData get location => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
@@ -95,9 +49,8 @@ abstract class $ExhibitCopyWith<$Res> {
       double lng,
       DateTime createdAt,
       String description,
-      DateTime startDate,
+      DateTime startDateTime,
       DateTime endDate,
-      String openingTime,
       List<String> imageList,
       AddressData location,
       String title,
@@ -123,9 +76,8 @@ class _$ExhibitCopyWithImpl<$Res> implements $ExhibitCopyWith<$Res> {
     Object? lng = freezed,
     Object? createdAt = freezed,
     Object? description = freezed,
-    Object? startDate = freezed,
+    Object? startDateTime = freezed,
     Object? endDate = freezed,
-    Object? openingTime = freezed,
     Object? imageList = freezed,
     Object? location = freezed,
     Object? title = freezed,
@@ -154,18 +106,14 @@ class _$ExhibitCopyWithImpl<$Res> implements $ExhibitCopyWith<$Res> {
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      startDate: startDate == freezed
-          ? _value.startDate
-          : startDate // ignore: cast_nullable_to_non_nullable
+      startDateTime: startDateTime == freezed
+          ? _value.startDateTime
+          : startDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
       endDate: endDate == freezed
           ? _value.endDate
           : endDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      openingTime: openingTime == freezed
-          ? _value.openingTime
-          : openingTime // ignore: cast_nullable_to_non_nullable
-              as String,
       imageList: imageList == freezed
           ? _value.imageList
           : imageList // ignore: cast_nullable_to_non_nullable
@@ -202,9 +150,10 @@ class _$ExhibitCopyWithImpl<$Res> implements $ExhibitCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$ExhibitCopyWith<$Res> implements $ExhibitCopyWith<$Res> {
-  factory _$ExhibitCopyWith(_Exhibit value, $Res Function(_Exhibit) then) =
-      __$ExhibitCopyWithImpl<$Res>;
+abstract class _$$_ExhibitCopyWith<$Res> implements $ExhibitCopyWith<$Res> {
+  factory _$$_ExhibitCopyWith(
+          _$_Exhibit value, $Res Function(_$_Exhibit) then) =
+      __$$_ExhibitCopyWithImpl<$Res>;
   @override
   $Res call(
       {String? id,
@@ -212,9 +161,8 @@ abstract class _$ExhibitCopyWith<$Res> implements $ExhibitCopyWith<$Res> {
       double lng,
       DateTime createdAt,
       String description,
-      DateTime startDate,
+      DateTime startDateTime,
       DateTime endDate,
-      String openingTime,
       List<String> imageList,
       AddressData location,
       String title,
@@ -227,13 +175,13 @@ abstract class _$ExhibitCopyWith<$Res> implements $ExhibitCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$ExhibitCopyWithImpl<$Res> extends _$ExhibitCopyWithImpl<$Res>
-    implements _$ExhibitCopyWith<$Res> {
-  __$ExhibitCopyWithImpl(_Exhibit _value, $Res Function(_Exhibit) _then)
-      : super(_value, (v) => _then(v as _Exhibit));
+class __$$_ExhibitCopyWithImpl<$Res> extends _$ExhibitCopyWithImpl<$Res>
+    implements _$$_ExhibitCopyWith<$Res> {
+  __$$_ExhibitCopyWithImpl(_$_Exhibit _value, $Res Function(_$_Exhibit) _then)
+      : super(_value, (v) => _then(v as _$_Exhibit));
 
   @override
-  _Exhibit get _value => super._value as _Exhibit;
+  _$_Exhibit get _value => super._value as _$_Exhibit;
 
   @override
   $Res call({
@@ -242,9 +190,8 @@ class __$ExhibitCopyWithImpl<$Res> extends _$ExhibitCopyWithImpl<$Res>
     Object? lng = freezed,
     Object? createdAt = freezed,
     Object? description = freezed,
-    Object? startDate = freezed,
+    Object? startDateTime = freezed,
     Object? endDate = freezed,
-    Object? openingTime = freezed,
     Object? imageList = freezed,
     Object? location = freezed,
     Object? title = freezed,
@@ -252,7 +199,7 @@ class __$ExhibitCopyWithImpl<$Res> extends _$ExhibitCopyWithImpl<$Res>
     Object? userImageUrl = freezed,
     Object? username = freezed,
   }) {
-    return _then(_Exhibit(
+    return _then(_$_Exhibit(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -273,20 +220,16 @@ class __$ExhibitCopyWithImpl<$Res> extends _$ExhibitCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      startDate: startDate == freezed
-          ? _value.startDate
-          : startDate // ignore: cast_nullable_to_non_nullable
+      startDateTime: startDateTime == freezed
+          ? _value.startDateTime
+          : startDateTime // ignore: cast_nullable_to_non_nullable
               as DateTime,
       endDate: endDate == freezed
           ? _value.endDate
           : endDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      openingTime: openingTime == freezed
-          ? _value.openingTime
-          : openingTime // ignore: cast_nullable_to_non_nullable
-              as String,
       imageList: imageList == freezed
-          ? _value.imageList
+          ? _value._imageList
           : imageList // ignore: cast_nullable_to_non_nullable
               as List<String>,
       location: location == freezed
@@ -322,16 +265,16 @@ class _$_Exhibit extends _Exhibit {
       required this.lng,
       required this.createdAt,
       required this.description,
-      required this.startDate,
+      required this.startDateTime,
       required this.endDate,
-      required this.openingTime,
-      required this.imageList,
+      required final List<String> imageList,
       required this.location,
       required this.title,
       required this.userId,
       required this.userImageUrl,
       required this.username})
-      : super._();
+      : _imageList = imageList,
+        super._();
 
   factory _$_Exhibit.fromJson(Map<String, dynamic> json) =>
       _$$_ExhibitFromJson(json);
@@ -347,13 +290,16 @@ class _$_Exhibit extends _Exhibit {
   @override
   final String description;
   @override
-  final DateTime startDate;
+  final DateTime startDateTime;
   @override
   final DateTime endDate;
+  final List<String> _imageList;
   @override
-  final String openingTime;
-  @override
-  final List<String> imageList;
+  List<String> get imageList {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_imageList);
+  }
+
   @override
   final AddressData location;
   @override
@@ -367,25 +313,25 @@ class _$_Exhibit extends _Exhibit {
 
   @override
   String toString() {
-    return 'Exhibit(id: $id, lat: $lat, lng: $lng, createdAt: $createdAt, description: $description, startDate: $startDate, endDate: $endDate, openingTime: $openingTime, imageList: $imageList, location: $location, title: $title, userId: $userId, userImageUrl: $userImageUrl, username: $username)';
+    return 'Exhibit(id: $id, lat: $lat, lng: $lng, createdAt: $createdAt, description: $description, startDateTime: $startDateTime, endDate: $endDate, imageList: $imageList, location: $location, title: $title, userId: $userId, userImageUrl: $userImageUrl, username: $username)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Exhibit &&
+            other is _$_Exhibit &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.lat, lat) &&
             const DeepCollectionEquality().equals(other.lng, lng) &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
             const DeepCollectionEquality()
                 .equals(other.description, description) &&
-            const DeepCollectionEquality().equals(other.startDate, startDate) &&
+            const DeepCollectionEquality()
+                .equals(other.startDateTime, startDateTime) &&
             const DeepCollectionEquality().equals(other.endDate, endDate) &&
             const DeepCollectionEquality()
-                .equals(other.openingTime, openingTime) &&
-            const DeepCollectionEquality().equals(other.imageList, imageList) &&
+                .equals(other._imageList, _imageList) &&
             const DeepCollectionEquality().equals(other.location, location) &&
             const DeepCollectionEquality().equals(other.title, title) &&
             const DeepCollectionEquality().equals(other.userId, userId) &&
@@ -394,6 +340,7 @@ class _$_Exhibit extends _Exhibit {
             const DeepCollectionEquality().equals(other.username, username));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -402,10 +349,9 @@ class _$_Exhibit extends _Exhibit {
       const DeepCollectionEquality().hash(lng),
       const DeepCollectionEquality().hash(createdAt),
       const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(startDate),
+      const DeepCollectionEquality().hash(startDateTime),
       const DeepCollectionEquality().hash(endDate),
-      const DeepCollectionEquality().hash(openingTime),
-      const DeepCollectionEquality().hash(imageList),
+      const DeepCollectionEquality().hash(_imageList),
       const DeepCollectionEquality().hash(location),
       const DeepCollectionEquality().hash(title),
       const DeepCollectionEquality().hash(userId),
@@ -414,8 +360,8 @@ class _$_Exhibit extends _Exhibit {
 
   @JsonKey(ignore: true)
   @override
-  _$ExhibitCopyWith<_Exhibit> get copyWith =>
-      __$ExhibitCopyWithImpl<_Exhibit>(this, _$identity);
+  _$$_ExhibitCopyWith<_$_Exhibit> get copyWith =>
+      __$$_ExhibitCopyWithImpl<_$_Exhibit>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -425,54 +371,51 @@ class _$_Exhibit extends _Exhibit {
 
 abstract class _Exhibit extends Exhibit {
   const factory _Exhibit(
-      {String? id,
-      required double lat,
-      required double lng,
-      required DateTime createdAt,
-      required String description,
-      required DateTime startDate,
-      required DateTime endDate,
-      required String openingTime,
-      required List<String> imageList,
-      required AddressData location,
-      required String title,
-      required String userId,
-      required String userImageUrl,
-      required String username}) = _$_Exhibit;
+      {final String? id,
+      required final double lat,
+      required final double lng,
+      required final DateTime createdAt,
+      required final String description,
+      required final DateTime startDateTime,
+      required final DateTime endDate,
+      required final List<String> imageList,
+      required final AddressData location,
+      required final String title,
+      required final String userId,
+      required final String userImageUrl,
+      required final String username}) = _$_Exhibit;
   const _Exhibit._() : super._();
 
   factory _Exhibit.fromJson(Map<String, dynamic> json) = _$_Exhibit.fromJson;
 
   @override
-  String? get id;
+  String? get id => throw _privateConstructorUsedError;
   @override
-  double get lat;
+  double get lat => throw _privateConstructorUsedError;
   @override
-  double get lng;
+  double get lng => throw _privateConstructorUsedError;
   @override
-  DateTime get createdAt;
+  DateTime get createdAt => throw _privateConstructorUsedError;
   @override
-  String get description;
+  String get description => throw _privateConstructorUsedError;
   @override
-  DateTime get startDate;
+  DateTime get startDateTime => throw _privateConstructorUsedError;
   @override
-  DateTime get endDate;
+  DateTime get endDate => throw _privateConstructorUsedError;
   @override
-  String get openingTime;
+  List<String> get imageList => throw _privateConstructorUsedError;
   @override
-  List<String> get imageList;
+  AddressData get location => throw _privateConstructorUsedError;
   @override
-  AddressData get location;
+  String get title => throw _privateConstructorUsedError;
   @override
-  String get title;
+  String get userId => throw _privateConstructorUsedError;
   @override
-  String get userId;
+  String get userImageUrl => throw _privateConstructorUsedError;
   @override
-  String get userImageUrl;
-  @override
-  String get username;
+  String get username => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$ExhibitCopyWith<_Exhibit> get copyWith =>
+  _$$_ExhibitCopyWith<_$_Exhibit> get copyWith =>
       throw _privateConstructorUsedError;
 }

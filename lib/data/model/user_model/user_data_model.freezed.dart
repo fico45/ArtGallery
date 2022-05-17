@@ -12,44 +12,11 @@ part of 'user_data_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 UserModel _$UserModelFromJson(Map<String, dynamic> json) {
   return _UserModel.fromJson(json);
 }
-
-/// @nodoc
-class _$UserModelTearOff {
-  const _$UserModelTearOff();
-
-  _UserModel call(
-      {required String email,
-      required String image_url,
-      required String username,
-      required String firstName,
-      required String lastName,
-      required bool reviewable,
-      required String bio,
-      required List<String> favorites}) {
-    return _UserModel(
-      email: email,
-      image_url: image_url,
-      username: username,
-      firstName: firstName,
-      lastName: lastName,
-      reviewable: reviewable,
-      bio: bio,
-      favorites: favorites,
-    );
-  }
-
-  UserModel fromJson(Map<String, Object?> json) {
-    return UserModel.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $UserModel = _$UserModelTearOff();
 
 /// @nodoc
 mixin _$UserModel {
@@ -140,10 +107,10 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
-  factory _$UserModelCopyWith(
-          _UserModel value, $Res Function(_UserModel) then) =
-      __$UserModelCopyWithImpl<$Res>;
+abstract class _$$_UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
+  factory _$$_UserModelCopyWith(
+          _$_UserModel value, $Res Function(_$_UserModel) then) =
+      __$$_UserModelCopyWithImpl<$Res>;
   @override
   $Res call(
       {String email,
@@ -157,13 +124,14 @@ abstract class _$UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
-    implements _$UserModelCopyWith<$Res> {
-  __$UserModelCopyWithImpl(_UserModel _value, $Res Function(_UserModel) _then)
-      : super(_value, (v) => _then(v as _UserModel));
+class __$$_UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
+    implements _$$_UserModelCopyWith<$Res> {
+  __$$_UserModelCopyWithImpl(
+      _$_UserModel _value, $Res Function(_$_UserModel) _then)
+      : super(_value, (v) => _then(v as _$_UserModel));
 
   @override
-  _UserModel get _value => super._value as _UserModel;
+  _$_UserModel get _value => super._value as _$_UserModel;
 
   @override
   $Res call({
@@ -176,7 +144,7 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
     Object? bio = freezed,
     Object? favorites = freezed,
   }) {
-    return _then(_UserModel(
+    return _then(_$_UserModel(
       email: email == freezed
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -206,7 +174,7 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
           : bio // ignore: cast_nullable_to_non_nullable
               as String,
       favorites: favorites == freezed
-          ? _value.favorites
+          ? _value._favorites
           : favorites // ignore: cast_nullable_to_non_nullable
               as List<String>,
     ));
@@ -224,8 +192,9 @@ class _$_UserModel extends _UserModel {
       required this.lastName,
       required this.reviewable,
       required this.bio,
-      required this.favorites})
-      : super._();
+      required final List<String> favorites})
+      : _favorites = favorites,
+        super._();
 
   factory _$_UserModel.fromJson(Map<String, dynamic> json) =>
       _$$_UserModelFromJson(json);
@@ -244,8 +213,12 @@ class _$_UserModel extends _UserModel {
   final bool reviewable;
   @override
   final String bio;
+  final List<String> _favorites;
   @override
-  final List<String> favorites;
+  List<String> get favorites {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_favorites);
+  }
 
   @override
   String toString() {
@@ -256,7 +229,7 @@ class _$_UserModel extends _UserModel {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _UserModel &&
+            other is _$_UserModel &&
             const DeepCollectionEquality().equals(other.email, email) &&
             const DeepCollectionEquality().equals(other.image_url, image_url) &&
             const DeepCollectionEquality().equals(other.username, username) &&
@@ -265,9 +238,11 @@ class _$_UserModel extends _UserModel {
             const DeepCollectionEquality()
                 .equals(other.reviewable, reviewable) &&
             const DeepCollectionEquality().equals(other.bio, bio) &&
-            const DeepCollectionEquality().equals(other.favorites, favorites));
+            const DeepCollectionEquality()
+                .equals(other._favorites, _favorites));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -278,12 +253,12 @@ class _$_UserModel extends _UserModel {
       const DeepCollectionEquality().hash(lastName),
       const DeepCollectionEquality().hash(reviewable),
       const DeepCollectionEquality().hash(bio),
-      const DeepCollectionEquality().hash(favorites));
+      const DeepCollectionEquality().hash(_favorites));
 
   @JsonKey(ignore: true)
   @override
-  _$UserModelCopyWith<_UserModel> get copyWith =>
-      __$UserModelCopyWithImpl<_UserModel>(this, _$identity);
+  _$$_UserModelCopyWith<_$_UserModel> get copyWith =>
+      __$$_UserModelCopyWithImpl<_$_UserModel>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -293,37 +268,37 @@ class _$_UserModel extends _UserModel {
 
 abstract class _UserModel extends UserModel {
   const factory _UserModel(
-      {required String email,
-      required String image_url,
-      required String username,
-      required String firstName,
-      required String lastName,
-      required bool reviewable,
-      required String bio,
-      required List<String> favorites}) = _$_UserModel;
+      {required final String email,
+      required final String image_url,
+      required final String username,
+      required final String firstName,
+      required final String lastName,
+      required final bool reviewable,
+      required final String bio,
+      required final List<String> favorites}) = _$_UserModel;
   const _UserModel._() : super._();
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
       _$_UserModel.fromJson;
 
   @override
-  String get email;
+  String get email => throw _privateConstructorUsedError;
   @override
-  String get image_url;
+  String get image_url => throw _privateConstructorUsedError;
   @override
-  String get username;
+  String get username => throw _privateConstructorUsedError;
   @override
-  String get firstName;
+  String get firstName => throw _privateConstructorUsedError;
   @override
-  String get lastName;
+  String get lastName => throw _privateConstructorUsedError;
   @override
-  bool get reviewable;
+  bool get reviewable => throw _privateConstructorUsedError;
   @override
-  String get bio;
+  String get bio => throw _privateConstructorUsedError;
   @override
-  List<String> get favorites;
+  List<String> get favorites => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$UserModelCopyWith<_UserModel> get copyWith =>
+  _$$_UserModelCopyWith<_$_UserModel> get copyWith =>
       throw _privateConstructorUsedError;
 }

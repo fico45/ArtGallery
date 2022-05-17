@@ -12,9 +12,8 @@ _$_Exhibit _$$_ExhibitFromJson(Map json) => _$_Exhibit(
       lng: (json['lng'] as num).toDouble(),
       createdAt: DateTime.parse(json['createdAt'] as String),
       description: json['description'] as String,
-      startDate: DateTime.parse(json['startDate'] as String),
+      startDateTime: DateTime.parse(json['startDateTime'] as String),
       endDate: DateTime.parse(json['endDate'] as String),
-      openingTime: json['openingTime'] as String,
       imageList:
           (json['imageList'] as List<dynamic>).map((e) => e as String).toList(),
       location: AddressData.fromJson(
@@ -32,9 +31,8 @@ Map<String, dynamic> _$$_ExhibitToJson(_$_Exhibit instance) =>
       'lng': instance.lng,
       'createdAt': instance.createdAt.toIso8601String(),
       'description': instance.description,
-      'startDate': instance.startDate.toIso8601String(),
+      'startDateTime': instance.startDateTime.toIso8601String(),
       'endDate': instance.endDate.toIso8601String(),
-      'openingTime': instance.openingTime,
       'imageList': instance.imageList,
       'location': instance.location.toJson(),
       'title': instance.title,

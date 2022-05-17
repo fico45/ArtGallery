@@ -4,6 +4,7 @@ import 'package:artgallery/data/controllers/auth_controller.dart';
 import 'package:artgallery/data/controllers/exhibit_list_controller.dart';
 import 'package:artgallery/data/functions.dart';
 import 'package:artgallery/data/model/address_model/address_data_model.dart';
+import 'package:artgallery/data/model/exhibit_model/exhibit_data_model.dart';
 import 'package:artgallery/view/widgets/appbar.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
@@ -11,14 +12,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:google_maps_webservice/places.dart';
 
 class NewExhibit extends ConsumerStatefulWidget {
   static const routeName = '/new-exhibit';
+  final Exhibit? exhibit;
 
-  NewExhibit({Key? key}) : super(key: key);
+  NewExhibit({
+    Key? key,
+    this.exhibit,
+  }) : super(key: key);
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _NewExhibitState();
@@ -30,14 +36,29 @@ class _NewExhibitState extends ConsumerState<NewExhibit> {
 
   TextEditingController _place = new TextEditingController();
 
+  void loadInitialData(Exhibit? exhibit) {
+    exhibit != null
+        ? {
+            _description = widget.exhibit!.description,
+            _title = widget.exhibit!.title,
+            _startDateTime = widget.exhibit!.startDateTime,
+            _endDate = widget.exhibit!.endDate,
+          }
+        : {
+            _description = '',
+            _title = '',
+          };
+  }
+
   final ImagePicker _picker = ImagePicker();
   Prediction? p;
-  var _description = '';
-  var _title = '';
+  late String _description;
+  late String _title;
+  late String _openingTime;
 
-  var _startDate = '';
-  var _endDate = '';
-  var _openingTime = '';
+  DateTime? _startDateTime;
+  DateTime? _endDate;
+
   double lat = 0;
   double lng = 0;
   List<File> _imagesForUpload = [];
@@ -90,9 +111,16 @@ class _NewExhibitState extends ConsumerState<NewExhibit> {
         lng: lng,
         createdAt: DateTime.now(),
         description: _description,
-        startDate: DateTime.parse(_startDate),
-        endDate: DateTime.parse(_endDate),
-        openingTime: _openingTime,
+        startDateTime: _startDateTime!.add(
+          Duration(
+              hours: int.parse(
+                _openingTime[0] + _openingTime[1],
+              ),
+              minutes: int.parse(
+                _openingTime[3] + _openingTime[4],
+              )),
+        ),
+        endDate: _endDate!,
         location: _address,
         title: _title,
         userId: currentUser.uid,
@@ -195,7 +223,7 @@ class _NewExhibitState extends ConsumerState<NewExhibit> {
                       type: DateTimePickerType.date,
                       firstDate: DateTime.now(),
                       lastDate: DateTime(2100),
-                      onChanged: (val) => _startDate = val,
+                      onChanged: (val) => _startDateTime = DateTime.parse(val),
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         icon: Icon(Icons.calendar_today_outlined),
@@ -218,7 +246,7 @@ class _NewExhibitState extends ConsumerState<NewExhibit> {
                       type: DateTimePickerType.date,
                       firstDate: DateTime.now(),
                       lastDate: DateTime(2100),
-                      onChanged: (val) => _endDate = val,
+                      onChanged: (val) => _endDate = DateTime.parse(val),
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         icon: Icon(Icons.calendar_today_outlined),

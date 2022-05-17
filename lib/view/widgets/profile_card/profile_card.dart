@@ -17,7 +17,7 @@ class ProfileCard extends ConsumerWidget {
       shape: OutlineInputBorder(
         borderRadius: BorderRadius.circular(25),
         borderSide: BorderSide(
-          color: Theme.of(context).colorScheme.tertiary,
+          color: Theme.of(context).colorScheme.secondary,
           width: 2,
         ),
       ),
@@ -25,7 +25,7 @@ class ProfileCard extends ConsumerWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25),
-          color: Theme.of(context).colorScheme.primaryContainer,
+          color: Theme.of(context).colorScheme.tertiaryContainer,
         ),
         width: MediaQuery.of(context).size.width,
         height: 170,

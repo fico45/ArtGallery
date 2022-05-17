@@ -5,6 +5,7 @@ import 'package:artgallery/view/widgets/profile_card/profile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
 class ExhibitCard extends StatelessWidget {
   const ExhibitCard(this.exhibit, {Key? key}) : super(key: key);
@@ -104,12 +105,14 @@ class ExhibitCard extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 Icon(Icons.date_range),
-                                Text(exhibit.startDate.toString()),
+                                Text(DateFormat("dd/MM/yyyy")
+                                    .format(exhibit.startDateTime)),
                                 SizedBox(
                                   width: 5,
                                 ),
                                 Icon(Icons.timer),
-                                Text(exhibit.openingTime),
+                                Text(DateFormat("HH:mm")
+                                    .format(exhibit.startDateTime)),
                               ],
                             ),
                           ),

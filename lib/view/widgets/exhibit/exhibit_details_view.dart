@@ -1,6 +1,7 @@
 import 'package:artgallery/data/controllers/auth_controller.dart';
 import 'package:artgallery/data/controllers/exhibit_list_controller.dart';
 import 'package:artgallery/view/widgets/appbar.dart';
+import 'package:artgallery/view/widgets/exhibit/new_exhibit.dart';
 import 'package:artgallery/view/widgets/googlemaps.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -32,9 +33,9 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
         appBar: PreferredSize(
             preferredSize: const Size.fromHeight(45),
             child: CustomAppBar(
-              customActions: [
-                widget.exhibit.userId == currentUser!.uid
-                    ? IconButton(
+              customActions: widget.exhibit.userId == currentUser!.uid
+                  ? [
+                      IconButton(
                         onPressed: () {
                           ref
                               .read(exhibitListControllerProvider.notifier)
@@ -45,9 +46,19 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
                           Icons.delete_forever,
                           size: 24,
                         ),
-                      )
-                    : SizedBox()
-              ],
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: ((context) => NewExhibit()),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.edit))
+                    ]
+                  : [],
             )),
         body: SingleChildScrollView(
           child: Column(
@@ -175,9 +186,9 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
                         SizedBox(
                           height: 4,
                         ),
-                        Text("${widget.exhibit.startDate.day}/" +
-                            "${widget.exhibit.startDate.month}/" +
-                            "${widget.exhibit.startDate.year}"),
+                        Text("${widget.exhibit.startDateTime.day}/" +
+                            "${widget.exhibit.startDateTime.month}/" +
+                            "${widget.exhibit.startDateTime.year}"),
                         SizedBox(
                           height: 12,
                         ),

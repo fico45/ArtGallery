@@ -12,31 +12,11 @@ part of 'address_data_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 AddressData _$AddressDataFromJson(Map<String, dynamic> json) {
   return _AddressData.fromJson(json);
 }
-
-/// @nodoc
-class _$AddressDataTearOff {
-  const _$AddressDataTearOff();
-
-  _AddressData call({String? street, String? city, String? country}) {
-    return _AddressData(
-      street: street,
-      city: city,
-      country: country,
-    );
-  }
-
-  AddressData fromJson(Map<String, Object?> json) {
-    return AddressData.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $AddressData = _$AddressDataTearOff();
 
 /// @nodoc
 mixin _$AddressData {
@@ -90,24 +70,24 @@ class _$AddressDataCopyWithImpl<$Res> implements $AddressDataCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$AddressDataCopyWith<$Res>
+abstract class _$$_AddressDataCopyWith<$Res>
     implements $AddressDataCopyWith<$Res> {
-  factory _$AddressDataCopyWith(
-          _AddressData value, $Res Function(_AddressData) then) =
-      __$AddressDataCopyWithImpl<$Res>;
+  factory _$$_AddressDataCopyWith(
+          _$_AddressData value, $Res Function(_$_AddressData) then) =
+      __$$_AddressDataCopyWithImpl<$Res>;
   @override
   $Res call({String? street, String? city, String? country});
 }
 
 /// @nodoc
-class __$AddressDataCopyWithImpl<$Res> extends _$AddressDataCopyWithImpl<$Res>
-    implements _$AddressDataCopyWith<$Res> {
-  __$AddressDataCopyWithImpl(
-      _AddressData _value, $Res Function(_AddressData) _then)
-      : super(_value, (v) => _then(v as _AddressData));
+class __$$_AddressDataCopyWithImpl<$Res> extends _$AddressDataCopyWithImpl<$Res>
+    implements _$$_AddressDataCopyWith<$Res> {
+  __$$_AddressDataCopyWithImpl(
+      _$_AddressData _value, $Res Function(_$_AddressData) _then)
+      : super(_value, (v) => _then(v as _$_AddressData));
 
   @override
-  _AddressData get _value => super._value as _AddressData;
+  _$_AddressData get _value => super._value as _$_AddressData;
 
   @override
   $Res call({
@@ -115,7 +95,7 @@ class __$AddressDataCopyWithImpl<$Res> extends _$AddressDataCopyWithImpl<$Res>
     Object? city = freezed,
     Object? country = freezed,
   }) {
-    return _then(_AddressData(
+    return _then(_$_AddressData(
       street: street == freezed
           ? _value.street
           : street // ignore: cast_nullable_to_non_nullable
@@ -156,12 +136,13 @@ class _$_AddressData extends _AddressData {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _AddressData &&
+            other is _$_AddressData &&
             const DeepCollectionEquality().equals(other.street, street) &&
             const DeepCollectionEquality().equals(other.city, city) &&
             const DeepCollectionEquality().equals(other.country, country));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -171,8 +152,8 @@ class _$_AddressData extends _AddressData {
 
   @JsonKey(ignore: true)
   @override
-  _$AddressDataCopyWith<_AddressData> get copyWith =>
-      __$AddressDataCopyWithImpl<_AddressData>(this, _$identity);
+  _$$_AddressDataCopyWith<_$_AddressData> get copyWith =>
+      __$$_AddressDataCopyWithImpl<_$_AddressData>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -181,21 +162,23 @@ class _$_AddressData extends _AddressData {
 }
 
 abstract class _AddressData extends AddressData {
-  const factory _AddressData({String? street, String? city, String? country}) =
-      _$_AddressData;
+  const factory _AddressData(
+      {final String? street,
+      final String? city,
+      final String? country}) = _$_AddressData;
   const _AddressData._() : super._();
 
   factory _AddressData.fromJson(Map<String, dynamic> json) =
       _$_AddressData.fromJson;
 
   @override
-  String? get street;
+  String? get street => throw _privateConstructorUsedError;
   @override
-  String? get city;
+  String? get city => throw _privateConstructorUsedError;
   @override
-  String? get country;
+  String? get country => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$AddressDataCopyWith<_AddressData> get copyWith =>
+  _$$_AddressDataCopyWith<_$_AddressData> get copyWith =>
       throw _privateConstructorUsedError;
 }

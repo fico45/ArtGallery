@@ -29,7 +29,7 @@ class ExhibitRepository implements BaseExhibitRepository {
     try {
       final snap = await _read(firebaseFirstoreProvider)
           .collection('exhibits')
-          .orderBy('startDate')
+          .orderBy('startDateTime')
           .get();
       return snap.docs.map((doc) => Exhibit.fromDocument(doc)).toList();
     } on FirebaseException catch (e) {
@@ -43,7 +43,7 @@ class ExhibitRepository implements BaseExhibitRepository {
     try {
       final snap = await _read(firebaseFirstoreProvider)
           .collection('exhibits')
-          .orderBy('startDate')
+          .orderBy('startDateTime')
           .where('userId', isEqualTo: userId)
           .get();
       return snap.docs.map((doc) => Exhibit.fromDocument(doc)).toList();
