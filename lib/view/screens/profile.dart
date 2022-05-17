@@ -11,11 +11,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class ProfileView extends ConsumerWidget {
   final Widget? openDrawer;
   static const routeName = '/profile';
-  ProfileView({Key? key, this.openDrawer}) : super(key: key);
+  final String? userId;
+  ProfileView({
+    Key? key,
+    this.openDrawer,
+    this.userId,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(userControllerProvider);
+    final user = userId == null
+        ? ref.watch(userControllerProvider)
+        : ref.watch(getUserProvider(userId!));
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(45),
@@ -28,19 +35,27 @@ class ProfileView extends ConsumerWidget {
         child: Container(
           child: Column(
             children: [
-              Center(
-                child: Column(
-                  children: [
-                    // This will only work when photoURL is saved in the Firebase user object
-                    user.when(
-                        data: (data) => ProfileCard(
-                              user: data,
+              user.when(
+                  data: (data) {
+                    return Column(
+                      children: [
+                        Center(
+                          child: CircleAvatar(
+                            radius: 52,
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primaryContainer,
+                            child: CircleAvatar(
+                              radius: 49,
+                              backgroundImage: NetworkImage(data.image_url),
                             ),
-                        error: (e, st) => Text('There was an error.'),
-                        loading: () => const CircularProgressIndicator()),
-                  ],
-                ),
-              ),
+                          ),
+                        ),
+                        Text(data.bio),
+                      ],
+                    );
+                  },
+                  error: (e, st) => Text('There was an error.'),
+                  loading: () => const CircularProgressIndicator()),
               Divider(),
               Row(
                 children: [

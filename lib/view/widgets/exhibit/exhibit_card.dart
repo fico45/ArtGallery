@@ -135,7 +135,10 @@ class ExhibitCard extends StatelessWidget {
                         return ref.watch(getUserProvider(exhibit.userId)).when(
                               data: (data) {
                                 return Center(
-                                  child: ProfileCard(user: data),
+                                  child: ProfileCard(
+                                    user: data,
+                                    userId: exhibit.userId,
+                                  ),
                                 );
                               },
                               error: (error, st) =>

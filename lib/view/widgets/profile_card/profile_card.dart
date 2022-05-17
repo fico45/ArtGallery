@@ -1,13 +1,16 @@
 import 'package:artgallery/data/controllers/auth_controller.dart';
 import 'package:artgallery/data/model/user_model/user_data_model.dart';
+import 'package:artgallery/view/screens/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 class ProfileCard extends ConsumerWidget {
   final UserModel user;
+  final String? userId;
   const ProfileCard({
     required this.user,
+    this.userId,
     Key? key,
   }) : super(key: key);
 
@@ -28,7 +31,7 @@ class ProfileCard extends ConsumerWidget {
           color: Theme.of(context).colorScheme.tertiaryContainer,
         ),
         width: MediaQuery.of(context).size.width,
-        height: 170,
+        height: 250,
         child: Padding(
           padding: const EdgeInsets.only(
             top: 10,
@@ -91,6 +94,15 @@ class ProfileCard extends ConsumerWidget {
                   fontSize: 30,
                   color: Theme.of(context).colorScheme.onPrimaryContainer,
                 ),
+              ),
+              ElevatedButton(
+                onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ProfileView(
+                              userId: userId,
+                            ))),
+                child: Text('Go to profile'),
               ),
             ],
           ),
