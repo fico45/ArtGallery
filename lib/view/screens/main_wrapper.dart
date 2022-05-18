@@ -1,3 +1,4 @@
+import 'package:artgallery/data/controllers/auth_controller.dart';
 import 'package:artgallery/view/screens/dashboard.dart';
 import 'package:artgallery/view/screens/profile.dart';
 import 'package:artgallery/view/widgets/appbar.dart';
@@ -14,8 +15,20 @@ class MainWrapper extends ConsumerStatefulWidget {
 }
 
 class _MainWrapperState extends ConsumerState<MainWrapper> {
+  double widget1Opacity = 0.0;
   int currentPage = 1;
   GlobalKey bottomNavigationKey = GlobalKey();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future.delayed(Duration(milliseconds: 300), () {
+      setState(() {
+        widget1Opacity = 1;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +62,11 @@ class _MainWrapperState extends ConsumerState<MainWrapper> {
             });
           } */
       ),
-      body: _getPage(currentPage),
+      body: AnimatedOpacity(
+        opacity: widget1Opacity,
+        duration: Duration(seconds: 1),
+        child: _getPage(currentPage),
+      ),
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(45),
           child: CustomAppBar(

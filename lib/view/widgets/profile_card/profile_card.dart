@@ -31,7 +31,7 @@ class ProfileCard extends ConsumerWidget {
           color: Theme.of(context).colorScheme.tertiaryContainer,
         ),
         width: MediaQuery.of(context).size.width,
-        height: 250,
+        height: 220,
         child: Padding(
           padding: const EdgeInsets.only(
             top: 10,
@@ -73,7 +73,8 @@ class ProfileCard extends ConsumerWidget {
                     ),
                     CircleAvatar(
                       radius: 48,
-                      backgroundColor: Theme.of(context).colorScheme.secondary,
+                      backgroundColor:
+                          Theme.of(context).colorScheme.onTertiaryContainer,
                       child: CircleAvatar(
                         radius: 45,
                         backgroundImage: NetworkImage(user.image_url),

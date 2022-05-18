@@ -163,8 +163,16 @@ class _AuthFormState extends State<AuthForm> {
                   widget.isLoading
                       ? CircularProgressIndicator()
                       : ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  Theme.of(context).colorScheme.tertiary)),
                           onPressed: _trySubmit,
-                          child: Text(_isLogin ? 'Login' : 'Sign-up'),
+                          child: Text(
+                            _isLogin ? 'Login' : 'Sign-up',
+                            style: TextStyle(
+                                color:
+                                    Theme.of(context).colorScheme.onTertiary),
+                          ),
                         ),
                   if (!widget.isLoading)
                     TextButton(

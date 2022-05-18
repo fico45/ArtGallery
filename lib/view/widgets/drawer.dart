@@ -7,18 +7,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CustomDrawer extends StatefulWidget {
+class CustomDrawer extends ConsumerStatefulWidget {
   const CustomDrawer({Key? key}) : super(key: key);
 
   @override
-  CustomDrawerState createState() => CustomDrawerState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _CustomDrawerState();
 }
 
-class CustomDrawerState extends State<CustomDrawer> {
+class _CustomDrawerState extends ConsumerState<CustomDrawer> {
   int currentScreen = 0;
   final _advancedDrawerController = AdvancedDrawerController();
   @override
   Widget build(BuildContext context) {
+    final uid = ref.watch(authControllerProvider.select((value) => value!.uid));
     return AdvancedDrawer(
       backdropColor: Theme.of(context).colorScheme.tertiary.withOpacity(0.8),
       controller: _advancedDrawerController,
@@ -30,7 +31,7 @@ class CustomDrawerState extends State<CustomDrawer> {
       childDecoration: const BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(16)),
       ),
-      child: _getScreen(currentScreen),
+      child: _getScreen(currentScreen, uid),
       drawer: SafeArea(
         child: Container(
           child: ListTileTheme(
@@ -173,7 +174,7 @@ class CustomDrawerState extends State<CustomDrawer> {
     _advancedDrawerController.showDrawer();
   }
 
-  _getScreen(int screen) {
+  _getScreen(int screen, String? uid) {
     switch (screen) {
       case 0:
         return MainWrapper(
@@ -181,6 +182,7 @@ class CustomDrawerState extends State<CustomDrawer> {
         );
       case 1:
         return ProfileView(
+          userId: uid,
           openDrawer: IconButton(
             onPressed: _handleMenuButtonPressed,
             icon: const Icon(

@@ -161,12 +161,13 @@ class ExhibitCard extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(25),
                                         color: Theme.of(context)
                                             .colorScheme
-                                            .primaryContainer,
+                                            .tertiaryContainer,
                                       ),
                                       width: MediaQuery.of(context).size.width,
-                                      height: 160,
+                                      height: 220,
                                       child: Center(
-                                          child: CircularProgressIndicator()),
+                                        child: CircularProgressIndicator(),
+                                      ),
                                     ),
                                   ),
                                 );

@@ -52,7 +52,9 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: ((context) => NewExhibit()),
+                                builder: ((context) => NewExhibit(
+                                      exhibit: widget.exhibit,
+                                    )),
                               ),
                             );
                           },

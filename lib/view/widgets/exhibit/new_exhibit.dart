@@ -43,6 +43,8 @@ class _NewExhibitState extends ConsumerState<NewExhibit> {
             _title = widget.exhibit!.title,
             _startDateTime = widget.exhibit!.startDateTime,
             _endDate = widget.exhibit!.endDate,
+            _place.text =
+                "${widget.exhibit!.location.street}, ${widget.exhibit!.location.city}, ${widget.exhibit!.location.country}",
           }
         : {
             _description = '',
@@ -63,16 +65,6 @@ class _NewExhibitState extends ConsumerState<NewExhibit> {
   double lng = 0;
   List<File> _imagesForUpload = [];
   List<String> _images = [];
-
-  @override
-  loader() {
-    return AlertDialog(
-      title: Text('Uploading data...'),
-    );
-  }
-
-  @override
-  loadingBgBlur() => 10.0;
 
   Future<void> getLatLng(Prediction? p) async {
     if (p != null) {
@@ -135,6 +127,12 @@ class _NewExhibitState extends ConsumerState<NewExhibit> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    loadInitialData(widget.exhibit);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
@@ -153,6 +151,7 @@ class _NewExhibitState extends ConsumerState<NewExhibit> {
                   ),
                 ),
                 child: TextFormField(
+                  initialValue: widget.exhibit != null ? _title : '',
                   key: ValueKey('title'),
                   decoration: InputDecoration(
                     border: InputBorder.none,
@@ -199,7 +198,10 @@ class _NewExhibitState extends ConsumerState<NewExhibit> {
                         startText: '');
 
                     //this should save the selected location and show it in form field
-                    _place.text = p!.description.toString();
+                    if (p != null)
+                      _place.text = p!.description.toString();
+                    else
+                      return;
                   },
                 ),
               ),
