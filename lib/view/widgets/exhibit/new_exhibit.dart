@@ -43,8 +43,11 @@ class _NewExhibitState extends ConsumerState<NewExhibit> {
             _title = widget.exhibit!.title,
             _startDateTime = widget.exhibit!.startDateTime,
             _endDate = widget.exhibit!.endDate,
+            _openingTime =
+                DateFormat("HH:mm").format(widget.exhibit!.startDateTime),
             _place.text =
                 "${widget.exhibit!.location.street}, ${widget.exhibit!.location.city}, ${widget.exhibit!.location.country}",
+            //_images = ,
           }
         : {
             _description = '',
@@ -222,6 +225,9 @@ class _NewExhibitState extends ConsumerState<NewExhibit> {
                       ),
                     ),
                     child: DateTimePicker(
+                      initialValue: widget.exhibit != null
+                          ? _startDateTime.toString()
+                          : '',
                       type: DateTimePickerType.date,
                       firstDate: DateTime.now(),
                       lastDate: DateTime(2100),
@@ -245,6 +251,8 @@ class _NewExhibitState extends ConsumerState<NewExhibit> {
                       ),
                     ),
                     child: DateTimePicker(
+                      initialValue:
+                          widget.exhibit != null ? _endDate.toString() : '',
                       type: DateTimePickerType.date,
                       firstDate: DateTime.now(),
                       lastDate: DateTime(2100),
@@ -270,6 +278,7 @@ class _NewExhibitState extends ConsumerState<NewExhibit> {
                   ),
                 ),
                 child: DateTimePicker(
+                  initialValue: widget.exhibit != null ? _openingTime : '',
                   type: DateTimePickerType.time,
                   firstDate: DateTime.now(),
                   lastDate: DateTime(2100),
@@ -291,6 +300,7 @@ class _NewExhibitState extends ConsumerState<NewExhibit> {
                   ),
                 ),
                 child: TextFormField(
+                  initialValue: widget.exhibit != null ? _description : '',
                   key: ValueKey('description'),
                   maxLines: 4,
                   minLines: 1,
@@ -325,14 +335,41 @@ class _NewExhibitState extends ConsumerState<NewExhibit> {
                         scrollDirection: Axis.horizontal,
                         itemCount: _imagesForUpload.length,
                         itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Image.file(
-                              _imagesForUpload[index],
-                              width: 300,
-                              height: 300,
-                              fit: BoxFit.fitHeight,
-                            ),
+                          return Stack(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Image.file(
+                                  _imagesForUpload[index],
+                                  width: 300,
+                                  height: 300,
+                                  fit: BoxFit.fitHeight,
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.topRight,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(25),
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .secondaryContainer,
+                                  ),
+                                  child: IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          _imagesForUpload.removeAt(index);
+                                        });
+                                      },
+                                      icon: Icon(
+                                        Icons.close,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSecondaryContainer,
+                                      )),
+                                ),
+                              ),
+                            ],
                           );
                         })
                     : Container(

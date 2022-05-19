@@ -21,9 +21,10 @@ class _DashboardState extends State<Dashboard> {
         onPressed: () {
           Navigator.push(
             context,
-            CustomPageRoute(
-              NewExhibit(),
-              Alignment.bottomCenter,
+            MaterialPageRoute(
+              builder: (BuildContext context) {
+                return NewExhibit();
+              },
             ),
           );
         },

@@ -1,4 +1,3 @@
-import 'package:artgallery/data/controllers/auth_controller.dart';
 import 'package:artgallery/view/screens/dashboard.dart';
 import 'package:artgallery/view/screens/profile.dart';
 import 'package:artgallery/view/widgets/appbar.dart';
@@ -21,7 +20,6 @@ class _MainWrapperState extends ConsumerState<MainWrapper> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Future.delayed(Duration(milliseconds: 300), () {
       setState(() {
@@ -47,20 +45,6 @@ class _MainWrapperState extends ConsumerState<MainWrapper> {
         onTap: (i) => setState(() {
           currentPage = i;
         }),
-
-        /* initialSelection: 1,
-          circleColor: Theme.of(context).colorScheme.onTertiaryContainer,
-          inactiveIconColor: Theme.of(context).colorScheme.onSurface,
-          tabs: [
-            TabData(iconData: Icons.search, title: 'Explore'),
-            TabData(iconData: Icons.home, title: 'Dashboard'),
-            TabData(iconData: Icons.portrait, title: 'Profile')
-          ],
-          onTabChangedListener: (position) {
-            setState(() {
-              currentPage = position;
-            });
-          } */
       ),
       body: AnimatedOpacity(
         opacity: widget1Opacity,
