@@ -95,7 +95,7 @@ class _NewExhibitState extends ConsumerState<NewExhibit> {
     if (_imagesForDeletion.isNotEmpty)
       deleteExhibitImages(currentUser, _imagesForDeletion);
 
-    getLatLng(p);
+    await getLatLng(p);
     //let's create the AddressData object
     final locationSplit = _place.text.split(',');
     final _address = AddressData(
@@ -145,6 +145,7 @@ class _NewExhibitState extends ConsumerState<NewExhibit> {
               ),
             );
     _place.clear();
+    _unsubmittedImages.clear();
     setState(() {
       isLoading = false;
     });
