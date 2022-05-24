@@ -1,16 +1,18 @@
-import 'package:artgallery/view/widgets/custom_page_route.dart';
+import 'package:artgallery/data/controllers/auth_controller.dart';
+import 'package:artgallery/data/functions.dart';
 import 'package:artgallery/view/widgets/exhibit/exhibit_view.dart';
 import 'package:artgallery/view/widgets/exhibit/new_exhibit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class Dashboard extends StatefulWidget {
+class Dashboard extends ConsumerStatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
 
   @override
   _DashboardState createState() => _DashboardState();
 }
 
-class _DashboardState extends State<Dashboard> {
+class _DashboardState extends ConsumerState<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +20,7 @@ class _DashboardState extends State<Dashboard> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         child: Icon(Icons.add),
-        onPressed: () {
+        onPressed: () async {
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -26,7 +28,10 @@ class _DashboardState extends State<Dashboard> {
                 return NewExhibit();
               },
             ),
-          );
+          ).then((value) => value != null
+              ? deleteExhibitImages(ref.read(authControllerProvider)!, value)
+              : null);
+          ;
         },
       ),
       body: ExhibitView(),

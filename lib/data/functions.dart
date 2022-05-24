@@ -4,6 +4,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 
+import 'package:image_picker/image_picker.dart';
+
 List<Image> generateImages(List<String> imageURLs) {
   List<Image> exhibitImages = [];
   imageURLs.forEach((element) {
@@ -12,23 +14,28 @@ List<Image> generateImages(List<String> imageURLs) {
   return exhibitImages;
 }
 
-Future<List<String>> uploadExhibitImages(
-    User currentUser, List<File> _imagesForUpload) async {
-  List<String> _images = [];
+Future<String> uploadExhibitImage(
+    User currentUser, XFile _imageForUpload) async {
   String stamp = Timestamp.now().toString();
-  for (int i = 0; i < _imagesForUpload.length; i++) {
-    //get reference for uploaded image
-    final imageRef = FirebaseStorage.instance
-        .ref()
-        .child('exhibit_images')
-        .child(currentUser.uid)
-        .child(i.toString() + '-' + stamp + '.jpg');
-    //upload the imag
-    await imageRef.putFile(File(_imagesForUpload[i].path));
-    //get the image URL
-    final _url = await imageRef.getDownloadURL();
-    //and we add the URL to the images list
-    _images.add(_url);
+
+  //get reference for uploaded image
+  final imageRef = FirebaseStorage.instance
+      .ref()
+      .child('exhibit_images')
+      .child(currentUser.uid)
+      .child(stamp + '.jpg');
+  //upload the imag
+  await imageRef.putFile(File(_imageForUpload.path));
+  //get the image URL
+  final _url = await imageRef.getDownloadURL();
+  //and we add the URL to the images list
+
+  return _url;
+}
+
+Future<void> deleteExhibitImages(
+    User currentUser, List<String> _imagesForDeletion) async {
+  for (var image in _imagesForDeletion) {
+    await FirebaseStorage.instance.refFromURL(image).delete();
   }
-  return _images;
 }

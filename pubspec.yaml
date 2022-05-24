@@ -50,6 +50,7 @@ dependencies:
   url_launcher: ^6.1.0
   awesome_notifications: ^0.6.21
   location: ^4.3.0
+  copy_with_extension_gen: ^4.0.1
 
   
 dev_dependencies:

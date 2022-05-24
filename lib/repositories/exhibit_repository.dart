@@ -60,7 +60,11 @@ class ExhibitRepository implements BaseExhibitRepository {
       final docRef = await _read(firebaseFirstoreProvider)
           .collection('exhibits')
           .add(exhibit.toDocument());
-
+      /*      exhibit.id = docRef.id;
+      _read(firebaseFirstoreProvider)
+          .collection("exhibits")
+          .doc(docRef.id)
+          .update(exhibit.toDocument()); */
       return docRef.id;
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
