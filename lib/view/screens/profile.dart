@@ -2,6 +2,7 @@ import 'package:artgallery/data/controllers/auth_controller.dart';
 import 'package:artgallery/data/controllers/exhibit_list_controller.dart';
 import 'package:artgallery/data/controllers/user_controller.dart';
 import 'package:artgallery/data/model/exhibit_model/exhibit_data_model.dart';
+import 'package:artgallery/view/screens/edit_profile.dart';
 import 'package:artgallery/view/widgets/exhibit/exhibit_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,7 +20,7 @@ class ProfileView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    const double containerWidth = 70;
+    const double containerWidth = 80;
     const double containerHeight = 55;
     final user = userId == null
         ? ref.watch(userControllerProvider)
@@ -77,117 +78,79 @@ class ProfileView extends ConsumerWidget {
                                 Container(
                                   height: containerHeight,
                                   width: containerWidth,
-                                  decoration: BoxDecoration(
+                                  child: Material(
+                                    clipBehavior: Clip.antiAlias,
                                     borderRadius: BorderRadius.circular(25),
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .primaryContainer,
-                                  ),
-                                  child: InkWell(
-                                    onTap: () => launchUrl(Uri(
-                                        scheme: "mailto",
-                                        path: data.email,
-                                        queryParameters: {
-                                          "subject": "[ArtGallery]"
-                                        })),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Favorites',
-                                          style: TextStyle(
-                                            fontSize: 15,
+                                    child: InkWell(
+                                      splashColor: Theme.of(context)
+                                          .colorScheme
+                                          .primaryContainer,
+                                      onTap: () => launchUrl(Uri(
+                                          scheme: "mailto",
+                                          path: data.email,
+                                          queryParameters: {
+                                            "subject": "[ArtGallery]"
+                                          })),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Contact',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onPrimaryContainer,
+                                            ),
+                                          ),
+                                          Icon(
+                                            Icons.mail,
                                             color: Theme.of(context)
                                                 .colorScheme
                                                 .onPrimaryContainer,
-                                          ),
-                                        ),
-                                        Icon(
-                                          Icons.favorite,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onPrimaryContainer,
-                                        )
-                                      ],
+                                          )
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
                                 Container(
                                   height: containerHeight,
                                   width: containerWidth,
-                                  decoration: BoxDecoration(
+                                  child: Material(
+                                    clipBehavior: Clip.antiAlias,
                                     borderRadius: BorderRadius.circular(25),
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .primaryContainer,
-                                  ),
-                                  child: InkWell(
-                                    onTap: () => launchUrl(Uri(
-                                        scheme: "mailto",
-                                        path: data.email,
-                                        queryParameters: {
-                                          "subject": "[ArtGallery]"
-                                        })),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Contact',
-                                          style: TextStyle(
-                                            fontSize: 15,
+                                    child: InkWell(
+                                      splashColor: Theme.of(context)
+                                          .colorScheme
+                                          .primaryContainer,
+                                      onTap: () => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  EditProfileScreen())),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Edit profile',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onPrimaryContainer,
+                                            ),
+                                          ),
+                                          Icon(
+                                            Icons.edit,
                                             color: Theme.of(context)
                                                 .colorScheme
                                                 .onPrimaryContainer,
-                                          ),
-                                        ),
-                                        Icon(
-                                          Icons.mail,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onPrimaryContainer,
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  height: containerHeight,
-                                  width: containerWidth,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(25),
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .primaryContainer,
-                                  ),
-                                  child: InkWell(
-                                    onTap: () => launchUrl(Uri(
-                                        scheme: "mailto",
-                                        path: data.email,
-                                        queryParameters: {
-                                          "subject": "[ArtGallery]"
-                                        })),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Reviews',
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onPrimaryContainer,
-                                          ),
-                                        ),
-                                        Icon(
-                                          Icons.heart_broken,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onPrimaryContainer,
-                                        )
-                                      ],
+                                          )
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -220,7 +183,16 @@ class ProfileView extends ConsumerWidget {
             height: 20,
           ),
           Divider(),
-          Text("Short bio!"),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ref.watch(userControllerProvider).when(
+                  data: (data) => Flexible(
+                    child: Text(data.bio),
+                  ),
+                  error: (e, st) => Text('There was an error.'),
+                  loading: () => LinearProgressIndicator(),
+                ),
+          ),
           Divider(),
           Row(
             children: [

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:artgallery/view/widgets/auth/auth_form.dart';
+import 'package:artgallery/view/widgets/auth/auth_logo.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
@@ -18,6 +19,7 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   final _auth = FirebaseAuth.instance;
   var _isLoading = false;
+
   // GoogleSignInAccount? _currentUser;
 
   /*  GoogleSignIn _googleSignIn = GoogleSignIn(
@@ -92,9 +94,18 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.secondary.withOpacity(0.8),
-      body: AuthForm(
-        _submitAuthForm,
-        _isLoading,
+      body: Column(
+        children: [
+          Expanded(
+            child: AnimatedLogo(),
+          ),
+          Expanded(
+            child: AuthForm(
+              _submitAuthForm,
+              _isLoading,
+            ),
+          ),
+        ],
       ),
     );
   }

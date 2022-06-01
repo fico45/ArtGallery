@@ -51,6 +51,7 @@ dependencies:
   awesome_notifications: ^0.6.21
   location: ^4.3.0
   copy_with_extension_gen: ^4.0.1
+  cached_network_image: ^3.2.1
 
   
 dev_dependencies:
@@ -66,6 +67,10 @@ flutter:
 
   assets:
     - .env
+  fonts:
+    - family: VarelaRound
+      fonts:
+      - asset: lib/assets/VarelaRound-Regular.ttf
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

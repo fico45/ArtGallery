@@ -24,10 +24,13 @@ class _DashboardState extends ConsumerState<Dashboard> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (BuildContext context) {
+              builder: (context) {
                 return NewExhibit();
               },
             ),
+            // in case user goes back (pops the screen) and doesn't finish with
+            // posting the exhibit, this will ensure such images are deleted
+            // from Firebase storage bucket
           ).then((value) => value != null
               ? deleteExhibitImages(ref.read(authControllerProvider)!, value)
               : null);
