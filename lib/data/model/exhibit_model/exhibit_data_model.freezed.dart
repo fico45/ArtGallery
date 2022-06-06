@@ -31,7 +31,6 @@ mixin _$Exhibit {
   AddressData get location => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get userId => throw _privateConstructorUsedError;
-  String get userImageUrl => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -55,7 +54,6 @@ abstract class $ExhibitCopyWith<$Res> {
       AddressData location,
       String title,
       String userId,
-      String userImageUrl,
       String username});
 
   $AddressDataCopyWith<$Res> get location;
@@ -82,7 +80,6 @@ class _$ExhibitCopyWithImpl<$Res> implements $ExhibitCopyWith<$Res> {
     Object? location = freezed,
     Object? title = freezed,
     Object? userId = freezed,
-    Object? userImageUrl = freezed,
     Object? username = freezed,
   }) {
     return _then(_value.copyWith(
@@ -130,10 +127,6 @@ class _$ExhibitCopyWithImpl<$Res> implements $ExhibitCopyWith<$Res> {
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
-      userImageUrl: userImageUrl == freezed
-          ? _value.userImageUrl
-          : userImageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
       username: username == freezed
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
@@ -167,7 +160,6 @@ abstract class _$$_ExhibitCopyWith<$Res> implements $ExhibitCopyWith<$Res> {
       AddressData location,
       String title,
       String userId,
-      String userImageUrl,
       String username});
 
   @override
@@ -196,7 +188,6 @@ class __$$_ExhibitCopyWithImpl<$Res> extends _$ExhibitCopyWithImpl<$Res>
     Object? location = freezed,
     Object? title = freezed,
     Object? userId = freezed,
-    Object? userImageUrl = freezed,
     Object? username = freezed,
   }) {
     return _then(_$_Exhibit(
@@ -244,10 +235,6 @@ class __$$_ExhibitCopyWithImpl<$Res> extends _$ExhibitCopyWithImpl<$Res>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
-      userImageUrl: userImageUrl == freezed
-          ? _value.userImageUrl
-          : userImageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
       username: username == freezed
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
@@ -271,7 +258,6 @@ class _$_Exhibit extends _Exhibit {
       required this.location,
       required this.title,
       required this.userId,
-      required this.userImageUrl,
       required this.username})
       : _imageList = imageList,
         super._();
@@ -307,13 +293,11 @@ class _$_Exhibit extends _Exhibit {
   @override
   final String userId;
   @override
-  final String userImageUrl;
-  @override
   final String username;
 
   @override
   String toString() {
-    return 'Exhibit(id: $id, lat: $lat, lng: $lng, createdAt: $createdAt, description: $description, startDateTime: $startDateTime, endDate: $endDate, imageList: $imageList, location: $location, title: $title, userId: $userId, userImageUrl: $userImageUrl, username: $username)';
+    return 'Exhibit(id: $id, lat: $lat, lng: $lng, createdAt: $createdAt, description: $description, startDateTime: $startDateTime, endDate: $endDate, imageList: $imageList, location: $location, title: $title, userId: $userId, username: $username)';
   }
 
   @override
@@ -335,8 +319,6 @@ class _$_Exhibit extends _Exhibit {
             const DeepCollectionEquality().equals(other.location, location) &&
             const DeepCollectionEquality().equals(other.title, title) &&
             const DeepCollectionEquality().equals(other.userId, userId) &&
-            const DeepCollectionEquality()
-                .equals(other.userImageUrl, userImageUrl) &&
             const DeepCollectionEquality().equals(other.username, username));
   }
 
@@ -355,7 +337,6 @@ class _$_Exhibit extends _Exhibit {
       const DeepCollectionEquality().hash(location),
       const DeepCollectionEquality().hash(title),
       const DeepCollectionEquality().hash(userId),
-      const DeepCollectionEquality().hash(userImageUrl),
       const DeepCollectionEquality().hash(username));
 
   @JsonKey(ignore: true)
@@ -382,7 +363,6 @@ abstract class _Exhibit extends Exhibit {
       required final AddressData location,
       required final String title,
       required final String userId,
-      required final String userImageUrl,
       required final String username}) = _$_Exhibit;
   const _Exhibit._() : super._();
 
@@ -410,8 +390,6 @@ abstract class _Exhibit extends Exhibit {
   String get title => throw _privateConstructorUsedError;
   @override
   String get userId => throw _privateConstructorUsedError;
-  @override
-  String get userImageUrl => throw _privateConstructorUsedError;
   @override
   String get username => throw _privateConstructorUsedError;
   @override

@@ -21,7 +21,6 @@ abstract class Exhibit implements _$Exhibit {
     required AddressData location,
     required String title,
     required String userId,
-    required String userImageUrl,
     required String username,
   }) = _Exhibit;
 

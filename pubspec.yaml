@@ -67,6 +67,7 @@ flutter:
 
   assets:
     - .env
+    - lib/assets/error_icon.png
   fonts:
     - family: VarelaRound
       fonts:

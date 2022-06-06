@@ -125,7 +125,6 @@ class _NewExhibitState extends ConsumerState<NewExhibit> {
               location: _address,
               title: _title,
               userId: currentUser.uid,
-              userImageUrl: userData['image_url'],
               imageList: _images,
               username: userData['username'],
             )
@@ -142,7 +141,6 @@ class _NewExhibitState extends ConsumerState<NewExhibit> {
                 location: _address,
                 title: _title,
                 userId: currentUser.uid,
-                userImageUrl: userData['image_url'],
                 username: userData['username'],
               ),
             );

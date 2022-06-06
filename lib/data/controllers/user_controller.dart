@@ -42,4 +42,15 @@ class UserController extends StateNotifier<AsyncValue<UserModel>> {
       state = AsyncValue.error(e, stackTrace: st);
     }
   }
+
+  Future<void> updateUserData(userId, UserModel newUser) async {
+    AsyncValue.loading();
+    try {
+      await _read(userModelRepositoryProvider)
+          .updateUser(userId: userId, newUser: newUser);
+      state.whenData((user) => state = AsyncValue.data(user));
+    } on CustomException catch (e) {
+      _read(userExceptionController.notifier).state = e;
+    }
+  }
 }

@@ -7,14 +7,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
-class ExhibitCard extends StatelessWidget {
+class ExhibitCard extends ConsumerWidget {
   const ExhibitCard(this.exhibit, {Key? key}) : super(key: key);
   final Exhibit exhibit;
 
   static BorderRadius radius = BorderRadius.circular(25);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       children: [
         Stack(
@@ -177,11 +177,17 @@ class ExhibitCard extends StatelessWidget {
                     ),
                   );
                 }),
-                child: CircleAvatar(
-                  radius: 25,
-                  backgroundImage: NetworkImage(exhibit.userImageUrl),
-                  //NetworkImage(userImage),
-                ),
+                child: ref.watch(getUserProvider(exhibit.userId)).when(
+                    data: (data) => CircleAvatar(
+                          radius: 25,
+                          backgroundImage: NetworkImage(data.image_url),
+                        ),
+                    error: (error, st) => CircleAvatar(
+                          radius: 25,
+                          backgroundImage: AssetImage('error_icon.png'),
+                        ),
+                    loading: () => CircularProgressIndicator()),
+                //NetworkImage(userImage),
               ),
             ),
           ],

@@ -20,7 +20,6 @@ _$_Exhibit _$$_ExhibitFromJson(Map json) => _$_Exhibit(
           Map<String, dynamic>.from(json['location'] as Map)),
       title: json['title'] as String,
       userId: json['userId'] as String,
-      userImageUrl: json['userImageUrl'] as String,
       username: json['username'] as String,
     );
 
@@ -37,6 +36,5 @@ Map<String, dynamic> _$$_ExhibitToJson(_$_Exhibit instance) =>
       'location': instance.location.toJson(),
       'title': instance.title,
       'userId': instance.userId,
-      'userImageUrl': instance.userImageUrl,
       'username': instance.username,
     };
