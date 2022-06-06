@@ -37,7 +37,7 @@ dependencies:
   uuid: ^3.0.6
   salomon_bottom_bar: ^3.3.1
   date_time_picker: ^2.1.0
-  image_picker: ^0.8.4+11
+  image_picker: ^0.8.5+3
   flutter_riverpod: ^1.0.3
   freezed: ^2.0.3+1
   json_serializable: ^6.1.5

@@ -32,6 +32,8 @@ class NewExhibit extends ConsumerStatefulWidget {
 class _NewExhibitState extends ConsumerState<NewExhibit> {
   bool isLoading = false;
   final _places = GoogleMapsPlaces(apiKey: dotenv.env['google-api-key']!);
+  final EdgeInsets padding =
+      const EdgeInsets.symmetric(vertical: 14.0, horizontal: 8.0);
 
   TextEditingController _place = new TextEditingController();
 
@@ -186,6 +188,7 @@ class _NewExhibitState extends ConsumerState<NewExhibit> {
                     initialValue: widget.exhibit != null ? _title : '',
                     key: ValueKey('title'),
                     decoration: InputDecoration(
+                      contentPadding: padding,
                       border: InputBorder.none,
                       labelText: 'Title',
                       icon: Icon(Icons.text_fields),
@@ -209,6 +212,7 @@ class _NewExhibitState extends ConsumerState<NewExhibit> {
                     controller: _place,
                     key: ValueKey('location'),
                     decoration: InputDecoration(
+                      contentPadding: padding,
                       border: InputBorder.none,
                       labelText: 'Location',
                       icon: Icon(Icons.home),
@@ -263,6 +267,7 @@ class _NewExhibitState extends ConsumerState<NewExhibit> {
                         onChanged: (val) =>
                             _startDateTime = DateTime.parse(val),
                         decoration: InputDecoration(
+                          contentPadding: padding,
                           border: InputBorder.none,
                           icon: Icon(Icons.calendar_today_outlined),
                           hintText: 'Start date',
@@ -288,6 +293,7 @@ class _NewExhibitState extends ConsumerState<NewExhibit> {
                         lastDate: DateTime(2100),
                         onChanged: (val) => _endDate = DateTime.parse(val),
                         decoration: InputDecoration(
+                          contentPadding: padding,
                           border: InputBorder.none,
                           icon: Icon(Icons.calendar_today_outlined),
                           hintText: 'End date',
@@ -314,6 +320,7 @@ class _NewExhibitState extends ConsumerState<NewExhibit> {
                     lastDate: DateTime(2100),
                     onChanged: (val) => _openingTime = val,
                     decoration: InputDecoration(
+                        contentPadding: padding,
                         border: InputBorder.none,
                         icon: Icon(Icons.timer),
                         hintText: 'Opening time'),
@@ -335,6 +342,7 @@ class _NewExhibitState extends ConsumerState<NewExhibit> {
                     maxLines: 4,
                     minLines: 1,
                     decoration: InputDecoration(
+                      contentPadding: padding,
                       border: InputBorder.none,
                       labelText: 'Description',
                       icon: Icon(Icons.text_fields),
