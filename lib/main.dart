@@ -39,7 +39,7 @@ class MyApp extends ConsumerWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyanAccent),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
       ),
       home: StreamBuilder(
         stream: authControllerState.stream,

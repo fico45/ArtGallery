@@ -53,6 +53,7 @@ dependencies:
   copy_with_extension_gen: ^4.0.1
   cached_network_image: ^3.2.1
   onesignal_flutter: ^3.0.0
+  ical: ^0.2.2
 
   
 dev_dependencies:

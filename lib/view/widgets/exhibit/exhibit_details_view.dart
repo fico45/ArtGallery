@@ -94,6 +94,7 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
                     Padding(
                       padding: const EdgeInsets.only(top: 30.0, bottom: 10.0),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Container(
                               height: 48,
@@ -232,7 +233,7 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
             ],
           ),
         ),
-        /* bottomNavigationBar: SizedBox(
+        bottomNavigationBar: SizedBox(
           height: 73,
           child: BottomAppBar(
             color: Colors.white,
@@ -249,7 +250,7 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
                     height: 46,
                     width: 186,
                     decoration: BoxDecoration(
-                      color: Color(0xffFB6161),
+                      color: Theme.of(context).colorScheme.tertiaryContainer,
                       borderRadius: BorderRadius.circular(10),
                       boxShadow: [
                         BoxShadow(
@@ -259,19 +260,27 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
                         ),
                       ],
                     ),
-                    child: Text(
-                      "Make an offer",
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Icon(Icons.calendar_month),
+                        Text(
+                          "Export to calendar",
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onTertiaryContainer),
+                        ),
+                      ],
                     ),
                   ),
                 ),
               ),
             ),
           ),
-        ), */
+        ),
       ),
     );
   }
