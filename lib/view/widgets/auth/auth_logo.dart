@@ -16,7 +16,7 @@ class _AnimatedLogoState extends State<AnimatedLogo>
   void initState() {
     _textController = TextEditingController();
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 120),
+      duration: const Duration(milliseconds: 420),
       vsync: this,
     );
     _controller.repeat(reverse: true);

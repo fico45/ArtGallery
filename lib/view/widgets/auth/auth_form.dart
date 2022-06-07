@@ -1,3 +1,4 @@
+import 'package:artgallery/view/widgets/auth/forgot_password.dart';
 import 'package:artgallery/view/widgets/pickers/user_image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -174,6 +175,25 @@ class _AuthFormState extends State<AuthForm> {
                                     Theme.of(context).colorScheme.onTertiary),
                           ),
                         ),
+                  if (_isLogin)
+                    ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                              Theme.of(context).colorScheme.secondary)),
+                      child: Text(
+                        'Forgot password?',
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSecondary,
+                        ),
+                      ),
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return ForgotPassword();
+                            });
+                      },
+                    ),
                   if (!widget.isLoading)
                     TextButton(
                       onPressed: () {
