@@ -60,8 +60,26 @@ class ForgotPassword extends ConsumerWidget {
                           (value) => showDialog(
                             context: context,
                             builder: (BuildContext context) => Center(
-                              child: Card(
-                                child: Text('Password link sent!'),
+                              child: Container(
+                                height: 100,
+                                child: Card(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          'Password link sent!',
+                                          style: TextStyle(
+                                            fontSize: 24,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                            'Please check your email inbox (or spam folder) and follow the instructions in email to reset your password.'),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -70,8 +88,25 @@ class ForgotPassword extends ConsumerWidget {
                           (e) => showDialog(
                             context: context,
                             builder: (BuildContext context) => Center(
-                              child: Card(
-                                child: Text('There was an error.'),
+                              child: Container(
+                                height: 100,
+                                child: Card(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          'There was an error.',
+                                          style: TextStyle(
+                                            fontSize: 24,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text('Error: ' + e.message)
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
