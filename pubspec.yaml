@@ -52,6 +52,7 @@ dependencies:
   location: ^4.3.0
   copy_with_extension_gen: ^4.0.1
   cached_network_image: ^3.2.1
+  onesignal_flutter: ^3.0.0
 
   
 dev_dependencies:
