@@ -1,7 +1,8 @@
 import 'package:artgallery/data/controllers/exhibit_list_controller.dart';
-import 'package:artgallery/view/widgets/exhibit/exhibit_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'exhibit_tile.dart';
 
 class ExhibitView extends ConsumerWidget {
   const ExhibitView({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class ExhibitView extends ConsumerWidget {
                           itemCount: data.length,
                           itemBuilder: (context, index) => Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: ExhibitCard(data[index]),
+                                child: ExhibitTile(data[index]),
                               )),
                     ),
                   ],
