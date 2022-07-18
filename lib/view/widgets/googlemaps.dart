@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:artgallery/data/model/exhibit_model/exhibit_data_model.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -20,13 +21,14 @@ class _GoogleMapsState extends State<GoogleMaps> {
   static Future<void> openMap(double latitude, double longitude) async {
     String appleMapUrl =
         'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
-
-    if (Platform.isIOS) {
-      print('Map success, Apple');
-      await launchUrl(Uri.parse(appleMapUrl));
-    } else if (Platform.isAndroid) {
-      print('Map success, Android');
-      await launchUrl(Uri.parse('geo:$latitude,$longitude'));
+    if (kDebugMode) {
+      if (Platform.isIOS) {
+        print('Map success, Apple');
+        await launchUrl(Uri.parse(appleMapUrl));
+      } else if (Platform.isAndroid) {
+        print('Map success, Android');
+        await launchUrl(Uri.parse('geo:$latitude,$longitude'));
+      }
     }
   }
 

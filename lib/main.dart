@@ -1,7 +1,7 @@
 import 'package:artgallery/data/controllers/auth_controller.dart';
 import 'package:artgallery/view/screens/auth_screen.dart';
 import 'package:artgallery/view/screens/profile.dart';
-import 'package:artgallery/view/widgets/drawer.dart';
+import 'package:artgallery/view/widgets/drawer/drawer.dart';
 import 'package:artgallery/view/widgets/exhibit/new_exhibit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,7 @@ void main() async {
   await dotenv.load();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  //Remove this method to stop OneSignal Debugging
+  /*  //Remove this method to stop OneSignal Debugging
   OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
 
   OneSignal.shared.setAppId(dotenv.env['oneSignalAppId']!);
@@ -21,7 +21,7 @@ void main() async {
 // The promptForPushNotificationsWithUserResponse function will show the iOS push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
   OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
     print("Accepted permission: $accepted");
-  });
+  }); */
   final container = ProviderContainer();
   runApp(
     UncontrolledProviderScope(

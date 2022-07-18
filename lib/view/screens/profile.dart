@@ -1,9 +1,8 @@
-import 'package:artgallery/data/controllers/auth_controller.dart';
 import 'package:artgallery/data/controllers/exhibit_list_controller.dart';
 import 'package:artgallery/data/controllers/user_controller.dart';
 import 'package:artgallery/data/model/exhibit_model/exhibit_data_model.dart';
 import 'package:artgallery/view/screens/edit_profile.dart';
-import 'package:artgallery/view/widgets/exhibit/exhibit_card.dart';
+import 'package:artgallery/view/widgets/exhibit/exhibit_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -27,12 +26,6 @@ class ProfileView extends ConsumerWidget {
         : ref.watch(getUserProvider(userId!));
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      /* appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(45),
-        child: CustomAppBar(
-          openDrawer: openDrawer,
-        ),
-      ), */
       body: Column(
         children: [
           Stack(
@@ -42,7 +35,7 @@ class ProfileView extends ConsumerWidget {
               ClipPath(
                 clipper: CurveClipper(),
                 child: Container(
-                  height: 250,
+                  height: 280,
                   color: Theme.of(context).colorScheme.primary,
                 ),
               ),
@@ -157,9 +150,6 @@ class ProfileView extends ConsumerWidget {
                               ],
                             ),
                           ),
-                          SizedBox(
-                            height: 20,
-                          ),
                           CircleAvatar(
                             radius: 48,
                             backgroundColor: Theme.of(context)
@@ -170,7 +160,6 @@ class ProfileView extends ConsumerWidget {
                               backgroundImage: NetworkImage(data.image_url),
                             ),
                           ),
-                          /* Text(data.bio), */
                         ],
                       );
                     },
@@ -186,9 +175,7 @@ class ProfileView extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ref.watch(userControllerProvider).when(
-                  data: (data) => Flexible(
-                    child: Text(data.bio),
-                  ),
+                  data: (data) => Text(data.bio),
                   error: (e, st) => Text('There was an error.'),
                   loading: () => LinearProgressIndicator(),
                 ),
@@ -220,7 +207,8 @@ class ProfileView extends ConsumerWidget {
                             itemCount: currentUserExhibits.length,
                             itemBuilder: (context, index) => Padding(
                               padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: ExhibitCard(currentUserExhibits[index]),
+                              child: ExhibitTile(
+                                  exhibit: currentUserExhibits[index]),
                             ),
                           )
                         : Center(child: Text('No exhibits!')),
