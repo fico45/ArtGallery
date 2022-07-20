@@ -1,6 +1,7 @@
 import 'package:artgallery/data/controllers/auth_controller.dart';
 import 'package:artgallery/data/controllers/exhibit_list_controller.dart';
 import 'package:artgallery/view/widgets/appbar.dart';
+import 'package:artgallery/view/widgets/exhibit/add_to_calendar_sheet.dart';
 import 'package:artgallery/view/widgets/exhibit/new_exhibit.dart';
 import 'package:artgallery/view/widgets/googlemaps.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -243,7 +244,10 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    showCalendarExportSheet(
+                        context: context, exhibit: widget.exhibit);
+                  },
                   child: Container(
                     alignment: Alignment.center,
                     margin: const EdgeInsets.only(bottom: 6.0),
