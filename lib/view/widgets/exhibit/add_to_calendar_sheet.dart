@@ -1,13 +1,14 @@
+import 'package:artgallery/data/functions.dart';
 import 'package:artgallery/data/model/exhibit_model/exhibit_data_model.dart';
-import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:numberpicker/numberpicker.dart';
 
 Future showCalendarExportSheet({
   required BuildContext context,
   required Exhibit exhibit,
 }) async {
   return showModalBottomSheet(
+    enableDrag: false,
     elevation: 5,
     context: context,
     builder: (context) => CalendarExportSheet(
@@ -25,8 +26,7 @@ class CalendarExportSheet extends StatefulWidget {
 }
 
 class _CalendarExportSheetState extends State<CalendarExportSheet> {
-  late String _notificationTime =
-      DateFormat("HH:mm").format(widget.exhibit.startDateTime);
+  int notificationTime = 5;
   final EdgeInsets padding =
       const EdgeInsets.symmetric(vertical: 14.0, horizontal: 8.0);
   bool shouldNotify = false;
@@ -66,44 +66,38 @@ class _CalendarExportSheetState extends State<CalendarExportSheet> {
                       ListTileControlAffinity.leading, //  <-- leading Checkbox
                 ),
               ),
-              AnimatedContainer(
-                width: MediaQuery.of(context).size.width * 0.4,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(32),
-                  border: Border.all(
-                    color: shouldNotify
-                        ? Theme.of(context).colorScheme.primary
-                        : Theme.of(context).colorScheme.surface,
-                    width: 2,
-                  ),
-                ),
-                duration: Duration(
-                  milliseconds: 600,
-                ),
-                child: DateTimePicker(
-                  enabled: shouldNotify,
-                  initialValue: _notificationTime,
-                  initialTime: TimeOfDay(
-                      hour: int.parse(
-                          _notificationTime[0] + _notificationTime[1]),
-                      minute: int.parse(
-                          _notificationTime[3] + _notificationTime[4])),
-                  onChanged: (val) => _notificationTime = val,
-                  type: DateTimePickerType.time,
-                  firstDate: DateTime.now(),
-                  lastDate: DateTime(2100),
-                  decoration: InputDecoration(
-                    contentPadding: padding,
-                    border: InputBorder.none,
-                    icon: Padding(
-                      padding: const EdgeInsets.only(left: 30.0),
-                      child: Icon(
-                        Icons.timer,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
+              IgnorePointer(
+                ignoring: !shouldNotify,
+                child: AnimatedContainer(
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(32),
+                    border: Border.all(
+                      color: shouldNotify
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(context).colorScheme.surface,
+                      width: 2,
                     ),
                   ),
+                  duration: Duration(
+                    milliseconds: 600,
+                  ),
+                  child: Center(
+                      child: NumberPicker(
+                    textStyle: TextStyle(
+                      fontFamily: 'VarelaRound',
+                    ),
+                    itemWidth: 30,
+                    maxValue: 120,
+                    minValue: 1,
+                    itemCount: 5,
+                    axis: Axis.horizontal,
+                    value: notificationTime,
+                    onChanged: (value) => setState(() {
+                      notificationTime = value;
+                    }),
+                  )),
                 ),
               ),
             ],
@@ -113,9 +107,13 @@ class _CalendarExportSheetState extends State<CalendarExportSheet> {
           padding: padding,
           child: Center(
             child: OutlinedButton(
-              onPressed: () {},
-              child: Text('Export to Calendar'),
-              style: ButtonStyle(),
+              onPressed: () {
+                exportExhibitToCalendar(
+                    exhibit: widget.exhibit,
+                    notificationDelay: notificationTime,
+                    shouldNotify: shouldNotify);
+              },
+              child: Text('Confirm'),
             ),
           ),
         ),
