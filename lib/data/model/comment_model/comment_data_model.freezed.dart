@@ -20,7 +20,7 @@ Comment _$CommentFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Comment {
-  String? get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   String get commentText => throw _privateConstructorUsedError;
   String get userId => throw _privateConstructorUsedError;
@@ -34,8 +34,7 @@ mixin _$Comment {
 abstract class $CommentCopyWith<$Res> {
   factory $CommentCopyWith(Comment value, $Res Function(Comment) then) =
       _$CommentCopyWithImpl<$Res>;
-  $Res call(
-      {String? id, DateTime createdAt, String commentText, String userId});
+  $Res call({String id, DateTime createdAt, String commentText, String userId});
 }
 
 /// @nodoc
@@ -57,7 +56,7 @@ class _$CommentCopyWithImpl<$Res> implements $CommentCopyWith<$Res> {
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -80,8 +79,7 @@ abstract class _$$_CommentCopyWith<$Res> implements $CommentCopyWith<$Res> {
           _$_Comment value, $Res Function(_$_Comment) then) =
       __$$_CommentCopyWithImpl<$Res>;
   @override
-  $Res call(
-      {String? id, DateTime createdAt, String commentText, String userId});
+  $Res call({String id, DateTime createdAt, String commentText, String userId});
 }
 
 /// @nodoc
@@ -104,7 +102,7 @@ class __$$_CommentCopyWithImpl<$Res> extends _$CommentCopyWithImpl<$Res>
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -125,7 +123,7 @@ class __$$_CommentCopyWithImpl<$Res> extends _$CommentCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Comment extends _Comment {
   const _$_Comment(
-      {this.id,
+      {required this.id,
       required this.createdAt,
       required this.commentText,
       required this.userId})
@@ -135,7 +133,7 @@ class _$_Comment extends _Comment {
       _$$_CommentFromJson(json);
 
   @override
-  final String? id;
+  final String id;
   @override
   final DateTime createdAt;
   @override
@@ -182,7 +180,7 @@ class _$_Comment extends _Comment {
 
 abstract class _Comment extends Comment {
   const factory _Comment(
-      {final String? id,
+      {required final String id,
       required final DateTime createdAt,
       required final String commentText,
       required final String userId}) = _$_Comment;
@@ -191,7 +189,7 @@ abstract class _Comment extends Comment {
   factory _Comment.fromJson(Map<String, dynamic> json) = _$_Comment.fromJson;
 
   @override
-  String? get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   @override
   DateTime get createdAt => throw _privateConstructorUsedError;
   @override

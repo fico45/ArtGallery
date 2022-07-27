@@ -5,6 +5,8 @@ import 'package:artgallery/repositories/custom_exception.dart';
 import 'package:artgallery/repositories/exhibit_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../model/comment_model/comment_data_model.dart';
+
 final exhibitListExceptionProvider =
     StateProvider<CustomException?>((_) => null);
 
@@ -109,6 +111,19 @@ class ExhibitListController extends StateNotifier<AsyncValue<List<Exhibit>>> {
           imagesToDelete: exhibit.imageList);
       state.whenData((items) => state = AsyncValue.data(
           items..removeWhere((element) => element.id == exhibit.id)));
+    } on CustomException catch (e) {
+      _read(exhibitListExceptionProvider.notifier).state = e;
+    }
+  }
+
+  Future<void> postExhibitComment({required Comment comment}) async {
+    try {
+      await _read(exhibitRepositoryProvider).postExhibitComment(
+        comment: comment,
+        exhibitId: comment.id,
+      );
+
+      state.whenData((exhibits) => state = AsyncValue.data(exhibits));
     } on CustomException catch (e) {
       _read(exhibitListExceptionProvider.notifier).state = e;
     }

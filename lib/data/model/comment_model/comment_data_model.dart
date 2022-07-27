@@ -9,7 +9,7 @@ abstract class Comment implements _$Comment {
   const Comment._();
 
   const factory Comment({
-    String? id,
+    required String id,
     required DateTime createdAt,
     required String commentText,
     required String userId,

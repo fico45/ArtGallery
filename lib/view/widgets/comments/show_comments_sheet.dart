@@ -1,7 +1,10 @@
+import 'package:artgallery/data/controllers/auth_controller.dart';
 import 'package:artgallery/data/model/exhibit_model/exhibit_data_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../data/model/comment_model/comment_data_model.dart';
+import 'package:artgallery/data/controllers/exhibit_list_controller.dart';
 
 Future showCommentSheet(
     {required BuildContext context, required Exhibit exhibit}) async {
@@ -24,6 +27,7 @@ class CommentViewSheet extends StatefulWidget {
 }
 
 class _CommentViewSheetState extends State<CommentViewSheet> {
+  TextEditingController _textComment = TextEditingController();
   final EdgeInsets padding =
       const EdgeInsets.symmetric(vertical: 14.0, horizontal: 8.0);
   @override
@@ -66,18 +70,35 @@ class _CommentViewSheetState extends State<CommentViewSheet> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-            child: TextFormField(
-              decoration: InputDecoration(
-                border: UnderlineInputBorder(),
-                labelText: 'Enter a comment...',
-                suffixIcon: IconButton(
-                  icon: Icon(Icons.send),
-                  onPressed: () {},
+          Consumer(
+            builder: (BuildContext context, WidgetRef ref, Widget? child) {
+              return Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                child: TextFormField(
+                  onChanged: (value) => _textComment.text = value,
+                  decoration: InputDecoration(
+                    border: UnderlineInputBorder(),
+                    labelText: 'Enter a comment...',
+                    suffixIcon: IconButton(
+                      icon: Icon(Icons.send),
+                      onPressed: () async {
+                        await ref
+                            .read(exhibitListControllerProvider.notifier)
+                            .postExhibitComment(
+                                comment: Comment(
+                                    id: widget.exhibit.id!,
+                                    createdAt: DateTime.now(),
+                                    commentText: _textComment.text,
+                                    userId:
+                                        ref.read(authControllerProvider)!.uid));
+                        _textComment.clear();
+                      },
+                    ),
+                  ),
                 ),
-              ),
-            ),
+              );
+            },
           ),
         ],
       ),

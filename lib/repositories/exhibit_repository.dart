@@ -1,8 +1,11 @@
 import 'package:artgallery/data/model/exhibit_model/exhibit_data_model.dart';
 import 'package:artgallery/data/providers/general_providers.dart';
 import 'package:artgallery/repositories/custom_exception.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../data/model/comment_model/comment_data_model.dart';
 
 abstract class BaseExhibitRepository {
   Future<List<Exhibit>> retrieveAllExhibits({required String userId});
@@ -14,6 +17,8 @@ abstract class BaseExhibitRepository {
       {required String userId,
       required String exhibitId,
       required List<String> imagesToDelete});
+  Future<void> postExhibitComment(
+      {required String exhibitId, required Comment comment});
 }
 
 final exhibitRepositoryProvider =
@@ -98,6 +103,21 @@ class ExhibitRepository implements BaseExhibitRepository {
           .collection('exhibits')
           .doc(exhibitId)
           .delete();
+    } on FirebaseException catch (e) {
+      throw CustomException(message: e.message);
+    }
+  }
+
+  @override
+  Future<void> postExhibitComment(
+      {required String exhibitId, required Comment comment}) async {
+    try {
+      await _read(firebaseFirstoreProvider)
+          .collection('exhibits')
+          .doc(exhibitId)
+          .update({
+        "comments": FieldValue.arrayUnion([comment.toDocument()])
+      });
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
     }

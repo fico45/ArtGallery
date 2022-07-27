@@ -7,7 +7,7 @@ part of 'comment_data_model.dart';
 // **************************************************************************
 
 _$_Comment _$$_CommentFromJson(Map json) => _$_Comment(
-      id: json['id'] as String?,
+      id: json['id'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       commentText: json['commentText'] as String,
       userId: json['userId'] as String,
