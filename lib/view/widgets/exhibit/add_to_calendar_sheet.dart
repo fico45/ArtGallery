@@ -8,6 +8,8 @@ Future showCalendarExportSheet({
   required Exhibit exhibit,
 }) async {
   return showModalBottomSheet(
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
     enableDrag: false,
     elevation: 5,
     context: context,

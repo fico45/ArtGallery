@@ -1,6 +1,7 @@
 import 'package:artgallery/data/controllers/auth_controller.dart';
 import 'package:artgallery/data/controllers/exhibit_list_controller.dart';
 import 'package:artgallery/view/widgets/appbar.dart';
+import 'package:artgallery/view/widgets/comments/show_comments_sheet.dart';
 import 'package:artgallery/view/widgets/exhibit/add_to_calendar_sheet.dart';
 import 'package:artgallery/view/widgets/exhibit/new_exhibit.dart';
 import 'package:artgallery/view/widgets/googlemaps.dart';
@@ -223,9 +224,52 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
                             exhibit: widget.exhibit,
                           ),
                         ),
-                        Container(
-                          height: 80,
-                        )
+                        SizedBox(
+                          height: 20,
+                        ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: InkWell(
+                            onTap: () {
+                              showCalendarExportSheet(
+                                  context: context, exhibit: widget.exhibit);
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              margin: const EdgeInsets.only(bottom: 6.0),
+                              height: 46,
+                              width: 186,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .tertiaryContainer,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey,
+                                    offset: Offset(0.0, 1.0), //(x,y)
+                                    blurRadius: 6.0,
+                                  ),
+                                ],
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.calendar_month),
+                                  Text(
+                                    "Export to calendar",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w600,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onTertiaryContainer),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ],
@@ -235,26 +279,25 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
           ),
         ),
         bottomNavigationBar: SizedBox(
-          height: 73,
+          height: 70,
           child: BottomAppBar(
-            color: Colors.white,
-            elevation: 0.0,
             child: FittedBox(
               fit: BoxFit.none,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: InkWell(
                   onTap: () {
-                    showCalendarExportSheet(
-                        context: context, exhibit: widget.exhibit);
+                    showCommentSheet(context: context, exhibit: widget.exhibit);
                   },
                   child: Container(
-                    alignment: Alignment.center,
-                    margin: const EdgeInsets.only(bottom: 6.0),
                     height: 46,
                     width: 186,
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.only(
+                      bottom: 6,
+                    ),
                     decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.tertiaryContainer,
+                      color: Theme.of(context).colorScheme.secondaryContainer,
                       borderRadius: BorderRadius.circular(10),
                       boxShadow: [
                         BoxShadow(
@@ -267,9 +310,13 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Icon(Icons.calendar_month),
+                        Icon(Icons.comment),
                         Text(
-                          "Export to calendar",
+                          '12',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        Text(
+                          "Show comments",
                           style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
