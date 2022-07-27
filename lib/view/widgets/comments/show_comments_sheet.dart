@@ -10,6 +10,7 @@ Future showCommentSheet(
           borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
       isScrollControlled: true,
       context: context,
+      isDismissible: true,
       builder: (context) => CommentViewSheet(
             exhibit: exhibit,
           ));
@@ -31,6 +32,7 @@ class _CommentViewSheetState extends State<CommentViewSheet> {
       padding: MediaQuery.of(context).viewInsets,
       child: Wrap(
         children: [
+          Center(),
           Padding(
             padding: padding,
             child: Center(
@@ -48,13 +50,32 @@ class _CommentViewSheetState extends State<CommentViewSheet> {
           ),
           Container(
             height: 300,
+            child: SingleChildScrollView(
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemCount: 1,
+                itemBuilder: ((context, index) {
+                  return ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxWidth: MediaQuery.of(context).size.width,
+                    ),
+                    child: Text('bok'),
+                  );
+                }),
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
             child: TextFormField(
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 border: UnderlineInputBorder(),
                 labelText: 'Enter a comment...',
+                suffixIcon: IconButton(
+                  icon: Icon(Icons.send),
+                  onPressed: () {},
+                ),
               ),
             ),
           ),
