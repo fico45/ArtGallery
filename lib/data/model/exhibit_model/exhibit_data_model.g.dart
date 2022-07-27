@@ -21,6 +21,9 @@ _$_Exhibit _$$_ExhibitFromJson(Map json) => _$_Exhibit(
       title: json['title'] as String,
       userId: json['userId'] as String,
       username: json['username'] as String,
+      comments: (json['comments'] as List<dynamic>?)
+          ?.map((e) => Comment.fromJson(Map<String, dynamic>.from(e as Map)))
+          .toList(),
     );
 
 Map<String, dynamic> _$$_ExhibitToJson(_$_Exhibit instance) =>
@@ -37,4 +40,5 @@ Map<String, dynamic> _$$_ExhibitToJson(_$_Exhibit instance) =>
       'title': instance.title,
       'userId': instance.userId,
       'username': instance.username,
+      'comments': instance.comments?.map((e) => e.toJson()).toList(),
     };

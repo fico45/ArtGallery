@@ -32,6 +32,7 @@ mixin _$Exhibit {
   String get title => throw _privateConstructorUsedError;
   String get userId => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
+  List<Comment>? get comments => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -54,7 +55,8 @@ abstract class $ExhibitCopyWith<$Res> {
       AddressData location,
       String title,
       String userId,
-      String username});
+      String username,
+      List<Comment>? comments});
 
   $AddressDataCopyWith<$Res> get location;
 }
@@ -81,6 +83,7 @@ class _$ExhibitCopyWithImpl<$Res> implements $ExhibitCopyWith<$Res> {
     Object? title = freezed,
     Object? userId = freezed,
     Object? username = freezed,
+    Object? comments = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -131,6 +134,10 @@ class _$ExhibitCopyWithImpl<$Res> implements $ExhibitCopyWith<$Res> {
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String,
+      comments: comments == freezed
+          ? _value.comments
+          : comments // ignore: cast_nullable_to_non_nullable
+              as List<Comment>?,
     ));
   }
 
@@ -160,7 +167,8 @@ abstract class _$$_ExhibitCopyWith<$Res> implements $ExhibitCopyWith<$Res> {
       AddressData location,
       String title,
       String userId,
-      String username});
+      String username,
+      List<Comment>? comments});
 
   @override
   $AddressDataCopyWith<$Res> get location;
@@ -189,6 +197,7 @@ class __$$_ExhibitCopyWithImpl<$Res> extends _$ExhibitCopyWithImpl<$Res>
     Object? title = freezed,
     Object? userId = freezed,
     Object? username = freezed,
+    Object? comments = freezed,
   }) {
     return _then(_$_Exhibit(
       id: id == freezed
@@ -239,6 +248,10 @@ class __$$_ExhibitCopyWithImpl<$Res> extends _$ExhibitCopyWithImpl<$Res>
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String,
+      comments: comments == freezed
+          ? _value._comments
+          : comments // ignore: cast_nullable_to_non_nullable
+              as List<Comment>?,
     ));
   }
 }
@@ -258,8 +271,10 @@ class _$_Exhibit extends _Exhibit {
       required this.location,
       required this.title,
       required this.userId,
-      required this.username})
+      required this.username,
+      final List<Comment>? comments})
       : _imageList = imageList,
+        _comments = comments,
         super._();
 
   factory _$_Exhibit.fromJson(Map<String, dynamic> json) =>
@@ -294,10 +309,18 @@ class _$_Exhibit extends _Exhibit {
   final String userId;
   @override
   final String username;
+  final List<Comment>? _comments;
+  @override
+  List<Comment>? get comments {
+    final value = _comments;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'Exhibit(id: $id, lat: $lat, lng: $lng, createdAt: $createdAt, description: $description, startDateTime: $startDateTime, endDate: $endDate, imageList: $imageList, location: $location, title: $title, userId: $userId, username: $username)';
+    return 'Exhibit(id: $id, lat: $lat, lng: $lng, createdAt: $createdAt, description: $description, startDateTime: $startDateTime, endDate: $endDate, imageList: $imageList, location: $location, title: $title, userId: $userId, username: $username, comments: $comments)';
   }
 
   @override
@@ -319,7 +342,8 @@ class _$_Exhibit extends _Exhibit {
             const DeepCollectionEquality().equals(other.location, location) &&
             const DeepCollectionEquality().equals(other.title, title) &&
             const DeepCollectionEquality().equals(other.userId, userId) &&
-            const DeepCollectionEquality().equals(other.username, username));
+            const DeepCollectionEquality().equals(other.username, username) &&
+            const DeepCollectionEquality().equals(other._comments, _comments));
   }
 
   @JsonKey(ignore: true)
@@ -337,7 +361,8 @@ class _$_Exhibit extends _Exhibit {
       const DeepCollectionEquality().hash(location),
       const DeepCollectionEquality().hash(title),
       const DeepCollectionEquality().hash(userId),
-      const DeepCollectionEquality().hash(username));
+      const DeepCollectionEquality().hash(username),
+      const DeepCollectionEquality().hash(_comments));
 
   @JsonKey(ignore: true)
   @override
@@ -363,7 +388,8 @@ abstract class _Exhibit extends Exhibit {
       required final AddressData location,
       required final String title,
       required final String userId,
-      required final String username}) = _$_Exhibit;
+      required final String username,
+      final List<Comment>? comments}) = _$_Exhibit;
   const _Exhibit._() : super._();
 
   factory _Exhibit.fromJson(Map<String, dynamic> json) = _$_Exhibit.fromJson;
@@ -392,6 +418,8 @@ abstract class _Exhibit extends Exhibit {
   String get userId => throw _privateConstructorUsedError;
   @override
   String get username => throw _privateConstructorUsedError;
+  @override
+  List<Comment>? get comments => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_ExhibitCopyWith<_$_Exhibit> get copyWith =>

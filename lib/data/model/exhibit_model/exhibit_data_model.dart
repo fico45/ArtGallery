@@ -2,6 +2,8 @@ import 'package:artgallery/data/model/address_model/address_data_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../comment_model/comment_data_model.dart';
+
 part 'exhibit_data_model.freezed.dart';
 part 'exhibit_data_model.g.dart';
 
@@ -22,6 +24,7 @@ abstract class Exhibit implements _$Exhibit {
     required String title,
     required String userId,
     required String username,
+    List<Comment>? comments,
   }) = _Exhibit;
 
   factory Exhibit.fromJson(Map<String, dynamic> json) =>

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:device_calendar/device_calendar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -49,11 +51,16 @@ void exportExhibitToCalendar({
   int? notificationDelay,
   required bool shouldNotify,
 }) async {
+  log('test!');
+  DeviceCalendarPlugin _deviceCalendarPlugin = DeviceCalendarPlugin();
   Event event = Event(exhibit.userId, eventId: exhibit.id, reminders: [
     if (shouldNotify)
       Reminder(
         minutes: notificationDelay,
       ),
   ]);
-  DeviceCalendarPlugin().createOrUpdateEvent(event);
+  try {
+    var permissionsGranted = await _deviceCalendarPlugin.hasPermissions();
+  } catch (e) {}
+  _deviceCalendarPlugin.createOrUpdateEvent(event);
 }
