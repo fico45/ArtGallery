@@ -116,11 +116,12 @@ class ExhibitListController extends StateNotifier<AsyncValue<List<Exhibit>>> {
     }
   }
 
-  Future<void> postExhibitComment({required Comment comment}) async {
+  Future<void> postExhibitComment(
+      {required Comment comment, required String exhibitId}) async {
     try {
       await _read(exhibitRepositoryProvider).postExhibitComment(
         comment: comment,
-        exhibitId: comment.id,
+        exhibitId: exhibitId,
       );
 
       state.whenData((exhibits) => state = AsyncValue.data(exhibits));

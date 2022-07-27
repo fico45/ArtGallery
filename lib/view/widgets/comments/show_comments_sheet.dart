@@ -1,5 +1,6 @@
 import 'package:artgallery/data/controllers/auth_controller.dart';
 import 'package:artgallery/data/model/exhibit_model/exhibit_data_model.dart';
+import 'package:artgallery/view/widgets/comments/comment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -54,21 +55,28 @@ class _CommentViewSheetState extends State<CommentViewSheet> {
           ),
           Container(
             height: 300,
-            child: SingleChildScrollView(
-              child: ListView.builder(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemCount: 1,
-                itemBuilder: ((context, index) {
-                  return ConstrainedBox(
-                    constraints: BoxConstraints(
-                      maxWidth: MediaQuery.of(context).size.width,
+            child: (widget.exhibit.comments != null &&
+                    widget.exhibit.comments!.isNotEmpty)
+                ? SingleChildScrollView(
+                    child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: widget.exhibit.comments!.length,
+                      itemBuilder: ((context, index) {
+                        return ConstrainedBox(
+                          constraints: BoxConstraints(
+                            maxWidth: MediaQuery.of(context).size.width,
+                          ),
+                          child: CommentBubble(
+                            comment: widget.exhibit.comments![index],
+                          ),
+                        );
+                      }),
                     ),
-                    child: Text('bok'),
-                  );
-                }),
-              ),
-            ),
+                  )
+                : Center(
+                    child: Text('No comments yet!'),
+                  ),
           ),
           Consumer(
             builder: (BuildContext context, WidgetRef ref, Widget? child) {
@@ -86,13 +94,16 @@ class _CommentViewSheetState extends State<CommentViewSheet> {
                         await ref
                             .read(exhibitListControllerProvider.notifier)
                             .postExhibitComment(
+                                exhibitId: widget.exhibit.id!,
                                 comment: Comment(
                                     id: widget.exhibit.id!,
                                     createdAt: DateTime.now(),
                                     commentText: _textComment.text,
                                     userId:
                                         ref.read(authControllerProvider)!.uid));
-                        _textComment.clear();
+                        setState(() {
+                          _textComment.clear();
+                        });
                       },
                     ),
                   ),
