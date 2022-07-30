@@ -49,8 +49,18 @@ class _AuthScreenState extends State<AuthScreen> {
         _isLoading = true;
       });
       if (isLogin) {
-        authResult = await _auth.signInWithEmailAndPassword(
-            email: email, password: password);
+        try {
+          authResult = await _auth.signInWithEmailAndPassword(
+              email: email, password: password);
+          widget.callback(newRegistrationStatus: true);
+        } on FirebaseAuthException catch (e) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(e.message.toString()),
+          ));
+          setState(() {
+            _isLoading = false;
+          });
+        }
       } else {
         authResult = await _auth.createUserWithEmailAndPassword(
             email: email, password: password);

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:artgallery/data/controllers/auth_controller.dart';
 import 'package:artgallery/view/screens/auth_screen.dart';
 import 'package:artgallery/view/screens/profile.dart';
@@ -30,7 +32,8 @@ class MyApp extends ConsumerStatefulWidget {
 }
 
 class _MyAppState extends ConsumerState<MyApp> {
-  bool registrationComplete = false;
+  bool registrationComplete = true;
+
   void _setRegistrationComplete({required bool newRegistrationStatus}) {
     setState(() {
       registrationComplete = newRegistrationStatus;
@@ -41,6 +44,7 @@ class _MyAppState extends ConsumerState<MyApp> {
   @override
   Widget build(BuildContext context) {
     final authControllerState = ref.read(authControllerProvider.notifier);
+    log(authControllerState.stream.isBroadcast.toString());
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
