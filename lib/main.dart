@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:artgallery/data/controllers/auth_controller.dart';
-import 'package:artgallery/data/providers/color_provider.dart';
 import 'package:artgallery/view/screens/auth_screen.dart';
 import 'package:artgallery/view/screens/profile.dart';
 import 'package:artgallery/view/widgets/drawer/drawer.dart';
@@ -50,14 +47,13 @@ class _MyAppState extends ConsumerState<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    final colorState = ref.watch(colorProvider.notifier);
     final authControllerState = ref.read(authControllerProvider.notifier);
-    seedColor = colorState.state;
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: seedColor),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         //ColorScheme.fromSeed(seedColor: Colors.green),
       ),
       home: StreamBuilder(
