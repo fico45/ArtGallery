@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:artgallery/data/controllers/auth_controller.dart';
+import 'package:artgallery/data/providers/color_provider.dart';
 import 'package:artgallery/view/screens/auth_screen.dart';
 import 'package:artgallery/view/screens/profile.dart';
 import 'package:artgallery/view/widgets/drawer/drawer.dart';
@@ -33,7 +34,7 @@ class MyApp extends ConsumerStatefulWidget {
 
 class _MyAppState extends ConsumerState<MyApp> {
   bool registrationComplete = true;
-
+  Color seedColor = Colors.blue;
   void _setRegistrationComplete({required bool newRegistrationStatus}) {
     setState(() {
       registrationComplete = newRegistrationStatus;
@@ -41,15 +42,23 @@ class _MyAppState extends ConsumerState<MyApp> {
     ;
   }
 
+  void setStateCallback({required Color newColor}) {
+    setState(() {
+      seedColor = newColor;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final colorState = ref.watch(colorProvider.notifier);
     final authControllerState = ref.read(authControllerProvider.notifier);
-    log(authControllerState.stream.isBroadcast.toString());
+    seedColor = colorState.state;
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
+        colorScheme: ColorScheme.fromSeed(seedColor: seedColor),
+        //ColorScheme.fromSeed(seedColor: Colors.green),
       ),
       home: StreamBuilder(
         stream: authControllerState.stream,

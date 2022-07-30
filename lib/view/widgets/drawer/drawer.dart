@@ -3,6 +3,7 @@ import 'package:artgallery/data/controllers/user_controller.dart';
 import 'package:artgallery/view/screens/explore.dart';
 import 'package:artgallery/view/screens/main_wrapper.dart';
 import 'package:artgallery/view/screens/profile.dart';
+import 'package:artgallery/view/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -124,7 +125,12 @@ class _CustomDrawerState extends ConsumerState<CustomDrawer> {
                     Icons.settings,
                     size: 24,
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    setState(() {
+                      currentScreen = 3;
+                      _advancedDrawerController.hideDrawer();
+                    });
+                  },
                   title: Text(
                     'Settings',
                     style: TextStyle(fontWeight: FontWeight.w400, fontSize: 18),
@@ -193,6 +199,16 @@ class _CustomDrawerState extends ConsumerState<CustomDrawer> {
         );
       case 2:
         return Explore(
+          openDrawer: IconButton(
+            onPressed: _handleMenuButtonPressed,
+            icon: const Icon(
+              Icons.menu,
+              size: 24,
+            ),
+          ),
+        );
+      case 3:
+        return Settings(
           openDrawer: IconButton(
             onPressed: _handleMenuButtonPressed,
             icon: const Icon(

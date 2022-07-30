@@ -53,6 +53,7 @@ dependencies:
   copy_with_extension_gen: ^4.0.1
   device_calendar: ^4.2.0
   numberpicker: ^2.1.1
+  flex_color_picker: ^2.5.0
 
   
 dev_dependencies:
