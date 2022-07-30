@@ -1,12 +1,10 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:device_calendar/device_calendar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'dart:io';
+import 'package:add_2_calendar/add_2_calendar.dart';
 
 import 'package:image_picker/image_picker.dart';
 
@@ -48,19 +46,17 @@ Future<void> deleteExhibitImages(
 
 void exportExhibitToCalendar({
   required Exhibit exhibit,
-  int? notificationDelay,
-  required bool shouldNotify,
 }) async {
-  log('test!');
-  DeviceCalendarPlugin _deviceCalendarPlugin = DeviceCalendarPlugin();
-  Event event = Event(exhibit.userId, eventId: exhibit.id, reminders: [
-    if (shouldNotify)
-      Reminder(
-        minutes: notificationDelay,
-      ),
-  ]);
   try {
-    var permissionsGranted = await _deviceCalendarPlugin.hasPermissions();
+    final Event event = Event(
+      title: exhibit.title,
+      description: exhibit.description,
+      location:
+          "${exhibit.location.street}, ${exhibit.location.city}, ${exhibit.location.country}",
+      startDate: exhibit.startDateTime,
+      endDate: exhibit.endDate,
+    );
+
+    Add2Calendar.addEvent2Cal(event);
   } catch (e) {}
-  _deviceCalendarPlugin.createOrUpdateEvent(event);
 }

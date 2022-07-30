@@ -259,8 +259,9 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
                           borderRadius: BorderRadius.circular(10),
                           child: InkWell(
                             onTap: () {
-                              showCalendarExportSheet(
-                                  context: context, exhibit: widget.exhibit);
+                              exportExhibitToCalendar(
+                                exhibit: widget.exhibit,
+                              );
                             },
                             child: Container(
                               alignment: Alignment.center,

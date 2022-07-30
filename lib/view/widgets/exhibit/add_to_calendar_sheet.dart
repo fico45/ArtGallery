@@ -111,9 +111,8 @@ class _CalendarExportSheetState extends State<CalendarExportSheet> {
             child: OutlinedButton(
               onPressed: () {
                 exportExhibitToCalendar(
-                    exhibit: widget.exhibit,
-                    notificationDelay: notificationTime,
-                    shouldNotify: shouldNotify);
+                  exhibit: widget.exhibit,
+                );
               },
               child: Text('Confirm'),
             ),
