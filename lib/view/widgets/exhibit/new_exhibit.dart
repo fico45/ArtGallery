@@ -33,7 +33,7 @@ class _NewExhibitState extends ConsumerState<NewExhibit> {
   bool isLoading = false;
   final _places = GoogleMapsPlaces(apiKey: dotenv.env['google-api-key']!);
   final EdgeInsets padding =
-      const EdgeInsets.symmetric(vertical: 14.0, horizontal: 8.0);
+      const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0);
 
   TextEditingController _place = new TextEditingController();
 
@@ -169,279 +169,298 @@ class _NewExhibitState extends ConsumerState<NewExhibit> {
           Navigator.pop(context, _unsubmittedImages);
           return Future<bool>.value(false);
         },
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Container(
-            child: Column(
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(32),
-                    border: Border.all(
-                      color: Theme.of(context).colorScheme.primary,
-                      width: 2,
-                    ),
-                  ),
-                  child: TextFormField(
-                    initialValue: widget.exhibit != null ? _title : '',
-                    key: ValueKey('title'),
-                    decoration: InputDecoration(
-                      contentPadding: padding,
-                      border: InputBorder.none,
-                      labelText: 'Title',
-                      icon: Icon(Icons.text_fields),
-                    ),
-                    onChanged: (value) {
-                      _title = value;
-                    },
-                  ),
-                ),
-                SizedBox(height: 10),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(32),
-                    border: Border.all(
-                      color: Theme.of(context).colorScheme.primary,
-                      width: 2,
-                    ),
-                  ),
-                  child: TextFormField(
-                    readOnly: true,
-                    controller: _place,
-                    key: ValueKey('location'),
-                    decoration: InputDecoration(
-                      contentPadding: padding,
-                      border: InputBorder.none,
-                      labelText: 'Location',
-                      icon: Icon(Icons.home),
-                    ),
-                    onTap: () async {
-                      p = await PlacesAutocomplete.show(
-                          context: context,
-                          apiKey: dotenv.env['google-api-key']!,
-                          mode: Mode.overlay, // Mode.fullscreen
-                          offset: 0,
-                          radius: 1000,
-                          strictbounds: false,
-                          region: "",
-                          language: "en",
-                          sessionToken: UniqueKey().toString(),
-                          components: [new Component(Component.country, "hr")],
-                          types: [""],
-                          hint: "Search Address",
-                          startText: '');
-
-                      //this should save the selected location and show it in form field
-                      if (p != null)
-                        _place.text = p!.description.toString();
-                      else
-                        return;
-                    },
-                  ),
-                ),
-                SizedBox(height: 10),
-                //Start and end date row
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(32),
-                        border: Border.all(
-                          color: Theme.of(context).colorScheme.primary,
-                          width: 2,
-                        ),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Container(
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(32),
+                      border: Border.all(
+                        color: Theme.of(context).colorScheme.primary,
+                        width: 2,
                       ),
-                      child: DateTimePicker(
-                        initialValue: widget.exhibit != null
-                            ? _startDateTime.toString()
-                            : '',
-                        type: DateTimePickerType.date,
-                        firstDate: DateTime.now(),
-                        lastDate: DateTime(2100),
-                        onChanged: (val) =>
-                            _startDateTime = DateTime.parse(val),
+                    ),
+                    child: Padding(
+                      padding: padding,
+                      child: TextFormField(
+                        initialValue: widget.exhibit != null ? _title : '',
+                        key: ValueKey('title'),
                         decoration: InputDecoration(
-                          contentPadding: padding,
                           border: InputBorder.none,
-                          icon: Icon(Icons.calendar_today_outlined),
-                          hintText: 'Start date',
+                          labelText: 'Title',
+                          icon: Icon(Icons.text_fields),
                         ),
+                        onChanged: (value) {
+                          _title = value;
+                        },
                       ),
                     ),
-                    SizedBox(width: 10),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(32),
-                        border: Border.all(
-                          color: Theme.of(context).colorScheme.primary,
-                          width: 2,
+                  ),
+                  SizedBox(height: 10),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(32),
+                      border: Border.all(
+                        color: Theme.of(context).colorScheme.primary,
+                        width: 2,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: padding,
+                      child: TextFormField(
+                        readOnly: true,
+                        controller: _place,
+                        key: ValueKey('location'),
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          labelText: 'Location',
+                          icon: Icon(Icons.home),
+                        ),
+                        onTap: () async {
+                          p = await PlacesAutocomplete.show(
+                              context: context,
+                              apiKey: dotenv.env['google-api-key']!,
+                              mode: Mode.overlay, // Mode.fullscreen
+                              offset: 0,
+                              radius: 1000,
+                              strictbounds: false,
+                              region: "",
+                              language: "en",
+                              sessionToken: UniqueKey().toString(),
+                              components: [
+                                new Component(Component.country, "hr")
+                              ],
+                              types: [""],
+                              hint: "Search Address",
+                              startText: '');
+
+                          //this should save the selected location and show it in form field
+                          if (p != null)
+                            _place.text = p!.description.toString();
+                          else
+                            return;
+                        },
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  //Start and end date row
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(32),
+                          border: Border.all(
+                            color: Theme.of(context).colorScheme.primary,
+                            width: 2,
+                          ),
+                        ),
+                        child: Padding(
+                          padding: padding,
+                          child: DateTimePicker(
+                            initialValue: widget.exhibit != null
+                                ? _startDateTime.toString()
+                                : '',
+                            type: DateTimePickerType.date,
+                            firstDate: DateTime.now(),
+                            lastDate: DateTime(2100),
+                            onChanged: (val) =>
+                                _startDateTime = DateTime.parse(val),
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              icon: Icon(Icons.calendar_today_outlined),
+                              hintText: 'Start date',
+                            ),
+                          ),
                         ),
                       ),
+                      SizedBox(width: 10),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(32),
+                          border: Border.all(
+                            color: Theme.of(context).colorScheme.primary,
+                            width: 2,
+                          ),
+                        ),
+                        child: Padding(
+                          padding: padding,
+                          child: DateTimePicker(
+                            initialValue: widget.exhibit != null
+                                ? _endDate.toString()
+                                : '',
+                            type: DateTimePickerType.date,
+                            firstDate: DateTime.now(),
+                            lastDate: DateTime(2100),
+                            onChanged: (val) => _endDate = DateTime.parse(val),
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              icon: Icon(Icons.calendar_today_outlined),
+                              hintText: 'End date',
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(32),
+                      border: Border.all(
+                        color: Theme.of(context).colorScheme.primary,
+                        width: 2,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: padding,
                       child: DateTimePicker(
                         initialValue:
-                            widget.exhibit != null ? _endDate.toString() : '',
-                        type: DateTimePickerType.date,
+                            widget.exhibit != null ? _openingTime : '',
+                        type: DateTimePickerType.time,
                         firstDate: DateTime.now(),
                         lastDate: DateTime(2100),
-                        onChanged: (val) => _endDate = DateTime.parse(val),
+                        onChanged: (val) => _openingTime = val,
                         decoration: InputDecoration(
-                          contentPadding: padding,
+                            border: InputBorder.none,
+                            icon: Icon(Icons.timer),
+                            hintText: 'Opening time'),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  //Description row
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(32),
+                      border: Border.all(
+                        color: Theme.of(context).colorScheme.primary,
+                        width: 2,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: padding,
+                      child: TextFormField(
+                        initialValue:
+                            widget.exhibit != null ? _description : '',
+                        key: ValueKey('description'),
+                        maxLines: 4,
+                        minLines: 1,
+                        decoration: InputDecoration(
                           border: InputBorder.none,
-                          icon: Icon(Icons.calendar_today_outlined),
-                          hintText: 'End date',
+                          labelText: 'Description',
+                          icon: Icon(Icons.text_fields),
                         ),
+                        onChanged: (value) {
+                          _description = value;
+                        },
                       ),
                     ),
-                  ],
-                ),
-                SizedBox(height: 10),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.4,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(32),
-                    border: Border.all(
-                      color: Theme.of(context).colorScheme.primary,
-                      width: 2,
-                    ),
                   ),
-                  child: DateTimePicker(
-                    initialValue: widget.exhibit != null ? _openingTime : '',
-                    type: DateTimePickerType.time,
-                    firstDate: DateTime.now(),
-                    lastDate: DateTime(2100),
-                    onChanged: (val) => _openingTime = val,
-                    decoration: InputDecoration(
-                        contentPadding: padding,
-                        border: InputBorder.none,
-                        icon: Icon(Icons.timer),
-                        hintText: 'Opening time'),
-                  ),
-                ),
-                SizedBox(height: 10),
-                //Description row
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(32),
-                    border: Border.all(
-                      color: Theme.of(context).colorScheme.primary,
-                      width: 2,
-                    ),
-                  ),
-                  child: TextFormField(
-                    initialValue: widget.exhibit != null ? _description : '',
-                    key: ValueKey('description'),
-                    maxLines: 4,
-                    minLines: 1,
-                    decoration: InputDecoration(
-                      contentPadding: padding,
-                      border: InputBorder.none,
-                      labelText: 'Description',
-                      icon: Icon(Icons.text_fields),
-                    ),
-                    onChanged: (value) {
-                      _description = value;
+                  SizedBox(height: 10),
+                  TextButton(
+                    onPressed: () async {
+                      String imageUrl;
+                      XFile? newPicker = await _picker.pickImage(
+                          source: ImageSource.gallery, imageQuality: 60);
+                      if (newPicker != null) {
+                        imageUrl =
+                            await uploadExhibitImage(currentUser!, newPicker);
+                        setState(() {
+                          _images.add(imageUrl);
+                          _unsubmittedImages.add(imageUrl);
+                        });
+                      }
                     },
+                    child: Text('Upload image'),
                   ),
-                ),
-                SizedBox(height: 10),
-                TextButton(
-                  onPressed: () async {
-                    String imageUrl;
-                    XFile? newPicker = await _picker.pickImage(
-                        source: ImageSource.gallery, imageQuality: 60);
-                    if (newPicker != null) {
-                      imageUrl =
-                          await uploadExhibitImage(currentUser!, newPicker);
-                      setState(() {
-                        _images.add(imageUrl);
-                        _unsubmittedImages.add(imageUrl);
-                      });
-                    }
-                  },
-                  child: Text('Upload image'),
-                ),
-                SizedBox(height: 10),
-                Container(
-                  decoration: BoxDecoration(border: Border.all()),
-                  width: MediaQuery.of(context).size.width,
-                  height: 300,
-                  child: _images.isNotEmpty
-                      ? ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: _images.length,
-                          itemBuilder: (context, index) {
-                            return Stack(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: Image.network(
-                                    _images[index],
-                                    width: 300,
-                                    height: 300,
-                                    fit: BoxFit.fitHeight,
-                                  ),
-                                ),
-                                Positioned(
-                                  right: 3,
-                                  top: 3,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(25),
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondaryContainer,
+                  SizedBox(height: 10),
+                  Container(
+                    decoration: BoxDecoration(border: Border.all()),
+                    width: MediaQuery.of(context).size.width,
+                    height: 300,
+                    child: _images.isNotEmpty
+                        ? ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: _images.length,
+                            itemBuilder: (context, index) {
+                              return Stack(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: Image.network(
+                                      _images[index],
+                                      width: 300,
+                                      height: 300,
+                                      fit: BoxFit.fitHeight,
                                     ),
-                                    child: IconButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            _imagesForDeletion
-                                                .add(_images[index]);
-                                            _images.removeAt(index);
-                                          });
-                                        },
-                                        icon: Icon(
-                                          Icons.close,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onSecondaryContainer,
-                                        )),
                                   ),
-                                ),
-                              ],
-                            );
-                          })
-                      : Container(
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.tertiary,
-                            borderRadius: BorderRadius.circular(32),
+                                  Positioned(
+                                    right: 3,
+                                    top: 3,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(25),
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondaryContainer,
+                                      ),
+                                      child: IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              _imagesForDeletion
+                                                  .add(_images[index]);
+                                              _images.removeAt(index);
+                                            });
+                                          },
+                                          icon: Icon(
+                                            Icons.close,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSecondaryContainer,
+                                          )),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            })
+                        : Container(
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.tertiary,
+                              borderRadius: BorderRadius.circular(32),
+                            ),
+                            width: 300,
+                            height: 300,
+                            child: Icon(
+                              Icons.camera_alt,
+                              color: Colors.grey[800],
+                            ),
                           ),
-                          width: 300,
-                          height: 300,
-                          child: Icon(
-                            Icons.camera_alt,
-                            color: Colors.grey[800],
-                          ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  isLoading
+                      ? CircularProgressIndicator()
+                      : ElevatedButton(
+                          onPressed: () => _postExhibit(context, currentUser!),
+                          child: widget.exhibit == null
+                              ? Text('Post exhibit')
+                              : Text('Update exhibit'),
                         ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                isLoading
-                    ? CircularProgressIndicator()
-                    : ElevatedButton(
-                        onPressed: () => _postExhibit(context, currentUser!),
-                        child: widget.exhibit == null
-                            ? Text('Post exhibit')
-                            : Text('Update exhibit'),
-                      ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

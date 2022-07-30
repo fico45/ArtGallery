@@ -1,3 +1,4 @@
+import 'package:artgallery/data/controllers/exhibit_list_controller.dart';
 import 'package:artgallery/view/screens/dashboard.dart';
 import 'package:artgallery/view/widgets/appbar.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,21 @@ class _MainWrapperState extends ConsumerState<MainWrapper> {
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(45),
           child: CustomAppBar(
+            customActions: [
+              Consumer(
+                builder: (context, ref, widget) => IconButton(
+                  onPressed: () {
+                    ref
+                        .read(exhibitListControllerProvider.notifier)
+                        .retrieveAllExhibits();
+                  },
+                  icon: const Icon(
+                    Icons.refresh,
+                    size: 24,
+                  ),
+                ),
+              ),
+            ],
             openDrawer: IconButton(
               onPressed: widget.openDrawer,
               icon: const Icon(

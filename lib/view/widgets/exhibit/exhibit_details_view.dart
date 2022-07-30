@@ -23,6 +23,13 @@ class ExhibitDetailsView extends ConsumerStatefulWidget {
 class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
   bool fav = false;
 
+  Future<void> deleteExhibit({required BuildContext context}) async {
+    await ref
+        .read(exhibitListControllerProvider.notifier)
+        .deleteExhibit(exhibit: widget.exhibit);
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     final currentUser = ref.watch(authControllerProvider);
@@ -39,10 +46,31 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
                   ? [
                       IconButton(
                         onPressed: () {
-                          ref
-                              .read(exhibitListControllerProvider.notifier)
-                              .deleteExhibit(exhibit: widget.exhibit);
-                          Navigator.of(context).pop();
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: const Text('Delete exhibit?'),
+                                  content: const Text(
+                                      'Are you sure to delete exhibit?'),
+                                  actions: [
+                                    // The "Yes" button
+                                    TextButton(
+                                        onPressed: () {
+                                          deleteExhibit(context: context);
+                                          // Close the dialog
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text('Yes')),
+                                    TextButton(
+                                        onPressed: () {
+                                          // Close the dialog
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text('No'))
+                                  ],
+                                );
+                              });
                         },
                         icon: const Icon(
                           Icons.delete_forever,
