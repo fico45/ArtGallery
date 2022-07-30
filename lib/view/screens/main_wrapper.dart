@@ -33,6 +33,7 @@ class _MainWrapperState extends ConsumerState<MainWrapper> {
                     ref
                         .read(exhibitListControllerProvider.notifier)
                         .retrieveAllExhibits();
+                    setState(() {});
                   },
                   icon: const Icon(
                     Icons.refresh,

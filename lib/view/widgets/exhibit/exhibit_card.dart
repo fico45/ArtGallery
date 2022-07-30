@@ -194,8 +194,18 @@ class ExhibitCard extends ConsumerWidget {
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Text(exhibit.location.country!),
+            Icon(
+              Icons.location_city,
+              size: 24,
+            ),
+            Text(
+              exhibit.location.country!,
+              style: TextStyle(
+                fontSize: 20,
+              ),
+            ),
           ],
         ),
         Divider(),
