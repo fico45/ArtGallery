@@ -341,7 +341,9 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
                       children: [
                         Icon(Icons.comment),
                         Text(
-                          '12',
+                          widget.exhibit.comments != null
+                              ? widget.exhibit.comments!.length.toString()
+                              : '0',
                           style: TextStyle(fontSize: 18),
                         ),
                         Text(
