@@ -10,8 +10,9 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AuthScreen extends StatefulWidget {
-  const AuthScreen({Key? key}) : super(key: key);
+  const AuthScreen({required this.callback, Key? key}) : super(key: key);
 
+  final void Function({required bool newRegistrationStatus}) callback;
   @override
   _AuthScreenState createState() => _AuthScreenState();
 }
@@ -37,6 +38,7 @@ class _AuthScreenState extends State<AuthScreen> {
     String username,
     String firstName,
     String lastName,
+    String bio,
     XFile? image,
     bool isLogin,
     BuildContext ctx,
@@ -68,7 +70,11 @@ class _AuthScreenState extends State<AuthScreen> {
           'image_url': url,
           'firstName': firstName,
           'lastName': lastName,
+          'reviewable': false,
+          'bio': bio,
+          'favorites': [],
         });
+        widget.callback(newRegistrationStatus: true);
       }
     } on PlatformException catch (err) {
       var message = 'An error occurred, please check your credentials';
@@ -95,11 +101,14 @@ class _AuthScreenState extends State<AuthScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.secondary.withOpacity(0.8),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Expanded(
+            flex: 1,
             child: AnimatedLogo(),
           ),
           Expanded(
+            flex: 2,
             child: AuthForm(
               _submitAuthForm,
               _isLoading,

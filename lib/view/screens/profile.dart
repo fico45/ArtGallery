@@ -164,7 +164,13 @@ class ProfileView extends ConsumerWidget {
                       );
                     },
                     error: (e, st) => Text('There was an error.'),
-                    loading: () => const CircularProgressIndicator()),
+                    loading: () => Center(
+                          child: CircularProgressIndicator(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .secondaryContainer,
+                          ),
+                        )),
               )
             ],
           ),

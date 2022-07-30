@@ -34,7 +34,7 @@ class _NewExhibitState extends ConsumerState<NewExhibit> {
   bool isLoading = false;
   final _places = GoogleMapsPlaces(apiKey: dotenv.env['google-api-key']!);
   final EdgeInsets padding =
-      const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0);
+      const EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0);
 
   TextEditingController _place = new TextEditingController();
 

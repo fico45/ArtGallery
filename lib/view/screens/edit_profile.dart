@@ -42,8 +42,10 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final user = ref.watch(userControllerProvider);
-    _loadInitialData(user.value!);
+    ref
+        .read(userControllerProvider)
+        .whenData((value) => _loadInitialData(value));
+
     final EdgeInsets padding =
         const EdgeInsets.symmetric(vertical: 14.0, horizontal: 8.0);
     final ImagePicker _picker = ImagePicker();
