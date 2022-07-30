@@ -45,6 +45,7 @@ class _AuthScreenState extends State<AuthScreen> {
   ) async {
     UserCredential authResult;
     try {
+      widget.callback(newRegistrationStatus: false);
       setState(() {
         _isLoading = true;
       });
@@ -62,28 +63,37 @@ class _AuthScreenState extends State<AuthScreen> {
           });
         }
       } else {
-        authResult = await _auth.createUserWithEmailAndPassword(
-            email: email, password: password);
-        final ref = FirebaseStorage.instance
-            .ref()
-            .child('user_image')
-            .child(authResult.user!.uid + '.jpg');
-        await ref.putFile(File(image!.path));
-        final url = await ref.getDownloadURL();
+        try {
+          authResult = await _auth.createUserWithEmailAndPassword(
+              email: email, password: password);
+          final ref = FirebaseStorage.instance
+              .ref()
+              .child('user_image')
+              .child(authResult.user!.uid + '.jpg');
+          await ref.putFile(File(image!.path));
+          final url = await ref.getDownloadURL();
 
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(authResult.user!.uid)
-            .set({
-          'username': username,
-          'email': email,
-          'image_url': url,
-          'firstName': firstName,
-          'lastName': lastName,
-          'reviewable': false,
-          'bio': bio,
-          'favorites': [],
-        });
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(authResult.user!.uid)
+              .set({
+            'username': username,
+            'email': email,
+            'image_url': url,
+            'firstName': firstName,
+            'lastName': lastName,
+            'reviewable': false,
+            'bio': bio,
+            'favorites': [],
+          });
+        } on FirebaseAuthException catch (e) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(e.message.toString()),
+          ));
+          setState(() {
+            _isLoading = false;
+          });
+        }
         widget.callback(newRegistrationStatus: true);
       }
     } on PlatformException catch (err) {
