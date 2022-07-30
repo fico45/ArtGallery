@@ -16,98 +16,96 @@ class ProfileCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Card(
-      shape: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(25),
-        borderSide: BorderSide(
-          color: Theme.of(context).colorScheme.secondary,
-          width: 2,
-        ),
-      ),
-      elevation: 2,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25),
-          color: Theme.of(context).colorScheme.tertiaryContainer,
-        ),
-        width: MediaQuery.of(context).size.width,
-        height: 220,
-        child: Padding(
-          padding: const EdgeInsets.only(
-            top: 10,
-            bottom: 10,
-          ),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  right: 15,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    //TODO: This should return creationTime of selected user, not currently logged in user!!
-                    Text(
-                      'Member since: ' +
-                          DateFormat("dd/MM/yyyy").format(ref.watch(
-                              authControllerProvider.select(
-                                  (value) => value!.metadata.creationTime!))),
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+    return Padding(
+      padding: MediaQuery.of(context).viewInsets,
+      child: Wrap(
+        children: [
+          Card(
+            shape: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(25),
+              borderSide: BorderSide(
+                color: Theme.of(context).colorScheme.secondary,
+                width: 2,
+              ),
+            ),
+            elevation: 2,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25),
+                color: Theme.of(context).colorScheme.tertiaryContainer,
+              ),
+              width: MediaQuery.of(context).size.width,
+              child: Expanded(
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              user.firstName + " " + user.lastName,
+                              style: TextStyle(
+                                fontSize: 30,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                              ),
+                            ),
+                            Text(
+                              'Member since:\n' +
+                                  DateFormat("dd/MM/yyyy").format(ref.watch(
+                                      authControllerProvider.select((value) =>
+                                          value!.metadata.creationTime!))),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      children: [
-                        Text('Role:'),
-                        Text('Admin'),
-                      ],
-                    ),
-                    CircleAvatar(
-                      radius: 48,
-                      backgroundColor:
-                          Theme.of(context).colorScheme.onTertiaryContainer,
-                      child: CircleAvatar(
-                        radius: 45,
-                        backgroundImage: NetworkImage(user.image_url),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CircleAvatar(
+                              radius: 62,
+                              backgroundColor: Theme.of(context)
+                                  .colorScheme
+                                  .onTertiaryContainer,
+                              child: CircleAvatar(
+                                radius: 60,
+                                backgroundImage: NetworkImage(user.image_url),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    Column(
-                      children: [
-                        Text('Rating:'),
-                        Text('3.5'),
-                      ],
-                    ),
-                  ],
+                      ElevatedButton(
+                        onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ProfileView(
+                                      userId: userId,
+                                    ))),
+                        child: Text('Go to profile'),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              Text(
-                user.firstName + " " + user.lastName,
-                style: TextStyle(
-                  fontSize: 30,
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ProfileView(
-                              userId: userId,
-                            ))),
-                child: Text('Go to profile'),
-              ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

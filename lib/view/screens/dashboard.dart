@@ -17,9 +17,20 @@ class _DashboardState extends ConsumerState<Dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
+        enableFeedback: true,
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-        child: Icon(Icons.add),
+        label: Row(
+          children: [
+            Text(
+              'Add new exhibit  ',
+              style: TextStyle(
+                fontSize: 18,
+              ),
+            ),
+            Icon(Icons.add),
+          ],
+        ),
         onPressed: () async {
           Navigator.push(
             context,

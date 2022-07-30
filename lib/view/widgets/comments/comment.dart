@@ -3,6 +3,8 @@ import 'package:artgallery/data/model/comment_model/comment_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../profile_card/profile_card.dart';
+
 class CommentBubble extends ConsumerWidget {
   const CommentBubble({required this.comment, Key? key}) : super(key: key);
   final Comment comment;
@@ -66,8 +68,18 @@ class CommentBubble extends ConsumerWidget {
           top: 0,
           left: 10,
           child: ref.watch(getUserProvider(comment.userId)).when(
-              data: (data) => CircleAvatar(
-                    backgroundImage: NetworkImage(data.image_url),
+              data: (data) => InkWell(
+                    onTap: () => showDialog(
+                        context: context,
+                        builder: (context) => Center(
+                              child: ProfileCard(
+                                user: data,
+                                userId: comment.userId,
+                              ),
+                            )),
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage(data.image_url),
+                    ),
                   ),
               error: (e, st) => Text('There was an error.'),
               loading: () {
