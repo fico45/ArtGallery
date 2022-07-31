@@ -3,6 +3,7 @@ import 'package:artgallery/data/model/address_model/address_data_model.dart';
 import 'package:artgallery/data/model/exhibit_model/exhibit_data_model.dart';
 import 'package:artgallery/repositories/custom_exception.dart';
 import 'package:artgallery/repositories/exhibit_repository.dart';
+import 'package:artgallery/view/widgets/exhibit/new_exhibit.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../model/comment_model/comment_data_model.dart';
@@ -116,17 +117,38 @@ class ExhibitListController extends StateNotifier<AsyncValue<List<Exhibit>>> {
     }
   }
 
-  Future<void> postExhibitComment(
-      {required Comment comment, required String exhibitId}) async {
+  Future<Exhibit> postExhibitComment(
+      {required Comment comment, required Exhibit exhibit}) async {
+    List<Comment> newCommentList = exhibit.comments!.toList();
+    newCommentList..add(comment);
+    Exhibit updatedExhibit = Exhibit(
+        id: exhibit.id,
+        lat: exhibit.lat,
+        lng: exhibit.lng,
+        createdAt: exhibit.createdAt,
+        description: exhibit.description,
+        startDateTime: exhibit.startDateTime,
+        endDate: exhibit.endDate,
+        imageList: exhibit.imageList,
+        location: exhibit.location,
+        title: exhibit.title,
+        userId: exhibit.userId,
+        username: exhibit.username,
+        comments: newCommentList);
     try {
       await _read(exhibitRepositoryProvider).postExhibitComment(
         comment: comment,
-        exhibitId: exhibitId,
+        exhibitId: exhibit.id!,
       );
 
-      state.whenData((exhibits) => state = AsyncValue.data(exhibits));
+      state.whenData((exhibits) => state = AsyncValue.data([
+            for (final item in exhibits)
+              if (item.id == exhibit.id) updatedExhibit else item
+          ]));
+      return updatedExhibit;
     } on CustomException catch (e) {
       _read(exhibitListExceptionProvider.notifier).state = e;
+      return exhibit;
     }
   }
 }

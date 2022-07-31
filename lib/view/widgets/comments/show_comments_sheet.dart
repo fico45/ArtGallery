@@ -59,6 +59,8 @@ class _CommentViewSheetState extends State<CommentViewSheet> {
                     widget.exhibit.comments!.isNotEmpty)
                 ? SingleChildScrollView(
                     child: ListView.builder(
+                      reverse: true,
+                      physics: const NeverScrollableScrollPhysics(),
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
                       itemCount: widget.exhibit.comments!.length,
@@ -91,10 +93,10 @@ class _CommentViewSheetState extends State<CommentViewSheet> {
                     suffixIcon: IconButton(
                       icon: Icon(Icons.send),
                       onPressed: () async {
-                        await ref
+                        Exhibit newExhibit = await ref
                             .read(exhibitListControllerProvider.notifier)
                             .postExhibitComment(
-                                exhibitId: widget.exhibit.id!,
+                                exhibit: widget.exhibit,
                                 comment: Comment(
                                     id: widget.exhibit.id!,
                                     createdAt: DateTime.now(),
@@ -103,6 +105,7 @@ class _CommentViewSheetState extends State<CommentViewSheet> {
                                         ref.read(authControllerProvider)!.uid));
                         setState(() {
                           _textComment.clear();
+                          widget.exhibit = newExhibit;
                         });
                       },
                     ),
