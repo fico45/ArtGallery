@@ -233,7 +233,9 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                       _userImageUrl = await ref.getDownloadURL();
                     }
 
-                    ref.read(userControllerProvider.notifier).updateUserData(
+                    await ref
+                        .read(userControllerProvider.notifier)
+                        .updateUserData(
                           currentAuthUser!.uid,
                           UserModel(
                             email: _email,
