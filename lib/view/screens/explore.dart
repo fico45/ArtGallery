@@ -74,7 +74,7 @@ class _ExploreState extends ConsumerState<Explore> {
         scrollGesturesEnabled: true,
         initialCameraPosition: CameraPosition(
           target: LatLng(45.81313600000001, 15.970835),
-          zoom: 12,
+          zoom: 8,
         ),
         onMapCreated: _onMapCreated,
       ),
