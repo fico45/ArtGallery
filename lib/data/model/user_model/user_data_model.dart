@@ -4,6 +4,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'user_data_model.freezed.dart';
 part 'user_data_model.g.dart';
 
+DateTime _sendAtFromJson(Timestamp timestamp) =>
+    DateTime.fromMillisecondsSinceEpoch(timestamp.millisecondsSinceEpoch);
+
 @freezed
 abstract class UserModel implements _$UserModel {
   const UserModel._();
@@ -15,7 +18,8 @@ abstract class UserModel implements _$UserModel {
     required String firstName,
     required String lastName,
     required bool reviewable,
-    required DateTime createdAt,
+    @JsonKey(name: 'createdAt', fromJson: _sendAtFromJson)
+        required DateTime createdAt,
     required String bio,
     required List<String> favorites,
   }) = _UserModel;

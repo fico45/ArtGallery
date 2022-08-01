@@ -13,7 +13,7 @@ _$_UserModel _$$_UserModelFromJson(Map json) => _$_UserModel(
       firstName: json['firstName'] as String,
       lastName: json['lastName'] as String,
       reviewable: json['reviewable'] as bool,
-      createdAt: DateTime.parse(json['createdAt'] as String),
+      createdAt: _sendAtFromJson(json['createdAt'] as Timestamp),
       bio: json['bio'] as String,
       favorites:
           (json['favorites'] as List<dynamic>).map((e) => e as String).toList(),

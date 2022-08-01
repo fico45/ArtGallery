@@ -26,6 +26,7 @@ mixin _$UserModel {
   String get firstName => throw _privateConstructorUsedError;
   String get lastName => throw _privateConstructorUsedError;
   bool get reviewable => throw _privateConstructorUsedError;
+  @JsonKey(name: 'createdAt', fromJson: _sendAtFromJson)
   DateTime get createdAt => throw _privateConstructorUsedError;
   String get bio => throw _privateConstructorUsedError;
   List<String> get favorites => throw _privateConstructorUsedError;
@@ -47,7 +48,7 @@ abstract class $UserModelCopyWith<$Res> {
       String firstName,
       String lastName,
       bool reviewable,
-      DateTime createdAt,
+      @JsonKey(name: 'createdAt', fromJson: _sendAtFromJson) DateTime createdAt,
       String bio,
       List<String> favorites});
 }
@@ -126,7 +127,7 @@ abstract class _$$_UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
       String firstName,
       String lastName,
       bool reviewable,
-      DateTime createdAt,
+      @JsonKey(name: 'createdAt', fromJson: _sendAtFromJson) DateTime createdAt,
       String bio,
       List<String> favorites});
 }
@@ -204,7 +205,8 @@ class _$_UserModel extends _UserModel {
       required this.firstName,
       required this.lastName,
       required this.reviewable,
-      required this.createdAt,
+      @JsonKey(name: 'createdAt', fromJson: _sendAtFromJson)
+          required this.createdAt,
       required this.bio,
       required final List<String> favorites})
       : _favorites = favorites,
@@ -226,6 +228,7 @@ class _$_UserModel extends _UserModel {
   @override
   final bool reviewable;
   @override
+  @JsonKey(name: 'createdAt', fromJson: _sendAtFromJson)
   final DateTime createdAt;
   @override
   final String bio;
@@ -292,7 +295,8 @@ abstract class _UserModel extends UserModel {
       required final String firstName,
       required final String lastName,
       required final bool reviewable,
-      required final DateTime createdAt,
+      @JsonKey(name: 'createdAt', fromJson: _sendAtFromJson)
+          required final DateTime createdAt,
       required final String bio,
       required final List<String> favorites}) = _$_UserModel;
   const _UserModel._() : super._();
@@ -313,6 +317,7 @@ abstract class _UserModel extends UserModel {
   @override
   bool get reviewable => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: 'createdAt', fromJson: _sendAtFromJson)
   DateTime get createdAt => throw _privateConstructorUsedError;
   @override
   String get bio => throw _privateConstructorUsedError;
