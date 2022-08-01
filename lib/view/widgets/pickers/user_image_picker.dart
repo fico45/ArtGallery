@@ -15,15 +15,37 @@ class _UserImagePickerState extends State<UserImagePicker> {
   XFile? _pickedImage;
 
   void _pickImage() async {
-    final pickedImageFile = await ImagePicker().pickImage(
-        source: ImageSource.camera,
-        imageQuality: 50,
-        maxHeight: 150,
-        maxWidth: 150);
-    setState(() {
-      _pickedImage = pickedImageFile;
-    });
-    widget.imagePickFn(pickedImageFile);
+    bool? isCamera = await showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text("Select image from camera or gallery?"),
+              actions: [
+                // The "Yes" button
+                TextButton(
+                    onPressed: () {
+                      // Close the dialog
+                      Navigator.of(context).pop(true);
+                    },
+                    child: const Text('Camera')),
+                TextButton(
+                    onPressed: () {
+                      // Close the dialog
+                      Navigator.of(context).pop(false);
+                    },
+                    child: const Text('Gallery'))
+              ],
+            ));
+    if (isCamera != null) {
+      final pickedImageFile = await ImagePicker().pickImage(
+          source: isCamera ? ImageSource.camera : ImageSource.gallery,
+          imageQuality: 50,
+          maxHeight: 150,
+          maxWidth: 150);
+      setState(() {
+        _pickedImage = pickedImageFile;
+      });
+      widget.imagePickFn(pickedImageFile);
+    }
   }
 
   @override

@@ -2,7 +2,6 @@ import 'package:artgallery/data/controllers/auth_controller.dart';
 import 'package:artgallery/data/controllers/exhibit_list_controller.dart';
 import 'package:artgallery/view/widgets/appbar.dart';
 import 'package:artgallery/view/widgets/comments/show_comments_sheet.dart';
-import 'package:artgallery/view/widgets/exhibit/add_to_calendar_sheet.dart';
 import 'package:artgallery/view/widgets/exhibit/new_exhibit.dart';
 import 'package:artgallery/view/widgets/googlemaps.dart';
 import 'package:carousel_slider/carousel_slider.dart';
