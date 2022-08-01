@@ -1,4 +1,3 @@
-import 'package:artgallery/data/controllers/auth_controller.dart';
 import 'package:artgallery/data/model/user_model/user_data_model.dart';
 import 'package:artgallery/view/screens/profile.dart';
 import 'package:flutter/material.dart';
@@ -57,9 +56,8 @@ class ProfileCard extends ConsumerWidget {
                             ),
                             Text(
                               'Member since:\n' +
-                                  DateFormat("dd/MM/yyyy").format(ref.watch(
-                                      authControllerProvider.select((value) =>
-                                          value!.metadata.creationTime!))),
+                                  DateFormat("dd/MM/yyyy")
+                                      .format(user.createdAt),
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Theme.of(context)

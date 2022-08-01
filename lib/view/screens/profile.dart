@@ -6,6 +6,7 @@ import 'package:artgallery/view/widgets/exhibit/exhibit_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:intl/intl.dart';
 
 class ProfileView extends ConsumerStatefulWidget {
   final Widget? openDrawer;
@@ -24,8 +25,8 @@ class ProfileView extends ConsumerStatefulWidget {
 class _ProfileViewState extends ConsumerState<ProfileView> {
   @override
   Widget build(BuildContext context) {
-    const double containerWidth = 80;
-    const double containerHeight = 55;
+    const double containerWidth = 90;
+    const double containerHeight = 65;
     final user = widget.userId == null
         ? ref.watch(userControllerProvider)
         : ref.watch(getUserProvider(widget.userId!));
