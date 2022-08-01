@@ -34,72 +34,78 @@ class ProfileCard extends ConsumerWidget {
                 color: Theme.of(context).colorScheme.tertiaryContainer,
               ),
               width: MediaQuery.of(context).size.width,
-              child: Expanded(
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              user.firstName + " " + user.lastName,
-                              style: TextStyle(
-                                fontSize: 30,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onPrimaryContainer,
-                              ),
+              child: Flex(
+                direction: Axis.horizontal,
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 6),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  user.firstName + " " + user.lastName,
+                                  style: TextStyle(
+                                    fontSize: 30,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimaryContainer,
+                                  ),
+                                ),
+                                Text(
+                                  'Member since:\n' +
+                                      DateFormat("dd/MM/yyyy")
+                                          .format(user.createdAt),
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimaryContainer,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                              ],
                             ),
-                            Text(
-                              'Member since:\n' +
-                                  DateFormat("dd/MM/yyyy")
-                                      .format(user.createdAt),
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onPrimaryContainer,
-                                fontSize: 18,
-                              ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CircleAvatar(
+                                  radius: 62,
+                                  backgroundColor: Theme.of(context)
+                                      .colorScheme
+                                      .onTertiaryContainer,
+                                  child: CircleAvatar(
+                                    radius: 60,
+                                    backgroundImage:
+                                        NetworkImage(user.image_url),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ProfileView(
+                                          userId: userId,
+                                        ))),
+                            child: Text('Go to profile'),
+                          ),
+                        ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CircleAvatar(
-                              radius: 62,
-                              backgroundColor: Theme.of(context)
-                                  .colorScheme
-                                  .onTertiaryContainer,
-                              child: CircleAvatar(
-                                radius: 60,
-                                backgroundImage: NetworkImage(user.image_url),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ProfileView(
-                                      userId: userId,
-                                    ))),
-                        child: Text('Go to profile'),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
           ),
