@@ -119,7 +119,8 @@ class ExhibitListController extends StateNotifier<AsyncValue<List<Exhibit>>> {
 
   Future<Exhibit> postExhibitComment(
       {required Comment comment, required Exhibit exhibit}) async {
-    List<Comment> newCommentList = exhibit.comments!.toList();
+    List<Comment> newCommentList =
+        exhibit.comments == null ? [] : exhibit.comments!.toList();
     newCommentList..add(comment);
     Exhibit updatedExhibit = Exhibit(
         id: exhibit.id,
