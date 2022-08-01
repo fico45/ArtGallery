@@ -7,8 +7,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../data/model/comment_model/comment_data_model.dart';
 import 'package:artgallery/data/controllers/exhibit_list_controller.dart';
 
-Future showCommentSheet(
-    {required BuildContext context, required Exhibit exhibit}) async {
+Future showCommentSheet({
+  required BuildContext context,
+  required Exhibit exhibit,
+  required void Function({required Exhibit updatedExhibit}) setStateCallback,
+}) async {
   return showModalBottomSheet(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
@@ -17,12 +20,16 @@ Future showCommentSheet(
       isDismissible: true,
       builder: (context) => CommentViewSheet(
             exhibit: exhibit,
+            setStateCallback: setStateCallback,
           ));
 }
 
 class CommentViewSheet extends StatefulWidget {
-  CommentViewSheet({required this.exhibit, Key? key}) : super(key: key);
+  CommentViewSheet(
+      {required this.exhibit, Key? key, required this.setStateCallback})
+      : super(key: key);
   Exhibit exhibit;
+  final void Function({required Exhibit updatedExhibit}) setStateCallback;
   @override
   State<CommentViewSheet> createState() => _CommentViewSheetState();
 }
@@ -111,6 +118,7 @@ class _CommentViewSheetState extends State<CommentViewSheet> {
                         setState(() {
                           widget.exhibit = newExhibit;
                         });
+                        widget.setStateCallback(updatedExhibit: newExhibit);
                       },
                     ),
                   ),

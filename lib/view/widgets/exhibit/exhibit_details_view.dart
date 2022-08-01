@@ -12,7 +12,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:artgallery/data/functions.dart';
 
 class ExhibitDetailsView extends ConsumerStatefulWidget {
-  final Exhibit exhibit;
+  Exhibit exhibit;
   ExhibitDetailsView({Key? key, required this.exhibit}) : super(key: key);
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -27,6 +27,12 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
         .read(exhibitListControllerProvider.notifier)
         .deleteExhibit(exhibit: widget.exhibit);
     Navigator.of(context).pop();
+  }
+
+  void customSetState({required Exhibit updatedExhibit}) {
+    setState(() {
+      widget.exhibit = updatedExhibit;
+    });
   }
 
   @override
@@ -315,7 +321,11 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
                 borderRadius: BorderRadius.circular(10),
                 child: InkWell(
                   onTap: () {
-                    showCommentSheet(context: context, exhibit: widget.exhibit);
+                    showCommentSheet(
+                      context: context,
+                      exhibit: widget.exhibit,
+                      setStateCallback: customSetState,
+                    );
                   },
                   child: Container(
                     height: 46,
