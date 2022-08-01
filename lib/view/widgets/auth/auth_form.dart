@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:artgallery/view/widgets/auth/forgot_password.dart';
 import 'package:artgallery/view/widgets/pickers/user_image_picker.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +36,7 @@ class _AuthFormState extends State<AuthForm> {
   var _userFirstName = '';
   var _userLastName = '';
   var _bio = '';
+  var _repeatPassword = '';
   XFile? _userImageFile;
   void _pickedImage(XFile? image) {
     _userImageFile = image;
@@ -160,11 +163,36 @@ class _AuthFormState extends State<AuthForm> {
                           return null;
                       },
                       decoration: InputDecoration(labelText: 'Password'),
-                      onSaved: (value) {
-                        _userPassword = value!;
+                      onChanged: (value) {
+                        _userPassword = value;
                       },
                       obscureText: true,
                     ),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    if (!_isLogin)
+                      TextFormField(
+                        key: ValueKey('passwordRepeat'),
+                        validator: (value) {
+                          if (_repeatPassword != _userPassword) {
+                            log('Repeat:\n${_repeatPassword}\nUser:\n$_userPassword');
+                            return "Your passwords don't match.";
+                          } else if (value!.isEmpty || value.length < 7) {
+                            log('nešta');
+                            return 'Password must be at least 7 characters long';
+                          } else
+                            log('ništa');
+                          return null;
+                        },
+                        initialValue: _repeatPassword,
+                        onChanged: (value) {
+                          _repeatPassword = value;
+                        },
+                        decoration:
+                            InputDecoration(labelText: 'Repeat Password'),
+                        obscureText: true,
+                      ),
                     SizedBox(
                       height: 12,
                     ),

@@ -22,7 +22,12 @@ class ExhibitView extends ConsumerWidget {
                     ),
                   ],
                 )
-              : Text('No exhibits!'),
+              : Center(
+                  child: Text(
+                    'No exhibits! 🎉',
+                    style: TextStyle(fontSize: 32),
+                  ),
+                ),
           error: (err, stack) => Text('There was an error.'),
           loading: () => const CircularProgressIndicator(),
         );

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ProfileView extends ConsumerWidget {
+class ProfileView extends ConsumerStatefulWidget {
   final Widget? openDrawer;
   static const routeName = '/profile';
   final String? userId;
@@ -18,12 +18,18 @@ class ProfileView extends ConsumerWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _ProfileViewState();
+}
+
+class _ProfileViewState extends ConsumerState<ProfileView> {
+  @override
+  Widget build(BuildContext context) {
     const double containerWidth = 80;
     const double containerHeight = 55;
-    final user = userId == null
+    final user = widget.userId == null
         ? ref.watch(userControllerProvider)
-        : ref.watch(getUserProvider(userId!));
+        : ref.watch(getUserProvider(widget.userId!));
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Column(
@@ -39,9 +45,9 @@ class ProfileView extends ConsumerWidget {
                   color: Theme.of(context).colorScheme.primary,
                 ),
               ),
-              openDrawer != null
+              widget.openDrawer != null
                   ? Positioned(
-                      child: openDrawer!,
+                      child: widget.openDrawer!,
                       left: 5,
                       top: 40,
                     )
@@ -118,11 +124,13 @@ class ProfileView extends ConsumerWidget {
                                       splashColor: Theme.of(context)
                                           .colorScheme
                                           .primaryContainer,
-                                      onTap: () => Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  EditProfileScreen())),
+                                      onTap: () async {
+                                        await Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    EditProfileScreen()));
+                                      },
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
@@ -180,11 +188,11 @@ class ProfileView extends ConsumerWidget {
           Divider(),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: ref.watch(userControllerProvider).when(
-                  data: (data) => Text(data.bio),
-                  error: (e, st) => Text('There was an error.'),
-                  loading: () => LinearProgressIndicator(),
-                ),
+            child: user.when(
+              data: (data) => Text(data.bio),
+              error: (e, st) => Text('There was an error.'),
+              loading: () => LinearProgressIndicator(),
+            ),
           ),
           Divider(),
           Row(
@@ -204,7 +212,7 @@ class ProfileView extends ConsumerWidget {
                 data: (data) {
                   List<Exhibit> currentUserExhibits = data
                       .where(
-                        (element) => element.userId == userId,
+                        (element) => element.userId == widget.userId,
                       )
                       .toList();
                   return Expanded(
