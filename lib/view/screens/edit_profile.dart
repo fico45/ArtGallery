@@ -29,6 +29,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     _email = user.email;
     _reviewable = user.reviewable;
     _favorites = user.favorites;
+    _createdAt = user.createdAt;
   }
 
   late String _firstName;
@@ -39,6 +40,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   late String _email;
   late bool _reviewable;
   late List<String> _favorites;
+  late DateTime _createdAt;
 
   @override
   Widget build(BuildContext context) {
@@ -244,6 +246,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                             reviewable: _reviewable,
                             bio: _bio,
                             favorites: _favorites,
+                            createdAt: _createdAt,
                           ),
                         );
                     Navigator.pop(context);

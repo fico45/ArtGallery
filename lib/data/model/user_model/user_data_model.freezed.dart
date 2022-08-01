@@ -26,6 +26,7 @@ mixin _$UserModel {
   String get firstName => throw _privateConstructorUsedError;
   String get lastName => throw _privateConstructorUsedError;
   bool get reviewable => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
   String get bio => throw _privateConstructorUsedError;
   List<String> get favorites => throw _privateConstructorUsedError;
 
@@ -46,6 +47,7 @@ abstract class $UserModelCopyWith<$Res> {
       String firstName,
       String lastName,
       bool reviewable,
+      DateTime createdAt,
       String bio,
       List<String> favorites});
 }
@@ -66,6 +68,7 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
     Object? firstName = freezed,
     Object? lastName = freezed,
     Object? reviewable = freezed,
+    Object? createdAt = freezed,
     Object? bio = freezed,
     Object? favorites = freezed,
   }) {
@@ -94,6 +97,10 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
           ? _value.reviewable
           : reviewable // ignore: cast_nullable_to_non_nullable
               as bool,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       bio: bio == freezed
           ? _value.bio
           : bio // ignore: cast_nullable_to_non_nullable
@@ -119,6 +126,7 @@ abstract class _$$_UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
       String firstName,
       String lastName,
       bool reviewable,
+      DateTime createdAt,
       String bio,
       List<String> favorites});
 }
@@ -141,6 +149,7 @@ class __$$_UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
     Object? firstName = freezed,
     Object? lastName = freezed,
     Object? reviewable = freezed,
+    Object? createdAt = freezed,
     Object? bio = freezed,
     Object? favorites = freezed,
   }) {
@@ -169,6 +178,10 @@ class __$$_UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
           ? _value.reviewable
           : reviewable // ignore: cast_nullable_to_non_nullable
               as bool,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       bio: bio == freezed
           ? _value.bio
           : bio // ignore: cast_nullable_to_non_nullable
@@ -191,6 +204,7 @@ class _$_UserModel extends _UserModel {
       required this.firstName,
       required this.lastName,
       required this.reviewable,
+      required this.createdAt,
       required this.bio,
       required final List<String> favorites})
       : _favorites = favorites,
@@ -212,6 +226,8 @@ class _$_UserModel extends _UserModel {
   @override
   final bool reviewable;
   @override
+  final DateTime createdAt;
+  @override
   final String bio;
   final List<String> _favorites;
   @override
@@ -222,7 +238,7 @@ class _$_UserModel extends _UserModel {
 
   @override
   String toString() {
-    return 'UserModel(email: $email, image_url: $image_url, username: $username, firstName: $firstName, lastName: $lastName, reviewable: $reviewable, bio: $bio, favorites: $favorites)';
+    return 'UserModel(email: $email, image_url: $image_url, username: $username, firstName: $firstName, lastName: $lastName, reviewable: $reviewable, createdAt: $createdAt, bio: $bio, favorites: $favorites)';
   }
 
   @override
@@ -237,6 +253,7 @@ class _$_UserModel extends _UserModel {
             const DeepCollectionEquality().equals(other.lastName, lastName) &&
             const DeepCollectionEquality()
                 .equals(other.reviewable, reviewable) &&
+            const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
             const DeepCollectionEquality().equals(other.bio, bio) &&
             const DeepCollectionEquality()
                 .equals(other._favorites, _favorites));
@@ -252,6 +269,7 @@ class _$_UserModel extends _UserModel {
       const DeepCollectionEquality().hash(firstName),
       const DeepCollectionEquality().hash(lastName),
       const DeepCollectionEquality().hash(reviewable),
+      const DeepCollectionEquality().hash(createdAt),
       const DeepCollectionEquality().hash(bio),
       const DeepCollectionEquality().hash(_favorites));
 
@@ -274,6 +292,7 @@ abstract class _UserModel extends UserModel {
       required final String firstName,
       required final String lastName,
       required final bool reviewable,
+      required final DateTime createdAt,
       required final String bio,
       required final List<String> favorites}) = _$_UserModel;
   const _UserModel._() : super._();
@@ -293,6 +312,8 @@ abstract class _UserModel extends UserModel {
   String get lastName => throw _privateConstructorUsedError;
   @override
   bool get reviewable => throw _privateConstructorUsedError;
+  @override
+  DateTime get createdAt => throw _privateConstructorUsedError;
   @override
   String get bio => throw _privateConstructorUsedError;
   @override

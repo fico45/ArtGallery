@@ -53,7 +53,7 @@ class _MyAppState extends ConsumerState<MyApp> {
       title: 'Flutter Demo',
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
         //ColorScheme.fromSeed(seedColor: Colors.green),
       ),
       home: StreamBuilder(

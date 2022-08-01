@@ -13,6 +13,7 @@ _$_UserModel _$$_UserModelFromJson(Map json) => _$_UserModel(
       firstName: json['firstName'] as String,
       lastName: json['lastName'] as String,
       reviewable: json['reviewable'] as bool,
+      createdAt: DateTime.parse(json['createdAt'] as String),
       bio: json['bio'] as String,
       favorites:
           (json['favorites'] as List<dynamic>).map((e) => e as String).toList(),
@@ -26,6 +27,7 @@ Map<String, dynamic> _$$_UserModelToJson(_$_UserModel instance) =>
       'firstName': instance.firstName,
       'lastName': instance.lastName,
       'reviewable': instance.reviewable,
+      'createdAt': instance.createdAt.toIso8601String(),
       'bio': instance.bio,
       'favorites': instance.favorites,
     };

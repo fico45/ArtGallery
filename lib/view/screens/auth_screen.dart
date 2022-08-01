@@ -74,6 +74,7 @@ class _AuthScreenState extends State<AuthScreen> {
             'reviewable': false,
             'bio': bio,
             'favorites': [],
+            'createdAt': DateTime.now(),
           });
         } on FirebaseAuthException catch (e) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(

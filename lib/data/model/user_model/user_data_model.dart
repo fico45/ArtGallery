@@ -15,6 +15,7 @@ abstract class UserModel implements _$UserModel {
     required String firstName,
     required String lastName,
     required bool reviewable,
+    required DateTime createdAt,
     required String bio,
     required List<String> favorites,
   }) = _UserModel;

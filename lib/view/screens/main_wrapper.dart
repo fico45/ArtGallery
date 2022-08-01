@@ -35,19 +35,15 @@ class _MainWrapperState extends ConsumerState<MainWrapper> {
                         .retrieveAllExhibits();
                     setState(() {});
                   },
-                  icon: const Icon(
-                    Icons.refresh,
-                    size: 24,
-                  ),
+                  icon: Icon(Icons.refresh,
+                      size: 24, color: Theme.of(context).colorScheme.onPrimary),
                 ),
               ),
             ],
             openDrawer: IconButton(
               onPressed: widget.openDrawer,
-              icon: const Icon(
-                Icons.menu,
-                size: 24,
-              ),
+              icon: Icon(Icons.menu,
+                  size: 24, color: Theme.of(context).colorScheme.onPrimary),
             ),
           )),
     );

@@ -101,19 +101,23 @@ class ExhibitCard extends ConsumerWidget {
                                   .primaryContainer
                                   .withOpacity(0.85),
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Icon(Icons.date_range),
-                                Text(DateFormat("dd/MM/yyyy")
-                                    .format(exhibit.startDateTime)),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Icon(Icons.timer),
-                                Text(DateFormat("HH:mm")
-                                    .format(exhibit.startDateTime)),
-                              ],
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Icon(Icons.date_range),
+                                  Text(DateFormat("dd/MM/yyyy")
+                                      .format(exhibit.startDateTime)),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Icon(Icons.timer),
+                                  Text(DateFormat("HH:mm")
+                                      .format(exhibit.startDateTime)),
+                                ],
+                              ),
                             ),
                           ),
                         ],

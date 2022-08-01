@@ -173,9 +173,10 @@ class _CustomDrawerState extends ConsumerState<CustomDrawer> {
           userId: uid,
           openDrawer: IconButton(
             onPressed: _handleMenuButtonPressed,
-            icon: const Icon(
+            icon: Icon(
               Icons.menu,
               size: 24,
+              color: Theme.of(context).colorScheme.onPrimary,
             ),
           ),
         );
@@ -183,9 +184,10 @@ class _CustomDrawerState extends ConsumerState<CustomDrawer> {
         return Explore(
           openDrawer: IconButton(
             onPressed: _handleMenuButtonPressed,
-            icon: const Icon(
+            icon: Icon(
               Icons.menu,
               size: 24,
+              color: Theme.of(context).colorScheme.onPrimary,
             ),
           ),
         );
@@ -194,9 +196,10 @@ class _CustomDrawerState extends ConsumerState<CustomDrawer> {
         return ProfileView(
           openDrawer: IconButton(
             onPressed: _handleMenuButtonPressed,
-            icon: const Icon(
+            icon: Icon(
               Icons.menu,
               size: 24,
+              color: Theme.of(context).colorScheme.onPrimary,
             ),
           ),
         );
