@@ -29,6 +29,10 @@ class CommentViewSheet extends StatefulWidget {
 
 class _CommentViewSheetState extends State<CommentViewSheet> {
   TextEditingController _textComment = TextEditingController();
+  void clearTextController() {
+    _textComment.clear();
+  }
+
   final EdgeInsets padding =
       const EdgeInsets.symmetric(vertical: 14.0, horizontal: 8.0);
   @override
@@ -86,7 +90,7 @@ class _CommentViewSheetState extends State<CommentViewSheet> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                 child: TextFormField(
-                  onChanged: (value) => _textComment.text = value,
+                  controller: _textComment,
                   decoration: InputDecoration(
                     border: UnderlineInputBorder(),
                     labelText: 'Enter a comment...',
@@ -103,8 +107,8 @@ class _CommentViewSheetState extends State<CommentViewSheet> {
                                     commentText: _textComment.text,
                                     userId:
                                         ref.read(authControllerProvider)!.uid));
+                        clearTextController();
                         setState(() {
-                          _textComment.clear();
                           widget.exhibit = newExhibit;
                         });
                       },
