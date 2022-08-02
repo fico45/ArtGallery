@@ -181,8 +181,7 @@ class _AuthFormState extends State<AuthForm> {
                           } else if (value!.isEmpty || value.length < 7) {
                             log('nešta');
                             return 'Password must be at least 7 characters long';
-                          } else
-                            log('ništa');
+                          }
                           return null;
                         },
                         initialValue: _repeatPassword,

@@ -4,8 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'user_data_model.freezed.dart';
 part 'user_data_model.g.dart';
 
-DateTime _sendAtFromJson(Timestamp timestamp) =>
-    DateTime.fromMillisecondsSinceEpoch(timestamp.millisecondsSinceEpoch);
+DateTime _sendAtFromJson(Timestamp timestamp) => timestamp.toDate();
 
 @freezed
 abstract class UserModel implements _$UserModel {
