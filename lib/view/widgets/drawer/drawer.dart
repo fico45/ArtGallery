@@ -170,7 +170,7 @@ class _CustomDrawerState extends ConsumerState<CustomDrawer> {
         );
       case 1:
         return ProfileView(
-          userId: uid,
+          //userId: uid,
           openDrawer: IconButton(
             onPressed: _handleMenuButtonPressed,
             icon: Icon(
