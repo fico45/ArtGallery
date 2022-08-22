@@ -217,7 +217,7 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
                           height: 12,
                         ),
                         Text(
-                          'Start date',
+                          'Start date and time',
                           style: TextStyle(
                               fontWeight: FontWeight.w500, fontSize: 18),
                         ),
@@ -226,7 +226,9 @@ class _ExhibitDetailsViewState extends ConsumerState<ExhibitDetailsView> {
                         ),
                         Text("${widget.exhibit.startDateTime.day}/" +
                             "${widget.exhibit.startDateTime.month}/" +
-                            "${widget.exhibit.startDateTime.year}"),
+                            "${widget.exhibit.startDateTime.year} - " +
+                            '${widget.exhibit.startDateTime.hour}:' +
+                            '${widget.exhibit.startDateTime.minute}'),
                         SizedBox(
                           height: 12,
                         ),
