@@ -115,47 +115,48 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                                     ),
                                   ),
                                 ),
-                                Container(
-                                  height: containerHeight,
-                                  width: containerWidth,
-                                  child: Material(
-                                    clipBehavior: Clip.antiAlias,
-                                    borderRadius: BorderRadius.circular(25),
-                                    child: InkWell(
-                                      splashColor: Theme.of(context)
-                                          .colorScheme
-                                          .primaryContainer,
-                                      onTap: () async {
-                                        await Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    EditProfileScreen()));
-                                      },
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Edit profile',
-                                            style: TextStyle(
-                                              fontSize: 15,
+                                if (widget.userId == null)
+                                  Container(
+                                    height: containerHeight,
+                                    width: containerWidth,
+                                    child: Material(
+                                      clipBehavior: Clip.antiAlias,
+                                      borderRadius: BorderRadius.circular(25),
+                                      child: InkWell(
+                                        splashColor: Theme.of(context)
+                                            .colorScheme
+                                            .primaryContainer,
+                                        onTap: () async {
+                                          await Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      EditProfileScreen()));
+                                        },
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              'Edit profile',
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onPrimaryContainer,
+                                              ),
+                                            ),
+                                            Icon(
+                                              Icons.edit,
                                               color: Theme.of(context)
                                                   .colorScheme
                                                   .onPrimaryContainer,
-                                            ),
-                                          ),
-                                          Icon(
-                                            Icons.edit,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onPrimaryContainer,
-                                          )
-                                        ],
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
                               ],
                             ),
                           ),
