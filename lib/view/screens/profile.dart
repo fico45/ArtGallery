@@ -6,7 +6,8 @@ import 'package:artgallery/view/widgets/exhibit/exhibit_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:intl/intl.dart';
+
+import '../../data/controllers/auth_controller.dart';
 
 class ProfileView extends ConsumerStatefulWidget {
   final Widget? openDrawer;
@@ -27,9 +28,13 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
   Widget build(BuildContext context) {
     const double containerWidth = 90;
     const double containerHeight = 65;
+    final String uid = widget.userId == null
+        ? ref.read(authControllerProvider)!.uid
+        : widget.userId!;
     final user = widget.userId == null
         ? ref.watch(userControllerProvider)
         : ref.watch(getUserProvider(widget.userId!));
+    final isMe = widget.userId == null ? true : false;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -115,7 +120,7 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                                     ),
                                   ),
                                 ),
-                                if (widget.userId == null)
+                                if (isMe)
                                   Container(
                                     height: containerHeight,
                                     width: containerWidth,
@@ -214,7 +219,7 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                 data: (data) {
                   List<Exhibit> currentUserExhibits = data
                       .where(
-                        (element) => element.userId == widget.userId,
+                        (element) => element.userId == uid,
                       )
                       .toList();
                   return Expanded(
