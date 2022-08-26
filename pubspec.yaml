@@ -28,7 +28,6 @@ dependencies:
   firebase_storage: ^10.0.3
   firebase_core: ^1.4.0
   flutter_google_places: ^0.3.0
-  google_maps_webservice: ^0.0.20-nullsafety.5
   date_time_picker: ^2.1.0
   image_picker: ^0.8.5+3
   flutter_riverpod: ^1.0.4
@@ -43,7 +42,6 @@ dependencies:
   location: ^4.3.0
   copy_with_extension_gen: ^4.0.1
   device_calendar: ^4.2.0
-  numberpicker: ^2.1.1
   add_2_calendar: ^2.1.3
 
   
