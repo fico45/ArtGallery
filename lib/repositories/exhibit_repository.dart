@@ -65,11 +65,6 @@ class ExhibitRepository implements BaseExhibitRepository {
       final docRef = await _read(firebaseFirstoreProvider)
           .collection('exhibits')
           .add(exhibit.toDocument());
-      /*      exhibit.id = docRef.id;
-      _read(firebaseFirstoreProvider)
-          .collection("exhibits")
-          .doc(docRef.id)
-          .update(exhibit.toDocument()); */
       return docRef.id;
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
@@ -82,7 +77,6 @@ class ExhibitRepository implements BaseExhibitRepository {
     try {
       await _read(firebaseFirstoreProvider)
           .collection('exhibits')
-          //exhibit.id or exhibit document ID?
           .doc(exhibit.id)
           .update(exhibit.toDocument());
     } on FirebaseException catch (e) {
