@@ -39,11 +39,7 @@ dependencies:
   carousel_slider: ^4.1.1
   google_maps_flutter: ^2.1.8
   url_launcher: ^6.1.0
-<<<<<<< HEAD
   awesome_notifications: ^0.6.21
-=======
-  location: ^4.3.0
->>>>>>> 6860c17da527afddcfe9420394e99884afac5605
   copy_with_extension_gen: ^4.0.1
   device_calendar: ^4.2.0
   add_2_calendar: ^2.1.3
