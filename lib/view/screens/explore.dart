@@ -4,7 +4,6 @@ import 'package:artgallery/view/widgets/exhibit/exhibit_details_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-//import 'package:location/location.dart';
 
 class Explore extends ConsumerStatefulWidget {
   final Widget openDrawer;

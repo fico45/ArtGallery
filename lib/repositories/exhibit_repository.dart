@@ -48,7 +48,7 @@ class ExhibitRepository implements BaseExhibitRepository {
     try {
       final snap = await _read(firebaseFirstoreProvider)
           .collection('exhibits')
-          .orderBy('startDateTime')
+          .orderBy('startDateTime', descending: true)
           .where('userId', isEqualTo: userId)
           .get();
       return snap.docs.map((doc) => Exhibit.fromDocument(doc)).toList();
